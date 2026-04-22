@@ -1,0 +1,13 @@
+<div class="wrapper" synIconContainer>
+  <ng-content />
+
+  @if (loading()) {
+    ...Loading
+  }
+
+  @if (icon()) {
+    <div class="icon"></div>
+  }
+</div>
+
+<div class="state"></div>
