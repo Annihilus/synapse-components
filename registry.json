@@ -40,6 +40,6 @@
         "icon-container.directive.ts",
         "index.ts"
       ]
-    },
+    }
   ]
 }
