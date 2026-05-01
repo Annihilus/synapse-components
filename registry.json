@@ -9,6 +9,16 @@
         "button.component.html",
         "button.component.scss"
       ]
+    },
+    {
+      "name": "input",
+      "directory": "components/input",
+      "targetDir": "input",
+      "files": [
+        "input.component.ts",
+        "input.component.html",
+        "input.component.scss"
+      ]
     }
   ]
 }
