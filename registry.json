@@ -8,16 +8,20 @@
         "button.component.ts",
         "button.component.html",
         "button.component.scss"
+      ],
+      "dependencies": [
+        "icon",
+        "directives/icon-container",
+        "types"
       ]
     },
     {
-      "name": "input",
-      "directory": "components/input",
-      "targetDir": "input",
+      "name": "icon",
+      "directory": "components/icon",
+      "targetDir": "icon",
       "files": [
-        "input.component.ts",
-        "input.component.html",
-        "input.component.scss"
+        "icon.component.ts",
+        "icon.component.scss"
       ]
     }
   ]
