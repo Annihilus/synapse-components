@@ -6,22 +6,23 @@ import {
   input,
   signal,
   AfterContentInit,
+  AfterViewInit,
   ElementRef,
   inject,
   contentChild,
   forwardRef,
+  Renderer2,
 } from '@angular/core';
 
 import { SynSize } from '../types';
 import { SynapseIconComponent } from '../icon/icon.component';
-import { SynIconContainerDirective } from '../directives/icon-container.directive';
 
 export type ButtonType = 'primary' | 'secondary' | 'outlined' | 'ghost' | 'danger';
 export type ButtonIcon = boolean | 'left' | 'right';
 
 @Component({
   selector: 'button[syn-button]',
-  imports: [CommonModule, SynIconContainerDirective, SynapseIconComponent],
+  imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,27 +31,45 @@ export type ButtonIcon = boolean | 'left' | 'right';
     '[attr.disabled]': 'disabled() ? true : null',
   }
 })
-export class SynapseButtonComponent implements AfterContentInit {
-  type = input<ButtonType>('primary');
+export class SynapseButtonComponent implements AfterContentInit, AfterViewInit {
+  colorType = input<ButtonType>('primary');
   size = input<SynSize>('m');
   disabled = input<boolean>(false);
-  icon = contentChild(forwardRef(() => SynapseIconComponent));
   loading = input(false);
+  icon = contentChild(forwardRef(() => SynapseIconComponent));
 
   private iconPosition = signal<ButtonIcon>(false);
 
   protected classes = computed(() => {
     const size = `size-${this.size()}`;
-    const type = `type-${this.type()}`;
+    const type = `colorType-${this.colorType()}`;
     const iconClass = this.getIconClass();
 
-    return `${type} ${size} ${iconClass}`.trim();
+    // The host `[class]` binding clobbers any consumer-set class, so the block
+    // class must be emitted here — generated/preview CSS keys off `.syn-button`
+    // (and `.syn-button .icon`, `.syn-button.size-l`, …); without it on the host
+    // none of those selectors match.
+    return `syn-button ${type} ${size} ${iconClass}`.trim();
   });
 
   private elementRef = inject(ElementRef<HTMLElement>);
+  private renderer = inject(Renderer2);
 
   ngAfterContentInit() {
-    this.detectIconPosition();
+    // Resolve left/right/icon-only from the projected order while it is still
+    // intact. The class must be ready before the view renders the `.icon` slot,
+    // and this hook has no DOM dependency on that slot.
+    this.resolvePosition();
+  }
+
+  ngAfterViewInit() {
+    // The `.icon` container is produced by `@if (icon())` in the template, which
+    // only renders during the view-update pass — i.e. *after* ngAfterContentInit.
+    // Relocating here (instead of in ngAfterContentInit, as a child directive
+    // used to) guarantees the container exists so the `<syn-icon>` can move in.
+    if (this.icon()) {
+      this.relocateIcon(this.elementRef.nativeElement);
+    }
   }
 
   private getIconClass(): string {
@@ -63,65 +82,60 @@ export class SynapseButtonComponent implements AfterContentInit {
     return '';
   }
 
-  private detectIconPosition() {
+  /**
+   * Resolves the projected icon's position from its original DOM order. This
+   * logic used to live in the `synIconContainer` directive on `.wrapper`; it now
+   * runs against the host, so no wrapper element is needed. The actual DOM move
+   * happens later in {@link relocateIcon} (see ngAfterViewInit).
+   */
+  private resolvePosition() {
     const icon = this.icon();
     if (!icon) {
       this.iconPosition.set(false);
       return;
     }
 
-    const button = this.elementRef.nativeElement;
-    const wrapper = button.querySelector('.wrapper');
-    
-    if (!wrapper) {
-      this.iconPosition.set(true);
-      return;
-    }
+    const host = this.elementRef.nativeElement;
+    const iconElement = icon.elementRef?.nativeElement as HTMLElement | undefined;
 
-    const childNodes: Node[] = Array.from(wrapper.childNodes);
-    
+    this.iconPosition.set(this.resolveIconPosition(host, iconElement));
+  }
+
+  private resolveIconPosition(host: HTMLElement, iconElement?: HTMLElement): ButtonIcon {
+    const childNodes: Node[] = Array.from(host.childNodes);
+
     const textContent = childNodes
-      .filter((node) => {
-        if (node instanceof Element) {
-          return node.tagName.toLowerCase() !== 'syn-icon';
-        }
-        return node.nodeType === Node.TEXT_NODE;
-      })
-      .map((node) => {
-        if (node instanceof Text) {
-          return node.textContent?.trim() || '';
-        }
-        return '';
-      })
+      .filter((node) =>
+        node instanceof Element
+          ? node.tagName.toLowerCase() !== 'syn-icon'
+          : node.nodeType === Node.TEXT_NODE,
+      )
+      .map((node) => (node instanceof Text ? node.textContent?.trim() || '' : ''))
       .join('')
       .trim();
 
-    if (!textContent) {
-      this.iconPosition.set(true);
-      return;
-    }
+    if (!textContent) return true;
+    if (!iconElement) return 'left';
 
-    const iconElement = icon.elementRef?.nativeElement;
-    if (!iconElement) {
-      this.iconPosition.set('left');
-      return;
-    }
-
-    const firstTextNode = childNodes.find((node) => {
-      if (node instanceof Text) {
-        return (node.textContent?.trim().length ?? 0) > 0;
-      }
-      return false;
-    });
-
-    if (!firstTextNode) {
-      this.iconPosition.set('left');
-      return;
-    }
+    const firstTextNode = childNodes.find(
+      (node) => node instanceof Text && (node.textContent?.trim().length ?? 0) > 0,
+    );
+    if (!firstTextNode) return 'left';
 
     const iconIndex = childNodes.indexOf(iconElement);
     const textIndex = childNodes.indexOf(firstTextNode);
 
-    this.iconPosition.set(iconIndex < textIndex ? 'left' : 'right');
+    return iconIndex < textIndex ? 'left' : 'right';
+  }
+
+  /** Moves the projected `<syn-icon>` into the `.icon` container, in its slot. */
+  private relocateIcon(host: HTMLElement) {
+    const synIcon = host.querySelector('syn-icon');
+    const container = host.querySelector('div.icon');
+    if (!synIcon || !container) return;
+
+    const index = Array.prototype.indexOf.call(host.childNodes, synIcon);
+    container.appendChild(synIcon);
+    this.renderer.insertBefore(host, container, host.childNodes[index]);
   }
 }

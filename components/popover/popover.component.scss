@@ -1,0 +1,16 @@
+@use './dropdown' as *;
+@use './tooltip' as *;
+
+.popover-content {
+  width: 100%;
+
+  &.dropdown {
+    @include dropdown;
+
+    width: 100%;
+  }
+
+  &.tooltip {
+    @include tooltip;
+  }
+}

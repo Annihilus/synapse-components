@@ -1,0 +1,17 @@
+@use './textarea' as textarea;
+
+:host {
+  @include textarea.textarea;
+
+  textarea {
+    resize: none;
+  }
+
+  textarea.text-block {
+    outline: none;
+  }
+
+  textarea.text-block::placeholder {
+    color: inherit;
+  }
+}

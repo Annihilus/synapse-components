@@ -23,7 +23,7 @@ export class SynapseIconComponent {
 
   // 2️⃣ Inject HttpClient + DomSanitizer
   private readonly http = inject(HttpClient);
-  
+
   private readonly sanitizer = inject(DomSanitizer);
 
   // 3️⃣ A signal to hold our sanitized SVG

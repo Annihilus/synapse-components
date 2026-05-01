@@ -1,0 +1,144 @@
+@mixin textarea {
+  border-radius: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-flex;
+  position: static;
+  width: 320px;
+  height: auto;
+  padding: 0px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  background: transparent;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+  box-shadow: none;
+  flex-direction: column;
+  opacity: 1;
+
+  ._Caret {
+    width: 1px;
+    height: 16px;
+  }
+
+  .hint {
+    line-height: 16px;
+  }
+
+  .hint,
+  .text-block {
+    font-family: Inter;
+    letter-spacing: 0;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .hint,
+  &:disabled .hint,
+  &:hover .hint,
+  &.active .hint,
+  &:focus-visible .hint {
+    color: var(--texticons-on_surface_low);
+  }
+
+  .Scrollbar {
+    position: absolute;
+    right: 0px;
+    width: auto;
+  }
+
+  .text-block {
+    position: static;
+    height: 100%;
+    padding: 0px;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    background: transparent;
+    gap: 0px;
+    box-shadow: none;
+    line-height: 20px;
+    color: var(--texticons-on_surface_low);
+  }
+
+  .text-block,
+  &.error .text-block,
+  &:hover .text-block,
+  &.active .text-block,
+  &:focus-visible .text-block {
+    opacity: 1;
+  }
+
+  .textarea {
+    position: relative;
+    padding: 10px 12px;
+    border-style: solid;
+    border-color: var(--border-outline_variant);
+    border-width: 1px;
+    border-radius: 8px;
+    background: var(--bg-surface_dim);
+    gap: 8px;
+    opacity: 1;
+  }
+
+  .textarea,
+  .Scrollbar {
+    height: 120px;
+  }
+
+  .textarea,
+  .text-block {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+  }
+
+  .textarea,
+  &:disabled .textarea,
+  &.error .textarea {
+    box-shadow: none;
+  }
+
+  &:disabled .text-block {
+    opacity: var(--texticons-disabled_number);
+  }
+
+  &:disabled .textarea {
+    border-color: var(--border-disabled_outline);
+  }
+
+  &:focus-visible .textarea {
+    box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
+  }
+
+  &:hover .textarea,
+  &.active .textarea {
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
+  }
+
+  &:hover .textarea,
+  &.active .textarea,
+  &:focus-visible .textarea {
+    border-color: var(--border-outline);
+  }
+
+  &.error .hint {
+    color: var(--texticons-danger);
+  }
+
+  &.error .textarea {
+    border-color: var(--border-outline_danger);
+  }
+
+  &.filled .text-block {
+    color: var(--texticons-on_surface);
+  }
+}

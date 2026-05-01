@@ -1,0 +1,15 @@
+@if (label()) {
+  <label syn-label [tooltip]="tooltip()" [required]="required()">
+    {{ label() }}
+  </label>
+}
+
+<div class="textarea">
+  <textarea class="text-block" [placeholder]="placeholder()" #element type="text">{{ value() }}</textarea>
+</div>
+
+@if (error()) {
+  <div class="hint">
+    {{ error() }}
+  </div>
+}

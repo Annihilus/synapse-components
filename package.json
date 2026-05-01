@@ -1,0 +1,24 @@
+{
+  "name": "@synapse/components",
+  "version": "0.0.1",
+  "description": "Synapse UI components library (consumed as source).",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./registry.json": "./registry.json"
+  },
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/forms": "~20.1.0",
+    "@angular/platform-browser": "~20.1.0",
+    "@popperjs/core": "^2.11.0",
+    "rxjs": "~7.8.0"
+  },
+  "dependencies": {
+    "snps-cli": "0.1.4"
+  }
+}

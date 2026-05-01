@@ -1,0 +1,16 @@
+<span class="indicator">
+  <ng-content />
+</span>
+
+<input
+  [style.display]="'none'"
+  #checkbox
+  type="checkbox"
+  class="hidden-checkbox"
+  [checked]="isChecked()"
+  (focus)="setFocusState(true)"
+  (blur)="setFocusState(false)"
+  (change)="setCheckedState($event)"
+/>
+
+<div class="state"></div>

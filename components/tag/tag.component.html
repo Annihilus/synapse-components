@@ -1,0 +1,10 @@
+<div class="syn-tag-base container">
+  @if (icon()) {
+    <syn-icon class="icon" [name]="icon()" />
+  }
+
+  <ng-content />
+  @if (canBeDeleted()) {
+    <syn-icon class="close" name="close" />
+  }
+</div>

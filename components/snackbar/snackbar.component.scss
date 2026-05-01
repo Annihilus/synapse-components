@@ -1,0 +1,9 @@
+@use './snackbar' as *;
+
+:host {
+  @include snackbar;
+
+  .title {
+    width: 100%;
+  }
+}

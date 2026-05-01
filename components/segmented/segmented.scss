@@ -1,0 +1,31 @@
+@mixin segmented {
+  box-sizing: border-box;
+  display: inline-flex;
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 4px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  border-radius: 12px;
+  background: var(--bg-surface_high);
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4px;
+  box-shadow: none;
+  flex-direction: row;
+  opacity: 1;
+
+  .Segmented-Item {
+    width: auto;
+    height: 32px;
+    font-family: Inter;
+    line-height: 24px;
+    letter-spacing: 0;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--texticons-on_surface);
+  }
+}

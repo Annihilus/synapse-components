@@ -1,17 +1,15 @@
-@use '../styles/button.scss' as *;
+@use './button' as *;
 
 :host {
-  overflow: hidden;
-
   cursor: pointer;
 
   @include button;
 
-  .wrapper {
-    display: contents;
+  // .wrapper {
+  //   display: contents;
 
-    word-wrap: nowrap;
-  }
+  //   word-wrap: nowrap;
+  // }
 
   &:disabled {
     pointer-events: none;

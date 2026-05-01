@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@angular/*": ["../synapse-ui/node_modules/@angular/*"],
+      "rxjs": ["../synapse-ui/node_modules/rxjs"],
+      "rxjs/*": ["../synapse-ui/node_modules/rxjs/*"],
+      "tslib": ["../synapse-ui/node_modules/tslib"],
+      "@popperjs/core": ["../synapse-ui/node_modules/@popperjs/core/lib"]
+    },
+    "types": []
+  },
+  "include": ["components/**/*.ts", "index.ts"]
+}

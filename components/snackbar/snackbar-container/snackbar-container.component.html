@@ -1,0 +1,17 @@
+
+
+@for (message of messages(); track message.id) {
+  <syn-snackbar
+    class="snackbar"
+    [class.snackbar-front]="$index === 0"
+    [class.snackbar-middle]="$index === 1"
+    [class.snackbar-back]="$index === 2"
+    [class.snackbar-hidden]="$index > 2"
+    [type]="message.type"
+    [title]="message.title"
+    [message]="message.message"
+    (dismiss)="dismiss(message.id)"
+  >
+
+  </syn-snackbar>
+}

@@ -1,0 +1,5 @@
+@use './helper-text' as *;
+
+:host {
+  @include helper-Text;
+}

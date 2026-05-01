@@ -1,0 +1,209 @@
+@mixin tag {
+  border-radius: 0;
+  box-sizing: border-box;
+  display: inline-flex;
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  background: transparent;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0px;
+  box-shadow: none;
+  flex-direction: row;
+  opacity: 1;
+
+  .container {
+    background: rgba(253, 253, 253, 1);
+    font-family: Inter;
+    line-height: 16px;
+    letter-spacing: 0;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+  }
+
+  .container,
+  .icon,
+  .close {
+    color: var(--texticons-on_inverse_surface);
+  }
+
+  .icon,
+  .close {
+    background: transparent;
+  }
+
+  &.color-blue .close {
+    color: rgba(16, 91, 198, 1);
+  }
+
+  &.color-blue .container {
+    background: rgba(235, 243, 255, 1);
+    color: rgba(13, 52, 110, 1);
+  }
+
+  &.color-blue .icon {
+    color: rgba(16, 91, 198, 1);
+  }
+
+  &.color-blueGray .close {
+    color: rgba(85, 97, 181, 1);
+  }
+
+  &.color-blueGray .container {
+    background: rgba(219, 223, 250, 1);
+    color: rgba(55, 61, 110, 1);
+  }
+
+  &.color-blueGray .icon {
+    color: rgba(85, 97, 181, 1);
+  }
+
+  &.color-brown .close {
+    color: rgba(139, 84, 75, 1);
+  }
+
+  &.color-brown .container {
+    background: rgba(252, 238, 236, 1);
+    color: rgba(77, 50, 45, 1);
+  }
+
+  &.color-brown .icon {
+    color: rgba(139, 84, 75, 1);
+  }
+
+  &.color-cyan .close {
+    color: rgba(32, 155, 168, 1);
+  }
+
+  &.color-cyan .container {
+    background: rgba(224, 249, 251, 1);
+    color: rgba(19, 82, 89, 1);
+  }
+
+  &.color-cyan .icon {
+    color: rgba(32, 155, 168, 1);
+  }
+
+  &.color-green .close {
+    color: rgba(2, 139, 78, 1);
+  }
+
+  &.color-green .container {
+    background: rgba(209, 255, 235, 1);
+    color: rgba(1, 91, 52, 1);
+  }
+
+  &.color-green .icon {
+    color: rgba(2, 139, 78, 1);
+  }
+
+  &.color-indigo .close {
+    color: rgba(32, 40, 221, 1);
+  }
+
+  &.color-indigo .container {
+    background: rgba(233, 233, 255, 1);
+    color: rgba(24, 28, 138, 1);
+  }
+
+  &.color-indigo .icon {
+    color: rgba(32, 40, 221, 1);
+  }
+
+  &.color-lime .close {
+    color: rgba(150, 150, 25, 1);
+  }
+
+  &.color-lime .container {
+    background: rgba(249, 250, 198, 1);
+    color: rgba(75, 75, 15, 1);
+  }
+
+  &.color-lime .icon {
+    color: rgba(150, 150, 25, 1);
+  }
+
+  &.color-orange .close {
+    color: rgba(189, 62, 11, 1);
+  }
+
+  &.color-orange .container {
+    background: rgba(255, 231, 221, 1);
+    color: rgba(99, 36, 9, 1);
+  }
+
+  &.color-orange .icon {
+    color: rgba(189, 62, 11, 1);
+  }
+
+  &.color-pink .close {
+    color: rgba(181, 32, 118, 1);
+  }
+
+  &.color-pink .container {
+    background: rgba(253, 235, 245, 1);
+    color: rgba(99, 21, 67, 1);
+  }
+
+  &.color-pink .icon {
+    color: rgba(181, 32, 118, 1);
+  }
+
+  &.color-purple .close {
+    color: rgba(78, 22, 228, 1);
+  }
+
+  &.color-purple .container {
+    background: rgba(232, 227, 255, 1);
+    color: rgba(52, 18, 140, 1);
+  }
+
+  &.color-purple .icon {
+    color: rgba(78, 22, 228, 1);
+  }
+
+  &.color-red .close {
+    color: rgba(174, 40, 29, 1);
+  }
+
+  &.color-red .container {
+    background: rgba(251, 208, 202, 1);
+    color: rgba(133, 33, 25, 1);
+  }
+
+  &.color-red .icon {
+    color: rgba(174, 40, 29, 1);
+  }
+
+  &.color-teal .close {
+    color: rgba(30, 158, 146, 1);
+  }
+
+  &.color-teal .container {
+    background: rgba(214, 250, 247, 1);
+    color: rgba(17, 79, 76, 1);
+  }
+
+  &.color-teal .icon {
+    color: rgba(30, 158, 146, 1);
+  }
+
+  &.color-yellow .close {
+    color: rgba(189, 126, 6, 1);
+  }
+
+  &.color-yellow .container {
+    background: rgba(255, 236, 206, 1);
+    color: rgba(143, 96, 7, 1);
+  }
+
+  &.color-yellow .icon {
+    color: rgba(189, 126, 6, 1);
+  }
+}

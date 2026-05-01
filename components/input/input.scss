@@ -1,0 +1,235 @@
+@mixin input {
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 4px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  border-radius: 6px;
+  background: transparent;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  box-shadow: none;
+  flex-direction: row;
+  opacity: 1;
+
+  ._Caret {
+    width: 1px;
+  }
+
+  .icon {
+    width: 16px;
+  }
+
+  .icon,
+  ._Caret {
+    height: 16px;
+  }
+
+  .icon,
+  &:disabled .icon,
+  &.active .icon,
+  &:focus-visible .icon {
+    color: var(--texticons-on_surface_low);
+  }
+
+  .input {
+    display: flex;
+    height: 40px;
+    padding: 8px 12px;
+    border-style: solid;
+    border-color: var(--border-outline_variant);
+    border-width: 1px;
+    border-radius: 8px;
+    background: var(--bg-surface_dim);
+    gap: 8px;
+  }
+
+  .input,
+  .state {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .input,
+  .text-block {
+    position: static;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .input,
+  .text-block,
+  .state {
+    box-sizing: border-box;
+    justify-content: flex-start;
+    box-shadow: none;
+  }
+
+  .Label,
+  .hint,
+  .required {
+    line-height: 16px;
+  }
+
+  .Label,
+  .hint,
+  .required,
+  .question {
+    color: var(--texticons-on_surface_low);
+  }
+
+  .Label,
+  .hint,
+  .text-block,
+  .required {
+    font-family: Inter;
+    letter-spacing: 0;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .Label,
+  .icon,
+  .text-block,
+  .question,
+  ._Caret {
+    background: transparent;
+  }
+
+  .state {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 28px;
+    border-radius: 6px;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  .state,
+  &:disabled .state,
+  &.error .state,
+  &.active .state,
+  &:focus-visible .state {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  .text-block {
+    display: inline-flex;
+    width: auto;
+    height: 20px;
+    border-radius: 0;
+    line-height: 20px;
+  }
+
+  .text-block,
+  .state {
+    padding: 0px;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    gap: 0px;
+  }
+
+  .text-block,
+  &.error .text-block,
+  &.active .text-block,
+  &:focus-visible .text-block {
+    opacity: 1;
+  }
+
+  &:disabled .text-block {
+    opacity: var(--texticons-disabled_number);
+  }
+
+  &:disabled.stroke .input {
+    border-color: var(--border-disabled_outline);
+  }
+
+  &:focus-visible.stroke .input {
+    box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
+  }
+
+  &:hover .state {
+    background: var(--bg-hover_color);
+  }
+
+  &:hover .text-block {
+    color: var(--texticons-on_surface_variant);
+  }
+
+  &:hover.stroke .input,
+  &.active.stroke .input {
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
+  }
+
+  &:hover.stroke .input,
+  &.active.stroke .input,
+  &:focus-visible.stroke .input {
+    border-color: var(--border-outline);
+  }
+
+  &.error .icon {
+    color: var(--texticons-danger);
+  }
+
+  &.error .text-block,
+  &.filled.error .text-block {
+    color: var(--texticons-danger);
+  }
+
+  &.error.stroke .hint {
+    color: var(--texticons-danger);
+  }
+
+  &.error.stroke .input {
+    border-color: var(--border-outline_danger);
+  }
+
+  &.filled.stroke .text-block,
+  &.filled:disabled.stroke .text-block,
+  &.filled.error.stroke .text-block,
+  &.filled.active.stroke .text-block,
+  &.filled:focus-visible.stroke .text-block,
+  &.filled .text-block,
+  &.filled:disabled .text-block,
+  &.filled.active .text-block,
+  &.filled:focus-visible .text-block {
+    color: var(--texticons-on_surface);
+  }
+
+  &.stroke {
+    width: 320px;
+    padding: 0px;
+    border-radius: 0;
+    align-items: flex-start;
+    gap: 6px;
+    flex-direction: column;
+  }
+
+  &.stroke .text-block {
+    display: flex;
+    width: 100%;
+    height: auto;
+  }
+
+  &.stroke .text-block,
+  &:disabled.stroke .text-block,
+  &.error.stroke .text-block,
+  &.active.stroke .text-block,
+  &:focus-visible.stroke .text-block,
+  .text-block,
+  &:disabled .text-block,
+  &.active .text-block,
+  &:focus-visible .text-block {
+    color: var(--texticons-on_surface_low);
+  }
+}

@@ -1,0 +1,12 @@
+<input
+  #radio
+  type="radio"
+  class="hidden-radio"
+  [checked]="isChecked()"
+  (focus)="setFocusState(true)"
+  (blur)="setFocusState(false)"
+  (change)="setCheckedState()"
+/>
+
+<div class="state"></div>
+<i class="check"></i>

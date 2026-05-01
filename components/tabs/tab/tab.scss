@@ -1,0 +1,106 @@
+@mixin tab {
+  cursor: pointer;
+  letter-spacing: 0;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 6px 12px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  box-shadow: none;
+  flex-direction: row;
+  font-family: Inter;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+
+  .icon {
+    color: rgba(215, 215, 215, 1);
+  }
+
+  .icon_placeholder {
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon_placeholder,
+  .actions,
+  .icon {
+    background: transparent;
+  }
+
+  .state {
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 32px;
+    padding: 0px;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0px;
+    box-shadow: none;
+    flex-shrink: 0;
+  }
+
+  .state,
+  .icon_placeholder {
+    opacity: 1;
+  }
+
+  .state,
+  &:disabled .state {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  &,
+  &:disabled {
+    background: transparent;
+    color: rgba(215, 215, 215, 1);
+  }
+
+  &:disabled {
+    opacity: 0.32;
+  }
+
+  &:hover .icon,
+  &.selected .icon,
+  &:hover.selected .icon,
+  &:disabled .icon {
+    color: rgba(241, 241, 241, 1);
+  }
+
+  &:hover .state {
+    background: rgba(255, 255, 255, 0.11999999731779099);
+  }
+
+  &:hover,
+  &.selected,
+  &:hover.selected {
+    color: rgba(241, 241, 241, 1);
+  }
+
+  &:hover,
+  &.selected,
+  &:hover.selected,
+  & {
+    opacity: 1;
+  }
+
+  &.selected {
+    background: rgba(58, 58, 58, 1);
+  }
+}

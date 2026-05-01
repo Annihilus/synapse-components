@@ -1,0 +1,21 @@
+<div class="table-header">
+  @for (header of data().headers; track header) {
+    <div class="table-header-cell">
+      {{ header }}
+    </div>
+  }
+</div>
+
+<div class="content">
+  @for (row of data().rows; track row) {
+    <div class="row">
+      @for (cell of row; track cell) {
+        <div class="table-cell">
+          {{ cell }}
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<ng-content />

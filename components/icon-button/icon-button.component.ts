@@ -1,0 +1,32 @@
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
+
+import { SynapseIconComponent } from '../icon/icon.component';
+
+export type IconButtonType = 'primary' | 'secondary';
+
+@Component({
+  selector: 'button[syn-icon-button]',
+  imports: [CommonModule, SynapseIconComponent],
+  templateUrl: './icon-button.component.html',
+  styleUrls: ['./icon-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class]': 'classes()',
+  },
+})
+export class SynapseIconButtonComponent {
+  type = input<IconButtonType>('primary');
+  count = input<number | null>(null);
+
+  protected classes = computed(() => {
+    const type = `type-${this.type()}`;
+
+    return `${type}`;
+  });
+}

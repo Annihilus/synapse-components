@@ -1,0 +1,12 @@
+@use './segmented-item' as *;
+
+:host {
+  @include segmented-Item;
+
+  cursor: pointer;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+}

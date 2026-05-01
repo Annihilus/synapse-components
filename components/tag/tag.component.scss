@@ -1,0 +1,14 @@
+@use 'tag' as s;
+@use 'tag-base' as base;
+
+:host {
+  @include s.tag;
+
+  .container {
+    @include base.tag-base;
+  }
+
+  .close {
+    cursor: pointer;
+  }
+}

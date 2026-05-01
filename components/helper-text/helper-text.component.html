@@ -1,0 +1,14 @@
+<div class="content">
+  <div class="text_block">
+    <span class="title">{{ title() }}</span>
+    {{ description() }}
+  </div>
+  <div class="actions">
+    <ng-content />
+  </div>
+</div>
+@if (canBeClosed()) {
+  <button class="close" syn-icon-button>
+    <syn-icon name="close" />
+  </button>
+}

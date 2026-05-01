@@ -1,0 +1,23 @@
+@use './select' as *;
+@use './dropdown-item' as *;
+
+:host {
+  cursor: pointer;
+
+  @include select;
+
+  .option {
+    @include dropdown-Item;
+
+    .state {
+      cursor: pointer;
+
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+  
+      height: 100%;
+    }
+  }
+}

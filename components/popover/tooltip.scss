@@ -1,0 +1,109 @@
+@mixin tooltip {
+  border-radius: 0;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  padding: 0px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  background: transparent;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0px;
+  box-shadow: none;
+  flex-direction: column;
+  opacity: 1;
+
+  .arrow {
+    position: absolute;
+    bottom: -6px;
+    left: calc(50% - (16px / 2));
+    width: 16px;
+    height: 6px;
+    border-radius: 0;
+    background: transparent;
+    flex-shrink: 0;
+    top: -6.000001398764425px;
+    right: 7.999999475463255px;
+  }
+
+  .arrow,
+  .bottom-center {
+    box-sizing: border-box;
+    padding: 0px;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0px;
+    box-shadow: none;
+    opacity: 1;
+  }
+
+  .bottom-center {
+    position: static;
+    width: 17px;
+    height: 17px;
+    border-radius: 1px;
+    background: rgba(58, 58, 58, 1);
+  }
+
+  &.position-end.side-bottom .arrow {
+    right: 8px;
+  }
+
+  &.position-end.side-left .arrow {
+    bottom: 8px;
+  }
+
+  &.position-end.side-right .arrow {
+    bottom: 7.999999928450734px;
+  }
+
+  &.position-middle.side-left .arrow {
+    top: calc(50% - (16.000000262268316px / 2));
+  }
+
+  &.position-middle.side-left .arrow,
+  &.position-start.side-left .arrow,
+  &.position-end.side-left .arrow {
+    left: -6.000000699382326px;
+  }
+
+  &.position-middle.side-right .arrow {
+    top: calc(50% - (16.000000071549266px / 2));
+  }
+
+  &.position-middle.side-right .arrow,
+  &.position-start.side-right .arrow,
+  &.side-right .arrow {
+    right: -6.000000190798119px;
+  }
+
+  &.position-middle.side-top .arrow {
+    left: calc(50% - (16.000000524536745px / 2));
+  }
+
+  &.position-start.side-left .arrow {
+    top: 7.9999997377316845px;
+  }
+
+  &.position-start.side-right .arrow {
+    top: 8px;
+  }
+
+  &.position-start.side-top .arrow,
+  &.position-start.side-bottom .arrow {
+    left: 8px;
+  }
+
+  &.side-left .arrow,
+  &.side-right .arrow {
+    width: 6px;
+    height: 16px;
+  }
+}

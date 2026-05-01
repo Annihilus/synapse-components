@@ -1,0 +1,23 @@
+@use './table' as *;
+@use './table-header-cell' as *;
+@use './table-cell' as *;
+
+:host {
+  cursor: pointer;
+
+  @include table;
+
+  display: table;
+
+  .table-header-cell {
+    @include table-Header-Cell;
+
+    display: table-cell;
+  }
+
+  .table-cell {
+    @include table-Cell;
+
+    display: table-cell;
+  }
+}

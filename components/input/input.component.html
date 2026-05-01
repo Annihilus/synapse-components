@@ -1,0 +1,32 @@
+@if (label()) {
+  <label syn-label>
+    {{ label() }}
+
+    @if (required()) {
+      <span>*</span>
+    }
+
+    @if (tooltip()) {
+      <syn-icon class="icon" name="question" />
+    }
+
+  </label>
+}
+
+<div class="input">
+  @if (icon()) {
+    <div class="icon">
+      <ng-content select="syn-icon"></ng-content>
+    </div>
+  }
+  <input class="text-block" [placeholder]="placeholder()" #element type="text">
+
+  <ng-content select="[synPostfix]"></ng-content>
+
+</div>
+
+@if (error()) {
+  <div class="hint">
+    {{ error() }}
+  </div>
+}

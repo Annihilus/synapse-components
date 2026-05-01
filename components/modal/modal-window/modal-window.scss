@@ -1,0 +1,55 @@
+@mixin modal-window {
+  width: 480px;
+  max-width: 480px;
+  flex-shrink: 0;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  height: auto;
+  padding: 0px;
+  border-style: solid;
+  border-color: rgba(58, 58, 58, 1);
+  border-width: 1px;
+  border-radius: 16px;
+  background: transparent;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 0px;
+  box-shadow: none;
+  flex-direction: column;
+  opacity: 1;
+
+  .close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0);
+  }
+
+  .close,
+  .icon {
+    background: transparent;
+  }
+
+  .icon {
+    color: rgba(241, 241, 241, 1);
+  }
+
+  .Modal-Header,
+  .Modal-Content,
+  .Modal-Footer {
+    width: 100%;
+    height: auto;
+  }
+
+  &.size-l {
+    width: 920px;
+    max-width: 920px;
+  }
+
+  &.size-m {
+    width: 640px;
+    max-width: 640px;
+  }
+}

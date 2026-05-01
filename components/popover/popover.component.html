@@ -1,0 +1,33 @@
+<div
+  class="popover-inner"
+  #popoverEl
+  [ngStyle]="popoverStyle"
+  [class.withArrow]="arrow"
+>
+  <div
+    class="popover-wrap wrapper"
+    #contentEl
+  >
+
+    <div #popoverContent class="popover-content content" [ngClass]="{ dropdown, tooltip }">
+      <ng-container
+        [ngTemplateOutlet]="template || defaultTemplate"
+        [ngTemplateOutletContext]="context || { text, tooltip }"
+      />
+    </div>
+
+    @if (arrow) {
+      <div #arrow class="popover-arrow">
+        <div class="element"></div>
+      </div>
+      <div class="arrow-frame"></div>
+    }
+
+  </div>
+</div>
+
+<ng-template #defaultTemplate let-text="text" let-tooltip="tooltip">
+  <div class="tooltip">
+    {{ text }}
+  </div>
+</ng-template>

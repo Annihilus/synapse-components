@@ -1,0 +1,26 @@
+@mixin table-Header-Cell {
+  box-sizing: border-box;
+  display: flex;
+  position: static;
+  width: 100%;
+  height: auto;
+  padding: 20px 24px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  border-radius: 6px;
+  background: transparent;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0px;
+  box-shadow: none;
+  flex-direction: row;
+  opacity: 1;
+  font-family: Inter;
+  line-height: 16px;
+  letter-spacing: 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  color: rgba(241, 241, 241, 1);
+}

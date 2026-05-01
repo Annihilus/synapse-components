@@ -1,0 +1,27 @@
+@use './modal-window' as window;
+@use './overlay-backdrop' as overlay;
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  .modal-window {
+    overflow: hidden;
+
+    @include window.modal-window;
+  }
+
+  .overlay {
+    @include overlay.overlay-backdrop;
+
+    position: absolute;
+    z-index: -1;
+  }
+}

@@ -1,0 +1,11 @@
+@if (src()) {
+  <img class="image" [src]="src()" alt="avatar" />
+} @else if (initials()) {
+  {{ initials() }}
+} @else if (upload()) {
+  <syn-icon class="photo_add" name="photo_add"></syn-icon>
+} @else {
+  <syn-icon class="user" name="user"></syn-icon>
+}
+
+<div class="state"></div>

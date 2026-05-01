@@ -1,0 +1,16 @@
+<div class="icon_container">
+  <syn-icon class="icon" [name]="icon()" />
+</div>
+<div class="block">
+  <span class="title">{{ title() }}</span>
+  <div class="container">
+    <button
+      syn-button
+      colorType="ghost"
+      size="xs"
+      (click)="dismiss.emit()"
+    >
+      <syn-icon name="close" />
+  </button>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+@if (label()) {
+  <label class="label">{{ label() }}</label>
+}
+
+<div class="select"
+  [iwDropdown]="{
+    content: selectTemplate,
+    widthMinLimit: true,
+  }"
+  #dropdown="iwDropdown"
+>
+  @if (icon()) {
+    <syn-icon class="icon" name="{{ icon() }}" />
+  }
+  <div class="text-block">{{ selectedDisplayName() }}</div>
+
+  @if (canClear()) {
+    <button syn-icon-button class="clean-btn">
+      <syn-icon name="close" />
+    </button>
+  }
+
+  <syn-icon class="open-btn" name="chevron_down" />
+</div>
+
+@if (hint()) {
+  <div class="hint">{{ hint() }}</div>
+}
+
+<ng-template #selectTemplate>
+  <ng-content select="[synHeader]" />
+
+  @for (item of itemsWithMetadata(); track item) {
+    <div
+      class="option"
+      tabindex="0"
+      (click)="selectItem(item)"
+      (keyup.enter)="selectItem(item)"
+      role="option"
+      aria-selected="false"
+    >
+      <ng-container
+        [ngTemplateOutlet]="selectItemTemplate"
+        [ngTemplateOutletContext]="{ item }"
+      />
+    </div>
+  }
+
+  <ng-content select="[synFooter]" />
+</ng-template>
+
+<ng-template #selectItemTemplate let-item="item">
+  <div class="text-block">
+    {{ item.displayName }}
+  </div>
+  <div class="state"></div>
+</ng-template>

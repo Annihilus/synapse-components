@@ -1,0 +1,35 @@
+@mixin slider {
+  box-sizing: border-box;
+  position: static;
+  width: 116px;
+  height: 24px;
+  padding: 0px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  border-radius: 8px;
+  background: var(--bg-surface_container);
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0px;
+  box-shadow: none;
+  opacity: 1;
+
+  .thumb {
+    box-sizing: border-box;
+    position: static;
+    width: 24px;
+    height: 24px;
+    padding: 0px;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    border-radius: 8px;
+    background: var(--bg-inverse_surface);
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0px;
+    box-shadow: none;
+    opacity: 1;
+  }
+}

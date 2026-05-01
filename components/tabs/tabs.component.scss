@@ -1,0 +1,5 @@
+@use './tab-panel' as *;
+
+:host {
+  @include tab-panel;
+}

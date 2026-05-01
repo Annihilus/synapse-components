@@ -1,0 +1,5 @@
+@use './modal-content' as content;
+
+:host {
+  @include content.modal-Content;
+}

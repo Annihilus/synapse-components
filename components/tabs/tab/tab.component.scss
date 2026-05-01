@@ -1,0 +1,7 @@
+@use './tab' as *;
+
+:host {
+  cursor: pointer;
+
+  @include tab;
+}

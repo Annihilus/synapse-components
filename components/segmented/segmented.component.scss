@@ -1,0 +1,5 @@
+@use './segmented' as *;
+
+:host {
+  @include segmented;
+}

@@ -1,0 +1,16 @@
+@if (isIndeterminate()) {
+  <syn-icon class="remove" name="remove" />
+} @else if (isChecked()) {
+  <syn-icon class="check" name="check" />
+}
+
+<input
+  [style.display]="'none'"
+  #checkbox
+  type="checkbox"
+  class="hidden-checkbox"
+  [checked]="isChecked()"
+  (focus)="setFocusState(true)"
+  (blur)="setFocusState(false)"
+  (change)="setCheckedState($event)"
+/>

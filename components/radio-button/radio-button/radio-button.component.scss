@@ -1,0 +1,9 @@
+@use './radiobutton-base' as radio;
+
+:host {
+  @include radio.radiobutton-Base;
+}
+
+.hidden-radio {
+  display: none
+}

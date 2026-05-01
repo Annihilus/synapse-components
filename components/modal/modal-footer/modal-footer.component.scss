@@ -1,0 +1,5 @@
+@use './modal-footer' as footer;
+
+:host {
+  @include footer.modal-Footer;
+}

@@ -1,0 +1,10 @@
+<syn-modal-header></syn-modal-header>
+<syn-modal-content></syn-modal-content>
+<syn-modal-footer>
+  <button syn-button colorType="ghost" (click)="modalRef.close()">
+    Cancel
+  </button>
+  <button syn-button (click)="modalRef.close({ reason: 'ok' })">
+    Button
+  </button>
+</syn-modal-footer>

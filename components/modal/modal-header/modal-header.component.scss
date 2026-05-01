@@ -1,0 +1,5 @@
+@use './modal-header' as header;
+
+:host {
+  @include header.modal-Header;
+}

@@ -1,0 +1,5 @@
+@use 'label' as s;
+
+:host {
+  @include s.label;
+}

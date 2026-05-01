@@ -1,0 +1,35 @@
+:root {
+  --bg-primary: #7f56d9;
+  --bg-info: rgba(16, 91, 198, 0.3);
+  --bg-success: rgba(2, 139, 78, 0.3);
+  --bg-warning: rgba(236, 155, 5, 0.3);
+  --bg-danger: rgba(174, 40, 29, 0.3);
+  --bg-surface_dim: #1e1e1e;
+  --bg-surface: #1e1e1e;
+  --bg-surface_container: #2a2a2a;
+  --bg-surface_high: #3b3b3b;
+  --bg-surface_highest: #727272;
+  --bg-inverse_surface: #fdfdfd;
+  --texticons-on_primary: #f1f1f1;
+  --texticons-on_inverse_surface: #2a2a2a;
+  --texticons-primary: #b299e7;
+  --texticons-info: #3d89f5;
+  --border-outline_info: #3d89f5;
+  --texticons-on_surface: #f1f1f1;
+  --border-outline: #d7d7d7;
+  --texticons-on_surface_variant: #d7d7d7;
+  --border-outline_variant: #3b3b3b;
+  --border-outline_high: #f1f1f1;
+  --texticons-on_surface_low: #a5a5a5;
+  --texticons-success: #03d879;
+  --border-outline_success: #03d879;
+  --texticons-warning: #febe4d;
+  --border-outline_warning: #febe4d;
+  --texticons-danger: #e64e41;
+  --border-outline_danger: #e64e41;
+  --bg-disabled_surface: #3b3b3b;
+  --border-disabled_outline: rgba(215, 215, 215, 0.32);
+  --bg-hover_color: rgba(255, 255, 255, 0.12);
+  --bg-backdrop: rgba(0, 0, 0, 0.64);
+  --texticons-disabled_number: 0.32;
+}

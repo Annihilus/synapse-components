@@ -1,17 +1,120 @@
 {
   "components": [
     {
+      "name": "types",
+      "directory": "components/types",
+      "targetDir": "types",
+      "files": [
+        "index.ts",
+        "types.ts"
+      ]
+    },
+    {
+      "name": "control-directives",
+      "directory": "components/control-directives",
+      "targetDir": "control-directives",
+      "files": [
+        "element-disable.directive.ts",
+        "element-filled-state.directive.ts",
+        "element-form-control.directive.ts",
+        "element-valid-state.directive.ts",
+        "element-value-control.directive.ts",
+        "index.ts"
+      ]
+    },
+    {
+      "name": "helpers",
+      "directory": "components/helpers",
+      "targetDir": "helpers",
+      "files": [
+        "set-inputs.ts"
+      ]
+    },
+    {
+      "name": "tokens",
+      "directory": "components/tokens",
+      "targetDir": "tokens",
+      "files": [
+        "themes.ts",
+        "tokens.scss"
+      ]
+    },
+    {
+      "name": "avatar",
+      "directory": "components/avatar",
+      "targetDir": "avatar",
+      "files": [
+        "avatar.component.html",
+        "avatar.component.scss",
+        "avatar.component.ts",
+        "avatar.scss"
+      ],
+      "dependencies": [
+        "icon"
+      ]
+    },
+    {
+      "name": "breadcrumbs",
+      "directory": "components/breadcrumbs",
+      "targetDir": "breadcrumbs",
+      "files": [
+        "breadcrumbs-item/breadcrumbs-item.component.html",
+        "breadcrumbs-item/breadcrumbs-item.component.scss",
+        "breadcrumbs-item/breadcrumbs-item.component.ts",
+        "breadcrumbs-item/breadcrumbs-item.scss",
+        "breadcrumbs.component.html",
+        "breadcrumbs.component.scss",
+        "breadcrumbs.component.ts",
+        "breadcrumbs.scss",
+        "index.ts"
+      ],
+      "dependencies": [
+        "icon"
+      ]
+    },
+    {
       "name": "button",
       "directory": "components/button",
       "targetDir": "button",
       "files": [
-        "button.component.ts",
         "button.component.html",
-        "button.component.scss"
+        "button.component.scss",
+        "button.component.ts",
+        "button.scss"
       ],
       "dependencies": [
         "icon",
-        "directives/icon-container"
+        "types"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "directory": "components/checkbox",
+      "targetDir": "checkbox",
+      "files": [
+        "checkbox.component.html",
+        "checkbox.component.scss",
+        "checkbox.component.ts",
+        "checkbox.scss"
+      ],
+      "dependencies": [
+        "control-directives",
+        "icon"
+      ]
+    },
+    {
+      "name": "helper-text",
+      "directory": "components/helper-text",
+      "targetDir": "helper-text",
+      "files": [
+        "helper-text.component.html",
+        "helper-text.component.scss",
+        "helper-text.component.ts",
+        "helper-text.scss"
+      ],
+      "dependencies": [
+        "icon",
+        "icon-button"
       ]
     },
     {
@@ -19,8 +122,22 @@
       "directory": "components/icon",
       "targetDir": "icon",
       "files": [
-        "icon.component.ts",
-        "icon.component.scss"
+        "icon.component.scss",
+        "icon.component.ts"
+      ]
+    },
+    {
+      "name": "icon-button",
+      "directory": "components/icon-button",
+      "targetDir": "icon-button",
+      "files": [
+        "icon-button.component.html",
+        "icon-button.component.scss",
+        "icon-button.component.ts",
+        "icon-button.scss"
+      ],
+      "dependencies": [
+        "icon"
       ]
     },
     {
@@ -28,17 +145,244 @@
       "directory": "components/input",
       "targetDir": "input",
       "files": [
+        "input.component.html",
+        "input.component.scss",
         "input.component.ts",
-        "input.component.scss"
+        "input.scss"
+      ],
+      "dependencies": [
+        "control-directives",
+        "icon",
+        "label"
       ]
     },
     {
-      "name": "directives/icon-container",
-      "directory": "directives",
-      "targetDir": "directives",
+      "name": "label",
+      "directory": "components/label",
+      "targetDir": "label",
       "files": [
-        "icon-container.directive.ts",
-        "index.ts"
+        "label.component.html",
+        "label.component.scss",
+        "label.component.ts",
+        "label.scss"
+      ],
+      "dependencies": [
+        "icon"
+      ]
+    },
+    {
+      "name": "modal",
+      "directory": "components/modal",
+      "targetDir": "modal",
+      "files": [
+        "index.ts",
+        "modal-content/modal-content.component.html",
+        "modal-content/modal-content.component.scss",
+        "modal-content/modal-content.component.ts",
+        "modal-content/modal-content.scss",
+        "modal-footer/modal-footer.component.html",
+        "modal-footer/modal-footer.component.scss",
+        "modal-footer/modal-footer.component.ts",
+        "modal-footer/modal-footer.scss",
+        "modal-header/modal-header.component.html",
+        "modal-header/modal-header.component.scss",
+        "modal-header/modal-header.component.ts",
+        "modal-header/modal-header.scss",
+        "modal-window/modal-window.component.html",
+        "modal-window/modal-window.component.scss",
+        "modal-window/modal-window.component.ts",
+        "modal-window/modal-window.scss",
+        "modal-window/overlay-backdrop.scss",
+        "modal.component.html",
+        "modal.component.scss",
+        "modal.component.ts",
+        "modal.ref.ts",
+        "modal.service.ts",
+        "modal.tokens.ts"
+      ],
+      "dependencies": [
+        "button",
+        "icon"
+      ]
+    },
+    {
+      "name": "popover",
+      "directory": "components/popover",
+      "targetDir": "popover",
+      "files": [
+        "dropdown.scss",
+        "index.ts",
+        "popover-ref.ts",
+        "popover.component.html",
+        "popover.component.scss",
+        "popover.component.ts",
+        "popover.directive.ts",
+        "popover.module.ts",
+        "popover.options.ts",
+        "popover.service.ts",
+        "tooltip.scss"
+      ],
+      "dependencies": [
+        "helpers"
+      ]
+    },
+    {
+      "name": "radio-button",
+      "directory": "components/radio-button",
+      "targetDir": "radio-button",
+      "files": [
+        "radio-button/radio-button.component.html",
+        "radio-button/radio-button.component.scss",
+        "radio-button/radio-button.component.ts",
+        "radio-button/radiobutton-base.scss",
+        "radio-group/radio-group.component.html",
+        "radio-group/radio-group.component.scss",
+        "radio-group/radio-group.component.ts",
+        "radio.service.ts"
+      ]
+    },
+    {
+      "name": "segmented",
+      "directory": "components/segmented",
+      "targetDir": "segmented",
+      "files": [
+        "segmented-item/segmented-item.component.html",
+        "segmented-item/segmented-item.component.scss",
+        "segmented-item/segmented-item.component.ts",
+        "segmented-item/segmented-item.scss",
+        "segmented.component.html",
+        "segmented.component.scss",
+        "segmented.component.ts",
+        "segmented.scss",
+        "sg"
+      ],
+      "dependencies": [
+        "icon"
+      ]
+    },
+    {
+      "name": "select",
+      "directory": "components/select",
+      "targetDir": "select",
+      "files": [
+        "dropdown-item.scss",
+        "select.component.html",
+        "select.component.scss",
+        "select.component.ts",
+        "select.scss"
+      ],
+      "dependencies": [
+        "control-directives",
+        "icon",
+        "icon-button",
+        "popover"
+      ]
+    },
+    {
+      "name": "slider",
+      "directory": "components/slider",
+      "targetDir": "slider",
+      "files": [
+        "slider.component.html",
+        "slider.component.scss",
+        "slider.component.ts",
+        "slider.scss"
+      ],
+      "dependencies": [
+        "control-directives"
+      ]
+    },
+    {
+      "name": "snackbar",
+      "directory": "components/snackbar",
+      "targetDir": "snackbar",
+      "files": [
+        "model.ts",
+        "snackbar-container/snackbar-container.component.html",
+        "snackbar-container/snackbar-container.component.scss",
+        "snackbar-container/snackbar-container.component.ts",
+        "snackbar.component.html",
+        "snackbar.component.scss",
+        "snackbar.component.ts",
+        "snackbar.scss",
+        "snackbar.service.ts"
+      ],
+      "dependencies": [
+        "button",
+        "icon"
+      ]
+    },
+    {
+      "name": "table",
+      "directory": "components/table",
+      "targetDir": "table",
+      "files": [
+        "table-cell.scss",
+        "table-header-cell.scss",
+        "table.component.html",
+        "table.component.scss",
+        "table.component.ts",
+        "table.scss"
+      ]
+    },
+    {
+      "name": "tabs",
+      "directory": "components/tabs",
+      "targetDir": "tabs",
+      "files": [
+        "tab-panel.scss",
+        "tab/tab.component.html",
+        "tab/tab.component.scss",
+        "tab/tab.component.ts",
+        "tab/tab.scss",
+        "tabs.component.html",
+        "tabs.component.scss",
+        "tabs.component.ts",
+        "tabs.service.ts"
+      ]
+    },
+    {
+      "name": "tag",
+      "directory": "components/tag",
+      "targetDir": "tag",
+      "files": [
+        "tag-base.scss",
+        "tag.component.html",
+        "tag.component.scss",
+        "tag.component.ts",
+        "tag.scss"
+      ],
+      "dependencies": [
+        "icon"
+      ]
+    },
+    {
+      "name": "textarea",
+      "directory": "components/textarea",
+      "targetDir": "textarea",
+      "files": [
+        "textarea.component.html",
+        "textarea.component.scss",
+        "textarea.component.ts",
+        "textarea.scss"
+      ],
+      "dependencies": [
+        "icon",
+        "label"
+      ]
+    },
+    {
+      "name": "toggle",
+      "directory": "components/toggle",
+      "targetDir": "toggle",
+      "files": [
+        "toggle.component.html",
+        "toggle.component.scss",
+        "toggle.component.ts",
+        "toggle.scss"
+      ],
+      "dependencies": [
+        "control-directives"
       ]
     }
   ]

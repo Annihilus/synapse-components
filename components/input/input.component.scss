@@ -1,0 +1,13 @@
+@use './input' as input;
+
+:host {
+  @include input.input;
+
+  input.text-block {
+    outline: none;
+  }
+
+  input.text-block::placeholder {
+    color: inherit;
+  }
+}

@@ -1,0 +1,12 @@
+@use './icon-button' as *;
+
+:host {
+  cursor: pointer;
+
+  @include icon-Button;
+
+  &:disabled {
+    user-select: none;
+    pointer-events: none;
+  }
+}
