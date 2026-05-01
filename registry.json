@@ -7,8 +7,7 @@
       "files": [
         "button.component.ts",
         "button.component.html",
-        "button.component.scss",
-        "button.component.spec.ts"
+        "button.component.scss"
       ]
     }
   ]
