@@ -1,0 +1,15 @@
+{
+  "components": [
+    {
+      "name": "button",
+      "directory": "components/button",
+      "targetDir": "button",
+      "files": [
+        "button.component.ts",
+        "button.component.html",
+        "button.component.scss",
+        "button.component.spec.ts"
+      ]
+    }
+  ]
+}
