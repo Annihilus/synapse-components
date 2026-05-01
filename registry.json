@@ -11,8 +11,7 @@
       ],
       "dependencies": [
         "icon",
-        "directives/icon-container",
-        "types"
+        "directives/icon-container"
       ]
     },
     {
@@ -22,6 +21,15 @@
       "files": [
         "icon.component.ts",
         "icon.component.scss"
+      ]
+    },
+    {
+      "name": "directives/icon-container",
+      "directory": "directives/icon-container",
+      "targetDir": "directives/icon-container",
+      "files": [
+        "icon-container.directive.ts",
+        "index.ts"
       ]
     }
   ]
