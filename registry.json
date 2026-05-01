@@ -25,8 +25,8 @@
     },
     {
       "name": "directives/icon-container",
-      "directory": "directives/icon-container",
-      "targetDir": "directives/icon-container",
+      "directory": "directives",
+      "targetDir": "directives",
       "files": [
         "icon-container.directive.ts",
         "index.ts"
