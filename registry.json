@@ -24,6 +24,15 @@
       ]
     },
     {
+      "name": "input",
+      "directory": "components/input",
+      "targetDir": "input",
+      "files": [
+        "input.component.ts",
+        "input.component.scss"
+      ]
+    },
+    {
       "name": "directives/icon-container",
       "directory": "directives",
       "targetDir": "directives",
@@ -31,6 +40,6 @@
         "icon-container.directive.ts",
         "index.ts"
       ]
-    }
+    },
   ]
 }
