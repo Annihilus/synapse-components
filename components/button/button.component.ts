@@ -5,8 +5,7 @@ import {
   computed,
   input,
   signal,
-  AfterContentInit,
-  AfterViewInit,
+  afterNextRender,
   ElementRef,
   inject,
   contentChild,
@@ -14,15 +13,12 @@ import {
   Renderer2,
 } from '@angular/core';
 
-import { SynSize } from '../types';
 import { SynapseIconComponent } from '../icon/icon.component';
-
-export type ButtonType = 'primary' | 'secondary' | 'outlined' | 'ghost' | 'danger';
-export type ButtonIcon = boolean | 'left' | 'right';
+import { ButtonColorType, ButtonIcon, ButtonSize } from './button.types';
 
 @Component({
   selector: 'button[syn-button]',
-  imports: [CommonModule],
+  imports: [CommonModule, SynapseIconComponent],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,11 +27,11 @@ export type ButtonIcon = boolean | 'left' | 'right';
     '[attr.disabled]': 'disabled() ? true : null',
   }
 })
-export class SynapseButtonComponent implements AfterContentInit, AfterViewInit {
-  colorType = input<ButtonType>('primary');
-  size = input<SynSize>('m');
+export class SynapseButtonComponent {
+  colorType = input<ButtonColorType>('primary');
+  size = input<ButtonSize>('m');
   disabled = input<boolean>(false);
-  loading = input(false);
+  loading = input<boolean>(false);
   icon = contentChild(forwardRef(() => SynapseIconComponent));
 
   private iconPosition = signal<ButtonIcon>(false);
@@ -55,21 +51,19 @@ export class SynapseButtonComponent implements AfterContentInit, AfterViewInit {
   private elementRef = inject(ElementRef<HTMLElement>);
   private renderer = inject(Renderer2);
 
-  ngAfterContentInit() {
-    // Resolve left/right/icon-only from the projected order while it is still
-    // intact. The class must be ready before the view renders the `.icon` slot,
-    // and this hook has no DOM dependency on that slot.
-    this.resolvePosition();
-  }
+  constructor() {
+    // Run once the DOM is painted: at ngAfterContentInit the projected content
+    // isn't reliably in `host.childNodes` yet — the `<ng-content>` lives inside
+    // the `@if (loading()) {} @else {}` branch, so reading the order there can
+    // miss the text node and misdetect a text+icon button as icon-only.
+    // Resolve the original order first, then move the icon into its `.icon` slot.
+    afterNextRender(() => {
+      this.resolvePosition();
 
-  ngAfterViewInit() {
-    // The `.icon` container is produced by `@if (icon())` in the template, which
-    // only renders during the view-update pass — i.e. *after* ngAfterContentInit.
-    // Relocating here (instead of in ngAfterContentInit, as a child directive
-    // used to) guarantees the container exists so the `<syn-icon>` can move in.
-    if (this.icon()) {
-      this.relocateIcon(this.elementRef.nativeElement);
-    }
+      if (this.icon()) {
+        this.relocateIcon(this.elementRef.nativeElement);
+      }
+    });
   }
 
   private getIconClass(): string {
@@ -104,13 +98,18 @@ export class SynapseButtonComponent implements AfterContentInit, AfterViewInit {
   private resolveIconPosition(host: HTMLElement, iconElement?: HTMLElement): ButtonIcon {
     const childNodes: Node[] = Array.from(host.childNodes);
 
+    // Ignore the projected icon and the component's own `.icon`/`.state` helper
+    // divs; everything else contributes the button's text (a raw text node or
+    // text wrapped in an element).
+    const isIcon = (node: Node): boolean =>
+      node instanceof Element &&
+      (node.tagName.toLowerCase() === 'syn-icon' ||
+        node.classList.contains('icon') ||
+        node.classList.contains('state'));
+
     const textContent = childNodes
-      .filter((node) =>
-        node instanceof Element
-          ? node.tagName.toLowerCase() !== 'syn-icon'
-          : node.nodeType === Node.TEXT_NODE,
-      )
-      .map((node) => (node instanceof Text ? node.textContent?.trim() || '' : ''))
+      .filter((node) => !isIcon(node))
+      .map((node) => node.textContent?.trim() || '')
       .join('')
       .trim();
 
@@ -118,7 +117,7 @@ export class SynapseButtonComponent implements AfterContentInit, AfterViewInit {
     if (!iconElement) return 'left';
 
     const firstTextNode = childNodes.find(
-      (node) => node instanceof Text && (node.textContent?.trim().length ?? 0) > 0,
+      (node) => !isIcon(node) && (node.textContent?.trim().length ?? 0) > 0,
     );
     if (!firstTextNode) return 'left';
 

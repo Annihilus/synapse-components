@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   contentChild,
+  effect,
   ElementRef,
   forwardRef,
   inject,
@@ -41,6 +42,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
     '[class.error]': 'showError()',
     '[class.focus]': 'isFocused()',
     '[class.active]': 'active()',
+    '[class.inline]': 'inline()',
   },
   hostDirectives: [
     {
@@ -68,8 +70,13 @@ export class SynapseInputComponent {
   error = input<string | string[]>('');
   tooltip = input('');
   required = input(false);
+  inline = input<boolean>(false);
   active = signal(false);
   focused = signal(false);
+
+  private readonly _text = signal('');
+
+  protected readonly valueText = this._text.asReadonly();
 
   public readonly icon = contentChild(forwardRef(() => SynapseIconComponent));
 
@@ -92,7 +99,6 @@ export class SynapseInputComponent {
     (!this.formControl.control() && this._validState.isInvalid()),
   );
 
-
   constructor() {
     const registerStream$ = toObservable<ElementRef<HTMLInputElement>>(this.element)
       .pipe(
@@ -106,6 +112,25 @@ export class SynapseInputComponent {
       );
 
     this.isFocused = toSignal(registerStream$);
+
+    effect((onCleanup) => {
+      const bound = this._valueControl.value();
+      if (bound !== undefined) this._text.set(bound);
+
+      const control = this.formControl.control();
+      if (!control) return;
+
+      this._text.set((control.value ?? '') as string);
+
+      const sub = control.valueChanges.subscribe((value) =>
+        this._text.set((value ?? '') as string),
+      );
+      onCleanup(() => sub.unsubscribe());
+    });
+  }
+
+  protected onInput(value: string): void {
+    this._text.set(value);
   }
 
   private _getFocusStream(element: HTMLInputElement) {

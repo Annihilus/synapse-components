@@ -23,7 +23,7 @@
   text-transform: none;
 
   .icon {
-    color: rgba(215, 215, 215, 1);
+    color: var(--texticons-on_surface_variant);
   }
 
   .icon_placeholder {
@@ -48,7 +48,7 @@
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    border-radius: 0;
+    border-radius: 6px;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 0px;
@@ -69,28 +69,28 @@
   &,
   &:disabled {
     background: transparent;
-    color: rgba(215, 215, 215, 1);
+    color: var(--texticons-on_surface_variant);
   }
 
   &:disabled {
-    opacity: 0.32;
+    opacity: var(--texticons-disabled_number);
   }
 
   &:hover .icon,
   &.selected .icon,
   &:hover.selected .icon,
   &:disabled .icon {
-    color: rgba(241, 241, 241, 1);
+    color: var(--texticons-on_surface);
   }
 
   &:hover .state {
-    background: rgba(255, 255, 255, 0.11999999731779099);
+    background: var(--bg-hover_color);
   }
 
   &:hover,
   &.selected,
   &:hover.selected {
-    color: rgba(241, 241, 241, 1);
+    color: var(--texticons-on_surface);
   }
 
   &:hover,
@@ -101,6 +101,6 @@
   }
 
   &.selected {
-    background: rgba(58, 58, 58, 1);
+    background: var(--bg-surface_high);
   }
 }

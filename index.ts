@@ -1,12 +1,9 @@
-// Generated from synapse-ui/libs/components/src/index.ts — public API of the library.
-export * from './components/types';
 export * from './components/tokens/themes';
-
 export * from './components/breadcrumbs';
 export * from './components/table/table.component';
 export * from './components/label/label.component';
 export * from './components/select/select.component';
-export * from './components/button/button.component';
+export * from './components/button';
 export * from './components/checkbox/checkbox.component';
 export * from './components/radio-button/radio-group/radio-group.component';
 export * from './components/radio-button/radio-button/radio-button.component';

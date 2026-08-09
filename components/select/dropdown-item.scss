@@ -1,4 +1,4 @@
-@mixin dropdown-Item {
+@mixin dropdown-item {
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
@@ -18,7 +18,7 @@
   opacity: 1;
 
   .hint {
-    color: rgba(165, 165, 165, 1);
+    color: var(--texticons-on_surface_low);
   }
 
   .icon_placeholder {
@@ -69,7 +69,7 @@
     justify-content: center;
     gap: 2px;
     flex-direction: column;
-    color: rgba(241, 241, 241, 1);
+    color: var(--texticons-on_surface);
   }
 
   .text_block,
@@ -91,18 +91,18 @@
   &,
   &:hover,
   &:disabled {
-    background: rgba(42, 42, 42, 1);
+    background: var(--bg-surface_container);
   }
 
   &:disabled .text_block {
-    opacity: 0.32;
+    opacity: var(--texticons-disabled_number);
   }
 
   &:hover .state {
-    background: rgba(255, 255, 255, 0.11999999731779099);
+    background: var(--bg-hover_color);
   }
 
   &.selected {
-    background: rgba(58, 58, 58, 1);
+    background: var(--bg-surface_high);
   }
 }

@@ -53,6 +53,9 @@ export class SynapseToggleComponent {
 
   private readonly _valueControl = inject(IwElementValueControlDirective<boolean>);
 
+  // Bridges the toggle to a reactive form ([formControl]/[formControlName]).
+  private readonly _formControl = inject(IwElementFormControlDirective<boolean>);
+
   public setFocusState(state: boolean) {
     this.isFocused.set(state);
   }
@@ -62,6 +65,8 @@ export class SynapseToggleComponent {
     this.isChecked.set(target.checked);
     this.changeValue.emit(target.checked);
     this._valueChanged$.next(target.checked);
+    // Push to the reactive form so a bound [formControl] updates.
+    this._formControl.changeValue(target.checked);
   }
 
   /**
@@ -85,6 +90,16 @@ export class SynapseToggleComponent {
     // Reflect the bound [value] onto the checkbox state.
     effect(() => {
       this.isChecked.set(!!this._valueControl.value());
+    });
+
+    // Reflect a bound reactive-form value (initial + external updates).
+    effect((onCleanup) => {
+      const control = this._formControl.control();
+      if (!control) return;
+
+      this.isChecked.set(!!control.value);
+      const sub = control.valueChanges.subscribe((value) => this.isChecked.set(!!value));
+      onCleanup(() => sub.unsubscribe());
     });
   }
 }

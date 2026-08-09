@@ -1,11 +1,11 @@
-<ng-content />
-
 @if (loading()) {
-  ...Loading
-}
+  <syn-icon class="spinner icon" name="spinner" />
+} @else {
+  <ng-content />
 
-@if (icon()) {
-  <div class="icon"></div>
+  @if (icon()) {
+    <div class="icon"></div>
+  }
 }
 
 <div class="state"></div>

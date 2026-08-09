@@ -1,26 +1,34 @@
 @mixin input {
+  border-radius: 0;
   flex-shrink: 0;
   cursor: pointer;
-  position: relative;
   box-sizing: border-box;
   display: inline-flex;
-  width: auto;
+  position: static;
+  width: 320px;
   height: auto;
-  padding: 4px;
+  padding: 0px;
   border-style: none;
   border-color: transparent;
   border-width: 0;
-  border-radius: 6px;
   background: transparent;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
-  gap: 8px;
+  gap: 6px;
   box-shadow: none;
-  flex-direction: row;
+  flex-direction: column;
   opacity: 1;
 
   ._Caret {
     width: 1px;
+  }
+
+  .hint,
+  &:disabled .hint,
+  &:hover .hint,
+  &.active .hint,
+  &:focus-visible .hint {
+    color: var(--texticons-on_surface_low);
   }
 
   .icon {
@@ -40,35 +48,48 @@
   }
 
   .input {
-    display: flex;
+    width: auto;
     height: 40px;
     padding: 8px 12px;
     border-style: solid;
     border-color: var(--border-outline_variant);
     border-width: 1px;
     border-radius: 8px;
-    background: var(--bg-surface_dim);
     gap: 8px;
-  }
-
-  .input,
-  .state {
-    width: 100%;
     opacity: 1;
   }
 
   .input,
   .text-block {
+    box-sizing: border-box;
+    display: inline-flex;
     position: static;
     align-items: center;
+    justify-content: flex-start;
     flex-direction: row;
   }
 
   .input,
-  .text-block,
-  .state {
-    box-sizing: border-box;
-    justify-content: flex-start;
+  &:disabled .input,
+  &.error .input,
+  &.active .input,
+  &:focus-visible .input {
+    background: var(--bg-surface_dim);
+  }
+
+  .input,
+  &:disabled .input,
+  &.error .input,
+  &.inline .input,
+  &:disabled.inline .input,
+  &:hover:disabled.inline .input,
+  &.error.inline .input,
+  &:hover.error.inline .input,
+  &:hover.inline .input,
+  &.active.inline .input,
+  &:hover.active.inline .input,
+  &:focus-visible.inline .input,
+  &:hover:focus-visible.inline .input {
     box-shadow: none;
   }
 
@@ -76,13 +97,6 @@
   .hint,
   .required {
     line-height: 16px;
-  }
-
-  .Label,
-  .hint,
-  .required,
-  .question {
-    color: var(--texticons-on_surface_low);
   }
 
   .Label,
@@ -104,39 +118,32 @@
     background: transparent;
   }
 
-  .state {
-    position: absolute;
-    right: 0;
-    left: 0;
-    height: 28px;
-    border-radius: 6px;
-    align-items: flex-start;
-    flex-shrink: 0;
-  }
-
-  .state,
-  &:disabled .state,
-  &.error .state,
-  &.active .state,
-  &:focus-visible .state {
-    background: rgba(255, 255, 255, 0);
+  .Label,
+  .required,
+  .question {
+    color: var(--texticons-on_surface_low);
   }
 
   .text-block {
-    display: inline-flex;
-    width: auto;
-    height: 20px;
-    border-radius: 0;
-    line-height: 20px;
-  }
-
-  .text-block,
-  .state {
+    width: 220px;
+    height: auto;
     padding: 0px;
     border-style: none;
     border-color: transparent;
     border-width: 0;
+    border-radius: 0;
     gap: 0px;
+    box-shadow: none;
+    flex-shrink: 0;
+    line-height: 20px;
+  }
+
+  .text-block,
+  &:disabled .text-block,
+  &.error .text-block,
+  &.active .text-block,
+  &:focus-visible .text-block {
+    color: var(--texticons-on_surface_low);
   }
 
   .text-block,
@@ -146,90 +153,104 @@
     opacity: 1;
   }
 
+  &:disabled .input {
+    border-color: var(--border-disabled_outline);
+  }
+
   &:disabled .text-block {
     opacity: var(--texticons-disabled_number);
   }
 
-  &:disabled.stroke .input {
-    border-color: var(--border-disabled_outline);
-  }
-
-  &:focus-visible.stroke .input {
+  &:focus-visible .input {
     box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
   }
 
-  &:hover .state {
-    background: var(--bg-hover_color);
-  }
-
-  &:hover .text-block {
-    color: var(--texticons-on_surface_variant);
-  }
-
-  &:hover.stroke .input,
-  &.active.stroke .input {
+  &:hover .input,
+  &.active .input {
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
   }
 
-  &:hover.stroke .input,
-  &.active.stroke .input,
-  &:focus-visible.stroke .input {
+  &:hover .input,
+  &.active .input,
+  &:focus-visible .input {
     border-color: var(--border-outline);
+  }
+
+  &:hover.inline .input {
+    background: transparent;
+  }
+
+  &:hover.inline .text-block {
+    color: var(--texticons-on_surface_variant);
+  }
+
+  &.error .hint {
+    color: var(--texticons-danger);
   }
 
   &.error .icon {
     color: var(--texticons-danger);
   }
 
-  &.error .text-block,
-  &.filled.error .text-block {
-    color: var(--texticons-danger);
-  }
-
-  &.error.stroke .hint {
-    color: var(--texticons-danger);
-  }
-
-  &.error.stroke .input {
+  &.error .input {
     border-color: var(--border-outline_danger);
   }
 
-  &.filled.stroke .text-block,
-  &.filled:disabled.stroke .text-block,
-  &.filled.error.stroke .text-block,
-  &.filled.active.stroke .text-block,
-  &.filled:focus-visible.stroke .text-block,
+  &.error.inline .text-block,
+  &.filled.error.inline .text-block {
+    color: var(--texticons-danger);
+  }
+
   &.filled .text-block,
   &.filled:disabled .text-block,
+  &.filled.error .text-block,
   &.filled.active .text-block,
   &.filled:focus-visible .text-block {
     color: var(--texticons-on_surface);
   }
 
-  &.stroke {
-    width: 320px;
-    padding: 0px;
-    border-radius: 0;
-    align-items: flex-start;
-    gap: 6px;
-    flex-direction: column;
+  &.inline {
+    width: auto;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0);
+    border-width: 1px;
+    border-radius: 6px;
+    align-items: center;
+    gap: 8px;
+    flex-direction: row;
   }
 
-  &.stroke .text-block {
-    display: flex;
-    width: 100%;
-    height: auto;
+  &.inline .input {
+    height: 28px;
+    padding: 4px;
+    border-style: none;
+    border-width: 0;
+    border-radius: 6px;
   }
 
-  &.stroke .text-block,
-  &:disabled.stroke .text-block,
-  &.error.stroke .text-block,
-  &.active.stroke .text-block,
-  &:focus-visible.stroke .text-block,
-  .text-block,
-  &:disabled .text-block,
-  &.active .text-block,
-  &:focus-visible .text-block {
-    color: var(--texticons-on_surface_low);
+  &.inline .input,
+  &:disabled.inline .input,
+  &:hover:disabled.inline .input,
+  &.error.inline .input,
+  &:hover.error.inline .input,
+  &:hover.inline .input,
+  &.active.inline .input,
+  &:hover.active.inline .input,
+  &:focus-visible.inline .input,
+  &:hover:focus-visible.inline .input {
+    border-color: transparent;
+  }
+
+  &.inline .input,
+  &:disabled.inline .input,
+  &.error.inline .input,
+  &.active.inline .input,
+  &:focus-visible.inline .input {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  &.inline .text-block {
+    width: auto;
+    height: 20px;
   }
 }

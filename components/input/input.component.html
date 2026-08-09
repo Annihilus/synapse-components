@@ -1,4 +1,4 @@
-@if (label()) {
+@if (!inline() && label()) {
   <label syn-label>
     {{ label() }}
 
@@ -19,13 +19,28 @@
       <ng-content select="syn-icon"></ng-content>
     </div>
   }
-  <input class="text-block" [placeholder]="placeholder()" #element type="text">
+
+  <div class="field">
+    <input
+      class="text-block"
+      [placeholder]="placeholder()"
+      [attr.size]="inline() ? 1 : null"
+      (input)="onInput(element.value)"
+      #element
+      type="text"
+    >
+
+    @if (!valueText()) {
+      <span class="sizer" aria-hidden="true">{{ placeholder() }}</span>
+    }
+    <span class="sizer" aria-hidden="true">{{ valueText() }}</span>
+  </div>
 
   <ng-content select="[synPostfix]"></ng-content>
 
 </div>
 
-@if (error()) {
+@if (!inline() && error()) {
   <div class="hint">
     {{ error() }}
   </div>

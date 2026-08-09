@@ -7,7 +7,7 @@
   @include select;
 
   .option {
-    @include dropdown-Item;
+    @include dropdown-item;
 
     .state {
       cursor: pointer;
@@ -16,7 +16,7 @@
       left: 0;
       bottom: 0;
       right: 0;
-  
+
       height: 100%;
     }
   }

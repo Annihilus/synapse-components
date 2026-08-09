@@ -2,25 +2,33 @@
   <label class="label">{{ label() }}</label>
 }
 
-<div class="select"
-  [iwDropdown]="{
-    content: selectTemplate,
-    widthMinLimit: true,
-  }"
+<div
+  class="select"
+  [iwDropdown]="{ content: selectTemplate, widthMinLimit: true }"
   #dropdown="iwDropdown"
+  (isVisible)="active.set($event)"
 >
   @if (icon()) {
     <syn-icon class="icon" name="{{ icon() }}" />
   }
-  <div class="text-block">{{ selectedDisplayName() }}</div>
 
-  @if (canClear()) {
-    <button syn-icon-button class="clean-btn">
+  <div class="text-block">{{ displayText() }}</div>
+
+  @if (canClear() && selectedValue()) {
+    <button
+      syn-icon-button
+      class="reset"
+      (click)="clearSelection(); $event.stopPropagation()"
+    >
       <syn-icon name="close" />
     </button>
   }
 
-  <syn-icon class="open-btn" name="chevron_down" />
+  @if (active()) {
+    <syn-icon class="chevron_up" name="chevron_up" />
+  } @else {
+    <syn-icon class="open-btn" name="chevron_down" />
+  }
 </div>
 
 @if (hint()) {
@@ -37,7 +45,8 @@
       (click)="selectItem(item)"
       (keyup.enter)="selectItem(item)"
       role="option"
-      aria-selected="false"
+      [class.selected]="isSelected(item)"
+      [attr.aria-selected]="isSelected(item)"
     >
       <ng-container
         [ngTemplateOutlet]="selectItemTemplate"
@@ -50,7 +59,7 @@
 </ng-template>
 
 <ng-template #selectItemTemplate let-item="item">
-  <div class="text-block">
+  <div class="text_block">
     {{ item.displayName }}
   </div>
   <div class="state"></div>

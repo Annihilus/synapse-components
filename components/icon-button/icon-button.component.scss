@@ -3,7 +3,7 @@
 :host {
   cursor: pointer;
 
-  @include icon-Button;
+  @include icon-button;
 
   &:disabled {
     user-select: none;

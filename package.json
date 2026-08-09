@@ -18,7 +18,7 @@
     "@popperjs/core": "^2.11.0",
     "rxjs": "~7.8.0"
   },
-  "dependencies": {
-    "snps-cli": "0.1.4"
+  "devDependencies": {
+    "snps-cli": "^0.1.4"
   }
 }
