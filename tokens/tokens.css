@@ -1,0 +1,39 @@
+:root {
+  /* rounding */
+  --rounding-none: 0;
+  --rounding-3xs: 1px;
+  --rounding-2xs: 2px;
+  --rounding-xs: 4px;
+  --rounding-s: 6px;
+  --rounding-m: 8px;
+  --rounding-l: 12px;
+  --rounding-xl: 16px;
+  --rounding-2xl: 24px;
+  --rounding-3xl: 32px;
+  --rounding-4xl: 48px;
+  --rounding-full: 1000px;
+
+  /* sizing */
+  --sizing-and-spacing-0: 0;
+  --sizing-and-spacing-px: 1px;
+  --sizing-and-spacing-0_5: 2px;
+  --sizing-and-spacing-1: 4px;
+  --sizing-and-spacing-1_5: 6px;
+  --sizing-and-spacing-2: 8px;
+  --sizing-and-spacing-2_5: 10px;
+  --sizing-and-spacing-3: 12px;
+  --sizing-and-spacing-4: 16px;
+  --sizing-and-spacing-5: 20px;
+  --sizing-and-spacing-6: 24px;
+  --sizing-and-spacing-8: 32px;
+  --sizing-and-spacing-10: 40px;
+  --sizing-and-spacing-12: 48px;
+  --sizing-and-spacing-14: 56px;
+  --sizing-and-spacing-16: 64px;
+  --sizing-and-spacing-20: 80px;
+  --sizing-and-spacing-24: 96px;
+  --sizing-and-spacing-30: 120px;
+  --sizing-and-spacing-40: 160px;
+  --sizing-and-spacing-50: 200px;
+  --sizing-and-spacing-60: 240px;
+}

@@ -1,5 +1,5 @@
 @use './select' as *;
-@use './dropdown-item' as *;
+@use '../dropdown-item/dropdown-item' as *;
 
 :host {
   cursor: pointer;

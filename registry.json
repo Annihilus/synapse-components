@@ -103,6 +103,21 @@
       ]
     },
     {
+      "name": "dropdown-item",
+      "directory": "components/dropdown-item",
+      "targetDir": "dropdown-item",
+      "files": [
+        "dropdown-item.component.html",
+        "dropdown-item.component.scss",
+        "dropdown-item.component.ts",
+        "dropdown-item.scss"
+      ],
+      "dependencies": [
+        "checkbox",
+        "icon"
+      ]
+    },
+    {
       "name": "helper-text",
       "directory": "components/helper-text",
       "targetDir": "helper-text",
@@ -265,7 +280,6 @@
       "directory": "components/select",
       "targetDir": "select",
       "files": [
-        "dropdown-item.scss",
         "select.component.html",
         "select.component.scss",
         "select.component.ts",
@@ -273,6 +287,7 @@
       ],
       "dependencies": [
         "control-directives",
+        "dropdown-item",
         "icon",
         "icon-button",
         "popover"

@@ -84,4 +84,4 @@ Icon-Button — паттерн кнопки закрытия. Helper-Text — а
 - FRAME "block"
   - TEXT "title"
   - FRAME "container"
-    - INSTANCE "Button" (component instance)
+    - INSTANCE "Button11" (component instance)

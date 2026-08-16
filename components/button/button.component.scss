@@ -5,6 +5,8 @@
 
   @include button;
 
+  white-space: nowrap;
+
   &:disabled {
     pointer-events: none;
   }

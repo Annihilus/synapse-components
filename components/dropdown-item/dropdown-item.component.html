@@ -1,0 +1,19 @@
+@if (checkbox()) {
+  <syn-checkbox class="checkbox" [value]="selected()" [disabled]="disabled()" />
+} @else if (icon()) {
+  <syn-icon class="icon_placeholder" [name]="icon()" />
+}
+
+<div class="text_block">
+  <ng-content />
+
+  @if (description()) {
+    <div class="description">{{ description() }}</div>
+  }
+</div>
+
+@if (hint()) {
+  <div class="hint">{{ hint() }}</div>
+}
+
+<div class="state"></div>

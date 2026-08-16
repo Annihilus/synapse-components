@@ -2,9 +2,7 @@
   box-sizing: border-box;
   display: inline-flex;
   position: static;
-  width: auto;
-  height: auto;
-  padding: 0px;
+  padding: 0;
   border-style: none;
   border-color: transparent;
   border-width: 0;
@@ -12,20 +10,24 @@
   background: transparent;
   align-items: center;
   justify-content: flex-start;
-  gap: 8px;
+  gap: var(--sizing-and-spacing-2);
   box-shadow: none;
   flex-direction: row;
   opacity: 1;
 
   .Tab {
-    width: auto;
-    height: auto;
-    font-family: Inter;
-    line-height: 20px;
-    letter-spacing: 0;
-    font-size: 14px;
-    font-weight: 400;
+    font-family: var(--body2-regular-family);
+    line-height: var(--body2-regular-line-height);
+    letter-spacing: var(--body2-regular-letter-spacing);
+    font-size: var(--body2-regular-size);
+    font-weight: var(--body2-regular-weight);
     text-transform: none;
     color: var(--texticons-on_surface);
+  }
+
+  &,
+  .Tab {
+    width: auto;
+    height: auto;
   }
 }

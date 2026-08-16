@@ -1,66 +1,47 @@
 @mixin icon-button {
-  flex-shrink: 0;
   cursor: pointer;
-  position: relative;
-  box-sizing: border-box;
   display: inline-flex;
+  position: relative;
   width: 20px;
-  height: 20px;
-  padding: 2px;
-  border-style: none;
-  border-color: transparent;
-  border-width: 0;
-  border-radius: 4px;
+  padding: var(--sizing-and-spacing-0_5);
   align-items: center;
   justify-content: center;
-  gap: 0px;
-  box-shadow: none;
   flex-direction: row;
-  opacity: 1;
 
   .icon {
     width: 16px;
     height: 16px;
-    background: transparent;
-    color: var(--texticons-on_surface_low);
+    color: var(--texticons-on_surface);
   }
 
   .state {
-    box-sizing: border-box;
     position: absolute;
-    right: 0;
-    left: 0;
     width: 100%;
-    height: 20px;
-    padding: 0px;
-    border-style: none;
-    border-color: transparent;
-    border-width: 0;
-    border-radius: 4px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0);
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 0px;
-    box-shadow: none;
-    opacity: 1;
-    flex-shrink: 0;
-  }
-
-  .state,
-  &:disabled .state,
-  &.active .state {
-    background: rgba(255, 255, 255, 0);
+    right: 0;
+    left: 0;
   }
 
   &,
-  &:disabled,
-  &:hover {
+  .icon {
     background: transparent;
   }
 
-  &:hover .icon,
-  &.active .icon,
-  &.type-primary .icon {
-    color: var(--texticons-on_surface);
+  &,
+  .state {
+    box-sizing: border-box;
+    height: 20px;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    border-radius: var(--rounding-xs);
+    gap: 0;
+    box-shadow: none;
+    opacity: 1;
+    flex-shrink: 0;
   }
 
   &:hover .state {

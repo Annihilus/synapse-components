@@ -1,18 +1,15 @@
 @mixin breadcrumbs {
-  border-radius: 0;
   box-sizing: border-box;
   display: inline-flex;
   position: static;
-  width: auto;
-  height: auto;
-  padding: 0px;
+  padding: 0;
   border-style: none;
   border-color: transparent;
   border-width: 0;
-  background: transparent;
+  border-radius: 0;
   align-items: center;
   justify-content: flex-start;
-  gap: 4px;
+  gap: var(--sizing-and-spacing-1);
   box-shadow: none;
   flex-direction: row;
   opacity: 1;
@@ -20,7 +17,6 @@
   .arrow {
     width: 20px;
     height: 20px;
-    background: transparent;
   }
 
   .arrow,
@@ -34,13 +30,23 @@
 
   .item,
   .Breadcrumbs-Item {
+    font-family: var(--body1-condensed-regular-family);
+    line-height: var(--body1-condensed-regular-line-height);
+    letter-spacing: var(--body1-condensed-regular-letter-spacing);
+    font-size: var(--body1-condensed-regular-size);
+    font-weight: var(--body1-condensed-regular-weight);
+    text-transform: none;
+  }
+
+  &,
+  .arrow {
+    background: transparent;
+  }
+
+  &,
+  .item,
+  .Breadcrumbs-Item {
     width: auto;
     height: auto;
-    font-family: Inter;
-    line-height: 20px;
-    letter-spacing: 0;
-    font-size: 16px;
-    font-weight: 400;
-    text-transform: none;
   }
 }

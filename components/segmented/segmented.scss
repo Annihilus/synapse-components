@@ -2,30 +2,33 @@
   box-sizing: border-box;
   display: inline-flex;
   position: static;
-  width: auto;
   height: auto;
-  padding: 4px;
+  padding: var(--sizing-and-spacing-1);
   border-style: none;
   border-color: transparent;
   border-width: 0;
-  border-radius: 12px;
+  border-radius: var(--rounding-l);
   background: var(--bg-surface_high);
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 4px;
+  gap: var(--sizing-and-spacing-1);
   box-shadow: none;
   flex-direction: row;
   opacity: 1;
 
   .Segmented-Item {
-    width: auto;
     height: 32px;
-    font-family: Inter;
-    line-height: 24px;
-    letter-spacing: 0;
-    font-size: 16px;
-    font-weight: 400;
+    font-family: var(--body1-regular-family);
+    line-height: var(--body1-regular-line-height);
+    letter-spacing: var(--body1-regular-letter-spacing);
+    font-size: var(--body1-regular-size);
+    font-weight: var(--body1-regular-weight);
     text-transform: none;
     color: var(--texticons-on_surface);
+  }
+
+  &,
+  .Segmented-Item {
+    width: auto;
   }
 }

@@ -1,24 +1,23 @@
 @mixin dropdown-item {
   cursor: pointer;
-  position: relative;
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  height: auto;
-  padding: 6px 8px;
-  border-style: none;
-  border-color: transparent;
-  border-width: 0;
-  border-radius: 8px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 6px;
-  box-shadow: none;
+  padding: var(--sizing-and-spacing-1_5) var(--sizing-and-spacing-2);
+  background: var(--bg-surface_container);
+  gap: var(--sizing-and-spacing-1_5);
   flex-direction: row;
-  opacity: 1;
+  position: relative;
 
   .hint {
     color: var(--texticons-on_surface_low);
+  }
+
+  .hint,
+  .text_block {
+    font-family: var(--body1-condensed-regular-family);
+    line-height: var(--body1-condensed-regular-line-height);
+    letter-spacing: var(--body1-condensed-regular-letter-spacing);
+    font-size: var(--body1-condensed-regular-size);
+    font-weight: var(--body1-condensed-regular-weight);
+    text-transform: none;
   }
 
   .icon_placeholder {
@@ -26,72 +25,57 @@
     height: 20px;
   }
 
-  .icon_placeholder,
-  .text_block {
-    background: transparent;
-  }
-
   .state {
     position: absolute;
+    height: 50px;
+    background: rgba(255, 255, 255, 0);
+    gap: 0;
     right: 0;
     left: 0;
-    height: 50px;
-    border-radius: 8px;
-    justify-content: flex-start;
-    gap: 0px;
-    opacity: 1;
     flex-shrink: 0;
   }
 
-  .state,
   .text_block {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0px;
-    border-style: none;
-    border-color: transparent;
-    border-width: 0;
-    align-items: flex-start;
-    box-shadow: none;
-  }
-
-  .state,
-  &.selected .state,
-  &:disabled .state {
-    background: rgba(255, 255, 255, 0);
-  }
-
-  .text_block {
-    display: flex;
-    position: static;
-    height: auto;
     border-radius: 0;
     justify-content: center;
-    gap: 2px;
+    gap: var(--sizing-and-spacing-0_5);
     flex-direction: column;
     color: var(--texticons-on_surface);
   }
 
   .text_block,
-  .hint {
-    font-family: Inter;
-    line-height: 20px;
-    letter-spacing: 0;
-    font-size: 16px;
-    font-weight: 400;
-    text-transform: none;
+  .icon_placeholder {
+    background: transparent;
   }
 
   .text_block,
-  &:hover .text_block,
-  &.selected .text_block {
-    opacity: 1;
+  .state {
+    padding: 0;
   }
 
   &,
-  &:hover,
-  &:disabled {
-    background: var(--bg-surface_container);
+  .state {
+    border-radius: var(--rounding-m);
+    justify-content: flex-start;
+  }
+
+  &,
+  .text_block {
+    display: flex;
+    height: auto;
+  }
+
+  &,
+  .text_block,
+  .state {
+    box-sizing: border-box;
+    width: 100%;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    align-items: flex-start;
+    box-shadow: none;
+    opacity: 1;
   }
 
   &:disabled .text_block {

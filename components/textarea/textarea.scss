@@ -1,23 +1,11 @@
 @mixin textarea {
-  border-radius: 0;
   flex-shrink: 0;
   cursor: pointer;
-  box-sizing: border-box;
   display: inline-flex;
-  position: static;
   width: 320px;
   height: auto;
-  padding: 0px;
-  border-style: none;
-  border-color: transparent;
-  border-width: 0;
-  background: transparent;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 6px;
-  box-shadow: none;
+  gap: var(--sizing-and-spacing-1_5);
   flex-direction: column;
-  opacity: 1;
 
   ._Caret {
     width: 1px;
@@ -25,65 +13,45 @@
   }
 
   .hint {
-    line-height: 16px;
+    font-family: var(--body2-condensed-regular-family);
+    line-height: var(--body2-condensed-regular-line-height);
+    letter-spacing: var(--body2-condensed-regular-letter-spacing);
+    font-size: var(--body2-condensed-regular-size);
+    font-weight: var(--body2-condensed-regular-weight);
   }
 
   .hint,
   .text-block {
-    font-family: Inter;
-    letter-spacing: 0;
-    font-size: 14px;
-    font-weight: 400;
     text-transform: none;
-  }
-
-  .hint,
-  &:disabled .hint,
-  &:hover .hint,
-  &.active .hint,
-  &:focus-visible .hint {
     color: var(--texticons-on_surface_low);
   }
 
   .Scrollbar {
     position: absolute;
-    right: 0px;
     width: auto;
+    right: 0px;
   }
 
   .text-block {
-    position: static;
     height: 100%;
-    padding: 0px;
-    border-style: none;
-    border-color: transparent;
-    border-width: 0;
-    border-radius: 0;
-    background: transparent;
-    gap: 0px;
-    box-shadow: none;
-    line-height: 20px;
-    color: var(--texticons-on_surface_low);
-  }
-
-  .text-block,
-  &.error .text-block,
-  &:hover .text-block,
-  &.active .text-block,
-  &:focus-visible .text-block {
-    opacity: 1;
+    gap: 0;
+    font-family: var(--body2-regular-family);
+    line-height: var(--body2-regular-line-height);
+    letter-spacing: var(--body2-regular-letter-spacing);
+    font-size: var(--body2-regular-size);
+    font-weight: var(--body2-regular-weight);
   }
 
   .textarea {
-    position: relative;
-    padding: 10px 12px;
+    padding: var(--sizing-and-spacing-2_5) var(--sizing-and-spacing-3);
     border-style: solid;
-    border-color: var(--border-outline_variant);
+    border-color: var(--border-outline);
     border-width: 1px;
-    border-radius: 8px;
+    border-radius: var(--rounding-m);
     background: var(--bg-surface_dim);
-    gap: 8px;
-    opacity: 1;
+    gap: var(--sizing-and-spacing-2);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
+    position: relative;
   }
 
   .textarea,
@@ -93,18 +61,29 @@
 
   .textarea,
   .text-block {
-    box-sizing: border-box;
     display: flex;
     width: 100%;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-direction: row;
   }
 
-  .textarea,
-  &:disabled .textarea,
-  &.error .textarea {
+  &,
+  .text-block {
+    padding: 0;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    background: transparent;
     box-shadow: none;
+  }
+
+  &,
+  .textarea,
+  .text-block {
+    box-sizing: border-box;
+    align-items: flex-start;
+    justify-content: flex-start;
+    opacity: 1;
   }
 
   &:disabled .text-block {
@@ -117,17 +96,6 @@
 
   &:focus-visible .textarea {
     box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
-  }
-
-  &:hover .textarea,
-  &.active .textarea {
-    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
-  }
-
-  &:hover .textarea,
-  &.active .textarea,
-  &:focus-visible .textarea {
-    border-color: var(--border-outline);
   }
 
   &.error .hint {

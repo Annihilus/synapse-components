@@ -1,54 +1,55 @@
 @mixin dropdown {
-  box-sizing: border-box;
   display: inline-flex;
-  position: static;
   width: 240px;
-  height: auto;
-  padding: 4px;
+  padding: var(--sizing-and-spacing-1);
   border-style: solid;
   border-color: var(--border-outline_variant);
   border-width: 1px;
-  border-radius: 12px;
+  border-radius: var(--rounding-l);
   background: var(--bg-surface_container);
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 2px;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.07999999821186066), 0px 0px 4px 0px rgba(0, 0, 0, 0.03999999910593033);
-  flex-direction: column;
-  opacity: 1;
   flex-shrink: 0;
 
   .hint {
-    font-family: Inter;
-    line-height: 20px;
-    letter-spacing: 0;
-    font-size: 16px;
-    font-weight: 400;
+    font-family: var(--body1-condensed-regular-family);
+    line-height: var(--body1-condensed-regular-line-height);
+    letter-spacing: var(--body1-condensed-regular-letter-spacing);
+    font-size: var(--body1-condensed-regular-size);
+    font-weight: var(--body1-condensed-regular-weight);
     text-transform: none;
     color: var(--texticons-on_surface_low);
   }
 
   .Slot {
-    box-sizing: border-box;
     display: flex;
-    position: static;
-    padding: 0px;
+    padding: 0;
     border-style: none;
     border-color: transparent;
     border-width: 0;
     border-radius: 0;
     background: transparent;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 2px;
     box-shadow: none;
-    flex-direction: column;
-    opacity: 1;
   }
 
   .Slot,
   .item {
     width: 100%;
+  }
+
+  &,
+  .Slot {
+    box-sizing: border-box;
+    position: static;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--sizing-and-spacing-0_5);
+    flex-direction: column;
+    opacity: 1;
+  }
+
+  &,
+  .Slot,
+  .item {
     height: auto;
   }
 }

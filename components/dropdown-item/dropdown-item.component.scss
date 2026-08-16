@@ -1,0 +1,20 @@
+@use './dropdown-item' as *;
+
+:host {
+  @include dropdown-item;
+
+  // The mixin ships Figma's fixed 50px overlay; stretch it over the real row so
+  // hover covers the whole item whatever its content height.
+  .state {
+    inset: 0;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  // Decorative only — the row itself is the button, so the checkbox must not
+  // swallow the click and toggle a second, conflicting state.
+  .checkbox {
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+}

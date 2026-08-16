@@ -1,0 +1,123 @@
+@mixin dropdown-item {
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 6px 8px;
+  border-style: none;
+  border-color: transparent;
+  border-width: 0;
+  border-radius: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+  box-shadow: none;
+  flex-direction: row;
+  opacity: 1;
+
+  .hint {
+    // Trailing slot: pushed to the far edge, away from the text block.
+    margin-left: auto;
+    color: var(--texticons-on_surface_low);
+  }
+
+  .icon_placeholder {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .icon_placeholder,
+  .text_block {
+    background: transparent;
+  }
+
+  .state {
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 50px;
+    border-radius: 8px;
+    justify-content: flex-start;
+    gap: 0px;
+    opacity: 1;
+    flex-shrink: 0;
+  }
+
+  .state,
+  .text_block {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    align-items: flex-start;
+    box-shadow: none;
+  }
+
+  .state,
+  &.selected .state,
+  &:disabled .state {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  .text_block {
+    display: flex;
+    position: static;
+    height: auto;
+    border-radius: 0;
+    justify-content: center;
+    gap: 2px;
+    flex-direction: column;
+    color: var(--texticons-on_surface);
+  }
+
+  .text_block,
+  .hint {
+    font-family: Inter;
+    line-height: 20px;
+    letter-spacing: 0;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .description {
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--texticons-on_surface_variant);
+  }
+
+  .text_block,
+  &:hover .text_block,
+  &.selected .text_block {
+    opacity: 1;
+  }
+
+  &,
+  &:hover,
+  &:disabled {
+    background: var(--bg-surface_container);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:disabled .text_block,
+  &:disabled .icon_placeholder,
+  &:disabled .hint {
+    opacity: var(--texticons-disabled_number);
+  }
+
+  &:hover .state {
+    background: var(--bg-hover_color);
+  }
+
+  &.selected {
+    background: var(--bg-surface_high);
+  }
+}

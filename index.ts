@@ -3,6 +3,7 @@ export * from './components/breadcrumbs';
 export * from './components/table/table.component';
 export * from './components/label/label.component';
 export * from './components/select/select.component';
+export * from './components/dropdown-item/dropdown-item.component';
 export * from './components/button';
 export * from './components/checkbox/checkbox.component';
 export * from './components/radio-button/radio-group/radio-group.component';

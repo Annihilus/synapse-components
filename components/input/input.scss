@@ -1,34 +1,38 @@
 @mixin input {
-  border-radius: 0;
-  flex-shrink: 0;
   cursor: pointer;
-  box-sizing: border-box;
-  display: inline-flex;
-  position: static;
   width: 320px;
-  height: auto;
-  padding: 0px;
-  border-style: none;
-  border-color: transparent;
-  border-width: 0;
-  background: transparent;
   align-items: flex-start;
-  justify-content: flex-start;
-  gap: 6px;
-  box-shadow: none;
+  gap: var(--sizing-and-spacing-1_5);
   flex-direction: column;
-  opacity: 1;
 
   ._Caret {
     width: 1px;
   }
 
   .hint,
-  &:disabled .hint,
-  &:hover .hint,
-  &.active .hint,
-  &:focus-visible .hint {
+  .icon,
+  .text-block,
+  .Label,
+  .question,
+  .required {
     color: var(--texticons-on_surface_low);
+  }
+
+  .hint,
+  .Label,
+  .required {
+    font-family: var(--body2-condensed-regular-family);
+    line-height: var(--body2-condensed-regular-line-height);
+    letter-spacing: var(--body2-condensed-regular-letter-spacing);
+    font-size: var(--body2-condensed-regular-size);
+    font-weight: var(--body2-condensed-regular-weight);
+  }
+
+  .hint,
+  .text-block,
+  .Label,
+  .required {
+    text-transform: none;
   }
 
   .icon {
@@ -40,117 +44,60 @@
     height: 16px;
   }
 
-  .icon,
-  &:disabled .icon,
-  &.active .icon,
-  &:focus-visible .icon {
-    color: var(--texticons-on_surface_low);
-  }
-
   .input {
-    width: auto;
     height: 40px;
-    padding: 8px 12px;
-    border-style: solid;
-    border-color: var(--border-outline_variant);
-    border-width: 1px;
-    border-radius: 8px;
-    gap: 8px;
-    opacity: 1;
+    padding: var(--sizing-and-spacing-2) var(--sizing-and-spacing-3);
+    border-color: var(--border-outline);
+    border-radius: var(--rounding-m);
+    background: var(--bg-surface_dim);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
   }
 
+  .text-block {
+    width: 220px;
+    gap: 0;
+    font-family: var(--body2-regular-family);
+    line-height: var(--body2-regular-line-height);
+    letter-spacing: var(--body2-regular-letter-spacing);
+    font-size: var(--body2-regular-size);
+    font-weight: var(--body2-regular-weight);
+  }
+
+  &,
   .input,
   .text-block {
     box-sizing: border-box;
     display: inline-flex;
     position: static;
-    align-items: center;
     justify-content: flex-start;
-    flex-direction: row;
+    opacity: 1;
   }
 
-  .input,
-  &:disabled .input,
-  &.error .input,
-  &.active .input,
-  &:focus-visible .input {
-    background: var(--bg-surface_dim);
-  }
-
-  .input,
-  &:disabled .input,
-  &.error .input,
-  &.inline .input,
-  &:disabled.inline .input,
-  &:hover:disabled.inline .input,
-  &.error.inline .input,
-  &:hover.error.inline .input,
-  &:hover.inline .input,
-  &.active.inline .input,
-  &:hover.active.inline .input,
-  &:focus-visible.inline .input,
-  &:hover:focus-visible.inline .input {
+  &,
+  .text-block {
+    height: auto;
+    padding: 0;
+    border-radius: 0;
     box-shadow: none;
+    flex-shrink: 0;
   }
 
-  .Label,
-  .hint,
-  .required {
-    line-height: 16px;
-  }
-
-  .Label,
-  .hint,
-  .text-block,
-  .required {
-    font-family: Inter;
-    letter-spacing: 0;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: none;
-  }
-
-  .Label,
+  &,
+  &:hover.inline .input,
   .icon,
   .text-block,
+  .Label,
   .question,
   ._Caret {
     background: transparent;
   }
 
-  .Label,
-  .required,
-  .question {
-    color: var(--texticons-on_surface_low);
-  }
-
+  &,
+  &.inline .input,
   .text-block {
-    width: 220px;
-    height: auto;
-    padding: 0px;
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    border-radius: 0;
-    gap: 0px;
-    box-shadow: none;
-    flex-shrink: 0;
-    line-height: 20px;
-  }
-
-  .text-block,
-  &:disabled .text-block,
-  &.error .text-block,
-  &.active .text-block,
-  &:focus-visible .text-block {
-    color: var(--texticons-on_surface_low);
-  }
-
-  .text-block,
-  &.error .text-block,
-  &.active .text-block,
-  &:focus-visible .text-block {
-    opacity: 1;
   }
 
   &:disabled .input {
@@ -165,30 +112,13 @@
     box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
   }
 
-  &:hover .input,
-  &.active .input {
-    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
-  }
-
-  &:hover .input,
-  &.active .input,
-  &:focus-visible .input {
-    border-color: var(--border-outline);
-  }
-
-  &:hover.inline .input {
-    background: transparent;
-  }
-
   &:hover.inline .text-block {
     color: var(--texticons-on_surface_variant);
   }
 
-  &.error .hint {
-    color: var(--texticons-danger);
-  }
-
-  &.error .icon {
+  &.error .hint,
+  &.error .icon,
+  &.error.inline .text-block {
     color: var(--texticons-danger);
   }
 
@@ -196,61 +126,47 @@
     border-color: var(--border-outline_danger);
   }
 
-  &.error.inline .text-block,
-  &.filled.error.inline .text-block {
-    color: var(--texticons-danger);
-  }
-
-  &.filled .text-block,
-  &.filled:disabled .text-block,
-  &.filled.error .text-block,
-  &.filled.active .text-block,
-  &.filled:focus-visible .text-block {
+  &.filled .text-block {
     color: var(--texticons-on_surface);
   }
 
   &.inline {
-    width: auto;
-    border-style: solid;
     border-color: rgba(255, 255, 255, 0);
-    border-width: 1px;
-    border-radius: 6px;
-    align-items: center;
-    gap: 8px;
-    flex-direction: row;
   }
 
   &.inline .input {
     height: 28px;
-    padding: 4px;
-    border-style: none;
-    border-width: 0;
-    border-radius: 6px;
-  }
-
-  &.inline .input,
-  &:disabled.inline .input,
-  &:hover:disabled.inline .input,
-  &.error.inline .input,
-  &:hover.error.inline .input,
-  &:hover.inline .input,
-  &.active.inline .input,
-  &:hover.active.inline .input,
-  &:focus-visible.inline .input,
-  &:hover:focus-visible.inline .input {
-    border-color: transparent;
-  }
-
-  &.inline .input,
-  &:disabled.inline .input,
-  &.error.inline .input,
-  &.active.inline .input,
-  &:focus-visible.inline .input {
+    padding: var(--sizing-and-spacing-1);
     background: rgba(255, 255, 255, 0);
+    gap: 8px;
   }
 
   &.inline .text-block {
-    width: auto;
     height: 20px;
+  }
+
+  &.inline,
+  .input {
+    border-style: solid;
+    border-width: 1px;
+    gap: var(--sizing-and-spacing-2);
+  }
+
+  &.inline,
+  .input,
+  .text-block {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  &.inline,
+  .input,
+  &.inline .text-block {
+    width: auto;
+  }
+
+  &.inline,
+  &.inline .input {
+    border-radius: var(--rounding-s);
   }
 }
