@@ -1,5 +1,10 @@
-export * from './popover-ref';
-export * from './popover.directive';
-export * from './popover.module';
-export * from './popover.options';
-export * from './popover.service';
+export * from './popover.model';
+export * from './popover.defaults';
+export * from './popover.position';
+export * from './popover-panel.component';
+export {
+  SynapsePopoverBaseDirective,
+  SynapsePopoverDirective,
+  SynapseTooltipDirective,
+  SynapseDropdownDirective,
+} from './popover.directive';

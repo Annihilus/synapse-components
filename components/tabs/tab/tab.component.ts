@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   effect,
   inject,
   input,
@@ -12,14 +12,19 @@ import { SynapseTabsService } from '../tabs.service';
 
 @Component({
   selector: 'syn-tab',
-  imports: [CommonModule],
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'syn-tab',
+    'role': 'tab',
     '[class.selected]': 'isSelected()',
-    '(click)': 'selectTab()'
+    '[attr.aria-selected]': 'isSelected()',
+    // Roving tabindex: one Tab reaches the list, arrows move within it.
+    '[attr.tabindex]': 'isSelected() ? 0 : -1',
+    '(click)': 'selectTab()',
+    '(keydown.enter)': 'selectTab()',
+    '(keydown.space)': 'onSpace($event)',
   },
 })
 export class SynapseTabComponent {
@@ -29,7 +34,7 @@ export class SynapseTabComponent {
 
   name = input('');
 
-  // select = output<boolean>();
+  readonly elementRef = inject(ElementRef<HTMLElement>);
 
   private readonly _service = inject(SynapseTabsService);
 
@@ -39,12 +44,21 @@ export class SynapseTabComponent {
     });
   }
 
+  protected onSpace(event: Event) {
+    // On `role="tab"` Space activates the tab instead of scrolling the page.
+    event.preventDefault();
+    this.selectTab();
+  }
+
+  focus() {
+    this.elementRef.nativeElement.focus();
+  }
+
   deselectTab() {
     this.isSelected.set(false);
   }
 
   selectTab() {
-    console.log('tt');
     this.isSelected.set(true);
     this._service.select(this);
   }

@@ -1,56 +1,92 @@
 import { HttpClient } from '@angular/common/http';
 import {
+  ChangeDetectionStrategy,
   Component,
-  effect,
+  ElementRef,
   HostBinding,
+  Injectable,
+  InjectionToken,
   inject,
   input,
-  signal,
 } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import {
   DomSanitizer,
   SafeHtml,
 } from '@angular/platform-browser';
+import {
+  Observable,
+  catchError,
+  map,
+  of,
+  shareReplay,
+  switchMap,
+} from 'rxjs';
+
+/**
+ * Base path for the icon files, so the library can live in an app that serves
+ * them from somewhere other than `/icons`.
+ */
+export const SYNAPSE_ICON_BASE_PATH = new InjectionToken<string>(
+  'SYNAPSE_ICON_BASE_PATH',
+  { providedIn: 'root', factory: () => '/icons' },
+);
+
+/** Without the cache every `<syn-icon>` would request the same file again. */
+@Injectable({ providedIn: 'root' })
+export class SynapseIconLoader {
+  private readonly http = inject(HttpClient);
+
+  private readonly basePath = inject(SYNAPSE_ICON_BASE_PATH);
+
+  private readonly cache = new Map<string, Observable<string>>();
+
+  load(name: string): Observable<string> {
+    const url = `${this.basePath}/${name}.svg`;
+    const cached = this.cache.get(url);
+
+    if (cached) return cached;
+
+    const request$ = this.http.get(url, { responseType: 'text' }).pipe(
+      map(rawSvg => rawSvg.replace(
+        /^<svg/,
+        `<svg fill="currentColor" style="display:inline-block;vertical-align:middle"`,
+      )),
+      // A missing icon must not kill the stream and strand the component.
+      catchError(() => of('')),
+      shareReplay({ bufferSize: 1, refCount: false }),
+    );
+
+    this.cache.set(url, request$);
+
+    return request$;
+  }
+}
 
 @Component({
   selector: 'syn-icon',
   template: '',
   styleUrls: ['./icon.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SynapseIconComponent {
-  // 1️⃣ The signal input for the icon name
   readonly name = input.required<string>();
 
-  // 2️⃣ Inject HttpClient + DomSanitizer
-  private readonly http = inject(HttpClient);
+  /** Exposed so hosts such as `syn-button` can locate the projected icon. */
+  readonly elementRef = inject(ElementRef<HTMLElement>);
+
+  private readonly loader = inject(SynapseIconLoader);
 
   private readonly sanitizer = inject(DomSanitizer);
 
-  // 3️⃣ A signal to hold our sanitized SVG
-  private readonly svgHtml = signal<SafeHtml | ''>('');
-
-  // 4️⃣ Load on instantiation (field‐initializer = injection context)
-  private readonly loadIcon = effect(() => {
-    const iconName = this.name();
-    if (!iconName) {
-      this.svgHtml.set('');
-      return;
-    }
-
-    this.http
-      .get(`/icons/${iconName}.svg`, { responseType: 'text' })
-      .subscribe(rawSvg => {
-        // Optional: inject styling attributes on the <svg> tag
-        const patched = rawSvg.replace(
-          /^<svg/,
-          `<svg fill="currentColor" style="display:inline-block;vertical-align:middle"`
-        );
-
-        // Bypass Angular’s sanitizer for our trusted asset
-        const safe = this.sanitizer.bypassSecurityTrustHtml(patched);
-        this.svgHtml.set(safe);
-      });
-  });
+  /** switchMap keeps a late response from overwriting a newer icon. */
+  private readonly svgHtml = toSignal(
+    toObservable(this.name).pipe(
+      switchMap(iconName => iconName ? this.loader.load(iconName) : of('')),
+      map((raw): SafeHtml | '' => raw ? this.sanitizer.bypassSecurityTrustHtml(raw) : ''),
+    ),
+    { initialValue: '' as SafeHtml | '' },
+  );
 
   @HostBinding('innerHTML')
   get innerHTML(): SafeHtml | '' {

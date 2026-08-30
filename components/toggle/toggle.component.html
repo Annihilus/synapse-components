@@ -3,13 +3,14 @@
 </span>
 
 <input
-  [style.display]="'none'"
   #checkbox
   type="checkbox"
   class="hidden-checkbox"
   [checked]="isChecked()"
+  [disabled]="disabled()"
+  [attr.aria-label]="description() || null"
   (focus)="setFocusState(true)"
-  (blur)="setFocusState(false)"
+  (blur)="onBlur()"
   (change)="setCheckedState($event)"
 />
 

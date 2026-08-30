@@ -1,37 +1,35 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  Signal,
   computed,
   contentChild,
-  effect,
-  ElementRef,
   forwardRef,
   inject,
   input,
-  Signal,
-  signal,
   viewChild,
 } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import {
   fromEvent,
   map,
   merge,
   of,
+  shareReplay,
   switchMap,
   tap,
 } from 'rxjs';
 
 import { SynapseIconComponent } from '../icon/icon.component';
 import { SynapseLabelComponent } from '../label/label.component';
-import { IwElementFilledStateDirective, IwElementFormControlDirective, IwElementValidStateDirective, IwElementValueControlDirective } from '../control-directives';
-import { ReactiveFormsModule } from '@angular/forms';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { SynapseControlDirective, connectTextInput } from '../control-directives';
+
+let nextInputId = 0;
 
 @Component({
   selector: 'syn-input',
   imports: [
-    ReactiveFormsModule,
     SynapseLabelComponent,
     SynapseIconComponent,
   ],
@@ -46,97 +44,79 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
   },
   hostDirectives: [
     {
-      directive: IwElementFormControlDirective,
-      inputs: ['formControlName', 'formControl', 'errors'],
-    },
-    {
-      directive: IwElementValueControlDirective,
-      inputs: ['value'],
+      directive: SynapseControlDirective,
+      inputs: ['value', 'error', 'disabled'],
       outputs: ['valueChanged'],
-    },
-    {
-      directive: IwElementFilledStateDirective,
-      inputs: ['value'],
-    },
-    {
-      directive: IwElementValidStateDirective,
-      inputs: ['errors:error'],
     },
   ],
 })
 export class SynapseInputComponent {
+  protected readonly fieldId = `syn-input-${nextInputId++}`;
+
+  protected readonly control = inject(SynapseControlDirective<string>);
+
   label = input('');
   placeholder = input('');
-  error = input<string | string[]>('');
   tooltip = input('');
   required = input(false);
   inline = input<boolean>(false);
-  active = signal(false);
-  focused = signal(false);
 
-  private readonly _text = signal('');
+  readonly icon = contentChild(forwardRef(() => SynapseIconComponent));
 
-  protected readonly valueText = this._text.asReadonly();
+  readonly showError = this.control.showError;
 
-  public readonly icon = contentChild(forwardRef(() => SynapseIconComponent));
+  protected readonly errorText = computed(() => this.control.errorList().join(', '));
+
+  /** Drives the invisible sizer that widens the inline variant. */
+  protected readonly valueText = computed(() => this.control.current() ?? '');
 
   protected readonly isFocused: Signal<boolean | undefined>;
 
+  /** Pressed state, mirroring the `:active` styling hook in the mixin. */
+  protected readonly active: Signal<boolean>;
+
   private element = viewChild.required<ElementRef<HTMLInputElement>>('element');
 
-  protected readonly formControl = inject(IwElementFormControlDirective<string>);
-  private readonly _validState = inject(IwElementValidStateDirective);
-  private readonly filled = inject(IwElementFilledStateDirective<string>);
-  private readonly _valueControl = inject(IwElementValueControlDirective<string>);
-
-  /**
-   * Whether to render the error state. With forms: touched + invalid (gated by
-   * the form-control directive). Without forms: as soon as a non-empty `[error]`
-   * is passed directly, surfaced via the valid-state directive.
-   */
-  protected readonly showError = computed(() =>
-    !!this.formControl.displayErrors() ||
-    (!this.formControl.control() && this._validState.isInvalid()),
-  );
-
   constructor() {
-    const registerStream$ = toObservable<ElementRef<HTMLInputElement>>(this.element)
-      .pipe(
-        map(element => element.nativeElement),
-        tap((element: HTMLInputElement) => {
-          this._valueControl.registerInputElement(element);
-          this.filled.registerElement(element);
-          this.formControl.registerElement(element);
-        }),
-        switchMap(element => this._getFocusStream(element)),
-      );
+    connectTextInput(this.control, this.element);
 
-    this.isFocused = toSignal(registerStream$);
+    const element$ = toObservable(this.element).pipe(
+      map(ref => ref.nativeElement),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    );
 
-    effect((onCleanup) => {
-      const bound = this._valueControl.value();
-      if (bound !== undefined) this._text.set(bound);
+    this.isFocused = toSignal(element$.pipe(switchMap(element => this.focusStream(element))));
 
-      const control = this.formControl.control();
-      if (!control) return;
-
-      this._text.set((control.value ?? '') as string);
-
-      const sub = control.valueChanges.subscribe((value) =>
-        this._text.set((value ?? '') as string),
-      );
-      onCleanup(() => sub.unsubscribe());
-    });
+    this.active = toSignal(
+      element$.pipe(switchMap(element => this.activeStream(element))),
+      { initialValue: false },
+    );
   }
 
-  protected onInput(value: string): void {
-    this._text.set(value);
-  }
-
-  private _getFocusStream(element: HTMLInputElement) {
+  private focusStream(element: HTMLInputElement) {
     return merge(
       fromEvent(element, 'focus').pipe(map(() => true)),
-      fromEvent(element, 'blur').pipe(map(() => false)),
+      fromEvent(element, 'blur').pipe(
+        // Rewind so `text-overflow: ellipsis` trims the tail rather than
+        // leaving the field scrolled to the caret.
+        tap(() => { element.scrollLeft = 0; }),
+        map(() => false),
+      ),
     );
+  }
+
+  private activeStream(element: HTMLInputElement) {
+    const activate$ = merge(
+      fromEvent(element, 'mousedown'),
+      fromEvent(element, 'touchstart'),
+    );
+
+    const deactivate$ = merge(
+      fromEvent(element, 'mouseup'),
+      fromEvent(element, 'mouseleave'),
+      fromEvent(element, 'touchend'),
+    ).pipe(map(() => false));
+
+    return activate$.pipe(switchMap(() => merge(of(true), deactivate$)));
   }
 }

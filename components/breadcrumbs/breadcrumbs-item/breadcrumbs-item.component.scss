@@ -1,7 +1,5 @@
 @use './breadcrumbs-item' as *;
 
 :host {
-  cursor: pointer;
-
   @include breadcrumbs-Item;
 }

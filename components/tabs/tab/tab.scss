@@ -70,6 +70,11 @@
     background: var(--bg-hover_color);
   }
 
+  &:hover-true,
+  &.selected-true {
+    color: var(--texticons-on_surface);
+  }
+
   &.selected {
     background: var(--bg-surface_high);
   }

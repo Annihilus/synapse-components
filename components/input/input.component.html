@@ -1,5 +1,5 @@
 @if (!inline() && label()) {
-  <label syn-label>
+  <label syn-label [attr.for]="fieldId">
     {{ label() }}
 
     @if (required()) {
@@ -9,25 +9,25 @@
     @if (tooltip()) {
       <syn-icon class="icon" name="question" />
     }
-
   </label>
 }
 
 <div class="input">
   @if (icon()) {
     <div class="icon">
-      <ng-content select="syn-icon"></ng-content>
+      <ng-content select="syn-icon" />
     </div>
   }
 
   <div class="field">
     <input
       class="text-block"
-      [placeholder]="placeholder()"
-      [attr.size]="inline() ? 1 : null"
-      (input)="onInput(element.value)"
-      #element
       type="text"
+      #element
+      [id]="fieldId"
+      [placeholder]="placeholder()"
+      [disabled]="control.disabled()"
+      [attr.size]="inline() ? 1 : null"
     >
 
     @if (!valueText()) {
@@ -36,12 +36,11 @@
     <span class="sizer" aria-hidden="true">{{ valueText() }}</span>
   </div>
 
-  <ng-content select="[synPostfix]"></ng-content>
-
+  <ng-content select="[synPostfix]" />
 </div>
 
-@if (!inline() && error()) {
+@if (!inline() && showError() && errorText()) {
   <div class="hint">
-    {{ error() }}
+    {{ errorText() }}
   </div>
 }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { SynapseButtonComponent } from "../../button/button.component";
 
 @Component({
@@ -6,5 +6,6 @@ import { SynapseButtonComponent } from "../../button/button.component";
   imports: [SynapseButtonComponent],
   templateUrl: './modal-footer.component.html',
   styleUrls: ['./modal-footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SynapseModalFooterComponent {}

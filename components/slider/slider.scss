@@ -1,26 +1,34 @@
 @mixin slider {
+  display: inline-flex;
+  position: relative;
   width: 116px;
   background: var(--bg-surface_container);
+  align-items: center;
+  gap: 10px;
+  flex-direction: row;
 
   .thumb {
+    position: absolute;
     width: 24px;
     background: var(--bg-inverse_surface);
+    align-items: flex-start;
+    gap: 0;
+    top: 0px;
+    left: 0px;
   }
 
   &,
   .thumb {
     box-sizing: border-box;
-    position: static;
     height: 24px;
     padding: 0;
     border-style: none;
     border-color: transparent;
     border-width: 0;
     border-radius: var(--rounding-m);
-    align-items: flex-start;
     justify-content: flex-start;
-    gap: 0;
     box-shadow: none;
     opacity: 1;
+    flex-shrink: 0;
   }
 }

@@ -11,7 +11,6 @@
   .indicator {
     width: 16px;
     height: 16px;
-    border-radius: 100px;
     background: var(--bg-surface_container);
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05999999865889549), 0px 1px 3px 0px rgba(16, 24, 40, 0.10000000149011612);
   }
@@ -45,14 +44,15 @@
   }
 
   &,
-  .state {
-    height: 20px;
-    box-shadow: none;
+  .indicator,
+  &:hover .state {
+    border-radius: var(--rounding-full);
   }
 
   &,
-  &:hover .state {
-    border-radius: var(--rounding-full);
+  .state {
+    height: 20px;
+    box-shadow: none;
   }
 
   &:disabled {

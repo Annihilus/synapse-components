@@ -1,14 +1,14 @@
-import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   input,
 } from '@angular/core';
 
 @Component({
   selector: 'syn-breadcrumbs-item',
-  imports: [CommonModule],
   templateUrl: './breadcrumbs-item.component.html',
   styleUrl: './breadcrumbs-item.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.selected]': 'selected()'
   }

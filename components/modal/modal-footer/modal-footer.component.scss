@@ -1,5 +1,7 @@
 @use './modal-footer' as footer;
+@use './modal-footer.responsive' as responsive;
 
 :host {
-  @include footer.modal-Footer;
+  @include footer.modal-footer;
+  @include responsive.modal-footer-responsive;
 }

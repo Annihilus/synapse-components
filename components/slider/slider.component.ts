@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   afterNextRender,
   computed,
@@ -12,8 +13,7 @@ import {
   viewChild,
 } from '@angular/core';
 
-import { IwElementFormControlDirective, IwElementValueControlDirective } from '../control-directives';
-import { Subject } from 'rxjs';
+import { SynapseControlDirective } from '../control-directives';
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
@@ -26,7 +26,6 @@ function clamp(value: number, min: number, max: number): number {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     role: 'slider',
-    '[class.disabled]': 'disabled()',
     '[class.focus]': 'isFocused()',
     '[attr.tabindex]': 'disabled() ? -1 : 0',
     '[attr.aria-valuemin]': 'min()',
@@ -35,30 +34,30 @@ function clamp(value: number, min: number, max: number): number {
     '[attr.aria-disabled]': 'disabled()',
     '(pointerdown)': 'onPointerDown($event)',
     '(pointermove)': 'onPointerMove($event)',
+    '(pointerup)': 'onPointerUp($event)',
+    '(pointercancel)': 'onPointerUp($event)',
     '(keydown)': 'onKeyDown($event)',
     '(focus)': 'setFocusState(true)',
     '(blur)': 'setFocusState(false)',
   },
   hostDirectives: [
     {
-      directive: IwElementFormControlDirective,
-      inputs: ['formControlName', 'formControl', 'errors'],
-    },
-    {
-      directive: IwElementValueControlDirective,
-      inputs: ['value'],
+      directive: SynapseControlDirective,
+      inputs: ['value', 'disabled'],
       outputs: ['valueChanged'],
     },
   ],
 })
 export class SynapseSliderComponent {
+  private readonly control = inject(SynapseControlDirective<number>);
+
   min = input(0);
 
   max = input(100);
 
   step = input(1);
 
-  disabled = input(false);
+  readonly disabled = this.control.disabled;
 
   changeValue = output<number>();
 
@@ -79,34 +78,47 @@ export class SynapseSliderComponent {
 
   private readonly _thumbWidth = signal(24);
 
-  private readonly _valueChanged$ = new Subject<number>();
-
-  private readonly _valueControl = inject(IwElementValueControlDirective<number>);
-
   private readonly _host = inject(ElementRef<HTMLElement>);
 
+  private readonly _destroyRef = inject(DestroyRef);
+
   constructor() {
-    this._valueControl.registerEvent(this._valueChanged$);
-
-    // Reflect the bound [value] onto the internal signal used for rendering/dragging.
     effect(() => {
-      const controlValue = this._valueControl.value();
+      const bound = this.control.current();
 
-      if (controlValue !== undefined) {
-        this.value.set(clamp(controlValue, this.min(), this.max()));
+      if (bound !== undefined && bound !== null) {
+        this.value.set(clamp(bound, this.min(), this.max()));
       }
     });
 
     // Track/thumb are fixed-size per the design mixin, but measuring avoids
     // a second source of truth for their pixel widths.
+    // Re-measured on every host resize so the thumb keeps up with a fluid track.
     afterNextRender(() => {
-      this._trackWidth.set(this._host.nativeElement.offsetWidth);
-      this._thumbWidth.set(this._thumb().nativeElement.offsetWidth);
+      const host = this._host.nativeElement;
+
+      this._measure();
+
+      if (typeof ResizeObserver === 'undefined') return;
+
+      const observer = new ResizeObserver(() => this._measure());
+      observer.observe(host);
+
+      this._destroyRef.onDestroy(() => observer.disconnect());
     });
+  }
+
+  private _measure() {
+    this._trackWidth.set(this._host.nativeElement.offsetWidth);
+    this._thumbWidth.set(this._thumb().nativeElement.offsetWidth);
   }
 
   public setFocusState(state: boolean) {
     this.isFocused.set(state);
+
+    if (!state) {
+      this.control.markTouched();
+    }
   }
 
   public onPointerDown(event: PointerEvent) {
@@ -121,6 +133,14 @@ export class SynapseSliderComponent {
     if (this.disabled() || event.buttons !== 1) return;
 
     this.setValueFromPointer(event);
+  }
+
+  public onPointerUp(event: PointerEvent) {
+    const host = this._host.nativeElement;
+
+    if (host.hasPointerCapture(event.pointerId)) {
+      host.releasePointerCapture(event.pointerId);
+    }
   }
 
   public onKeyDown(event: KeyboardEvent) {
@@ -173,6 +193,6 @@ export class SynapseSliderComponent {
 
     this.value.set(next);
     this.changeValue.emit(next);
-    this._valueChanged$.next(next);
+    this.control.setValue(next);
   }
 }

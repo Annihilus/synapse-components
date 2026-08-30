@@ -23,6 +23,9 @@ export class SynapseTagComponent {
 
   canBeDeleted = input(false);
 
+  /** Accessible name for the remove button; the tag itself gives it no text. */
+  removeLabel = input('Remove');
+
   protected getColorClass() {
     return `color-${this.color()}`;
   }

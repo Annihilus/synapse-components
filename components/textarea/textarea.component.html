@@ -1,15 +1,21 @@
 @if (label()) {
-  <label syn-label [tooltip]="tooltip()" [required]="required()">
+  <label syn-label [attr.for]="fieldId" [tooltip]="tooltip()" [required]="required()">
     {{ label() }}
   </label>
 }
 
 <div class="textarea">
-  <textarea class="text-block" [placeholder]="placeholder()" #element type="text">{{ value() }}</textarea>
+  <textarea
+    class="text-block"
+    #element
+    [id]="fieldId"
+    [placeholder]="placeholder()"
+    [disabled]="control.disabled()"
+  ></textarea>
 </div>
 
-@if (error()) {
+@if (showError() && errorText()) {
   <div class="hint">
-    {{ error() }}
+    {{ errorText() }}
   </div>
 }

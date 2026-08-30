@@ -1,6 +1,9 @@
 <div
   class="modal-window size-{{ size }}"
-  tabindex="0"
+  #dialog
+  role="dialog"
+  aria-modal="true"
+  tabindex="-1"
 >
   <ng-container #content></ng-container>
 
@@ -10,6 +13,7 @@
       syn-button
       colorType="ghost"
       size="s"
+      aria-label="Close"
       (click)="close()"
     >
       <syn-icon name="close" />
@@ -17,10 +21,4 @@
   }
 </div>
 
-<div
-  class="overlay"
-  tabindex="0"
-  (click)="close()"
-  (keydown.enter)="close()"
-  (keydown.space)="close()"
-></div>
+<div class="overlay" aria-hidden="true"></div>

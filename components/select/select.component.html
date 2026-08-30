@@ -1,12 +1,21 @@
 @if (label()) {
-  <label class="label">{{ label() }}</label>
+  <span class="label" [id]="labelId">{{ label() }}</span>
 }
 
 <div
   class="select"
-  [iwDropdown]="{ content: selectTemplate, widthMinLimit: true }"
-  #dropdown="iwDropdown"
-  (isVisible)="active.set($event)"
+  role="combobox"
+  tabindex="0"
+  aria-haspopup="listbox"
+  [attr.aria-labelledby]="label() ? labelId : null"
+  [attr.aria-expanded]="active()"
+  [attr.aria-controls]="dropdown.panelId()"
+  [synDropdown]="{ content: selectTemplate, role: 'listbox' }"
+  #dropdown="synDropdown"
+  (openChange)="active.set($event)"
+  (keydown.enter)="openDropdown($event)"
+  (keydown.space)="openDropdown($event)"
+  (keydown.arrowdown)="openDropdown($event)"
 >
   @if (icon()) {
     <syn-icon class="icon" name="{{ icon() }}" />
@@ -41,12 +50,14 @@
   @for (item of itemsWithMetadata(); track item) {
     <div
       class="option"
-      tabindex="0"
+      [attr.tabindex]="item.disabled ? -1 : 0"
       (click)="selectItem(item)"
       (keyup.enter)="selectItem(item)"
       role="option"
       [class.selected]="isSelected(item)"
+      [class.disabled]="item.disabled"
       [attr.aria-selected]="isSelected(item)"
+      [attr.aria-disabled]="item.disabled"
     >
       <ng-container
         [ngTemplateOutlet]="selectItemTemplate"

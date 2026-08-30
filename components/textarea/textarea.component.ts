@@ -1,88 +1,102 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Signal,
+  computed,
+  inject,
   input,
-  signal,
   viewChild,
 } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import {
-  distinctUntilChanged,
   fromEvent,
   map,
   merge,
   of,
+  shareReplay,
   switchMap,
 } from 'rxjs';
 
-import { SynapseIconComponent } from '../icon/icon.component';
 import { SynapseLabelComponent } from '../label/label.component';
+import { SynapseControlDirective, connectTextInput } from '../control-directives';
+
+let nextTextareaId = 0;
 
 @Component({
   selector: 'syn-textarea',
-  imports: [
-    SynapseLabelComponent,
-    SynapseIconComponent,
-  ],
+  imports: [SynapseLabelComponent],
   templateUrl: './textarea.component.html',
   styleUrls: ['./textarea.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[class.error]': 'error()',
-    '[class.filled]': 'filled()',
-    '[class.focus]': 'focused()',
+    '[class.error]': 'showError()',
+    '[class.focus]': 'isFocused()',
     '[class.active]': 'active()',
-  }
+  },
+  hostDirectives: [
+    {
+      directive: SynapseControlDirective,
+      inputs: ['value', 'error', 'disabled'],
+      outputs: ['valueChanged'],
+    },
+  ],
 })
-export class SynapseTextareaComponent implements AfterViewInit {
+export class SynapseTextareaComponent {
+  protected readonly fieldId = `syn-textarea-${nextTextareaId++}`;
+
+  protected readonly control = inject(SynapseControlDirective<string>);
+
   label = input('');
   placeholder = input('');
-  value = input('');
-  error = input<string | string[]>('');
   tooltip = input('');
   required = input(false);
-  filled = signal(false);
-  active = signal(false);
-  focused = signal(false);
 
-  private element = viewChild<ElementRef<HTMLInputElement>>('element');
+  readonly showError = this.control.showError;
 
-  ngAfterViewInit(): void {
-    const el = this.element()?.nativeElement;
+  protected readonly errorText = computed(() => this.control.errorList().join(', '));
 
-    if (el) {
-      const activate$ = merge(
-        fromEvent(el, 'mousedown'),
-        fromEvent(el, 'touchstart')
-      ).pipe(map(() => true));
+  protected readonly isFocused: Signal<boolean | undefined>;
 
-      const deactivate$ = merge(
-        fromEvent(el, 'mouseup'),
-        fromEvent(el, 'mouseleave'),
-        fromEvent(el, 'touchend')
-      ).pipe(map(() => false));
+  protected readonly active: Signal<boolean>;
 
-      const active$ = activate$.pipe(
-        switchMap(() => merge(
-          of(true),
-          deactivate$
-        ))
-      );
+  private element = viewChild.required<ElementRef<HTMLTextAreaElement>>('element');
 
-      merge(
-        fromEvent(el, 'focus').pipe(map(() => true)),
-        fromEvent(el, 'blur').pipe(map(() => false)),
-      ).subscribe(isFocused => this.focused.set(isFocused));
+  constructor() {
+    connectTextInput(this.control, this.element);
 
-      fromEvent(el, 'input')
-        .pipe(
-          map(() => Boolean(el.value)),
-          distinctUntilChanged(),
-        )
-        .subscribe(val => this.filled.set(val))
+    const element$ = toObservable(this.element).pipe(
+      map(ref => ref.nativeElement),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    );
 
-      active$.subscribe(isActive => this.active.set(isActive));
-    }
+    this.isFocused = toSignal(element$.pipe(switchMap(element => this.focusStream(element))));
+
+    this.active = toSignal(
+      element$.pipe(switchMap(element => this.activeStream(element))),
+      { initialValue: false },
+    );
+  }
+
+  private focusStream(element: HTMLTextAreaElement) {
+    return merge(
+      fromEvent(element, 'focus').pipe(map(() => true)),
+      fromEvent(element, 'blur').pipe(map(() => false)),
+    );
+  }
+
+  private activeStream(element: HTMLTextAreaElement) {
+    const activate$ = merge(
+      fromEvent(element, 'mousedown'),
+      fromEvent(element, 'touchstart'),
+    );
+
+    const deactivate$ = merge(
+      fromEvent(element, 'mouseup'),
+      fromEvent(element, 'mouseleave'),
+      fromEvent(element, 'touchend'),
+    ).pipe(map(() => false));
+
+    return activate$.pipe(switchMap(() => merge(of(true), deactivate$)));
   }
 }

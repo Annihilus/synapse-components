@@ -2,10 +2,12 @@
   #radio
   type="radio"
   class="hidden-radio"
+  [attr.name]="groupName()"
   [checked]="isChecked()"
+  [disabled]="isDisabled()"
   (focus)="setFocusState(true)"
   (blur)="setFocusState(false)"
-  (change)="setCheckedState()"
+  (change)="onSelect()"
 />
 
 <div class="state"></div>

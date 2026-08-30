@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, Signal } from "@angular/core";
 import { SynapseSnackbarService } from "../snackbar.service";
 import { SynapseSnackbarComponent } from "../snackbar.component";
-import { SynapseButtonComponent } from "../../button/button.component";
+import { SnackbarMessage } from "../model";
 
 @Component({
   selector: 'syn-snackbar-container',
@@ -11,7 +11,7 @@ import { SynapseButtonComponent } from "../../button/button.component";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SynapseSnackbarContainerComponent {
-  public messages: Signal<any>;
+  public messages: Signal<readonly SnackbarMessage[]>;
 
   private readonly snackbarService = inject(SynapseSnackbarService);
 

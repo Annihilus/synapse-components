@@ -20,7 +20,7 @@
     color: var(--texticons-on_surface_low);
   }
 
-  .Slot {
+  .wrap {
     display: flex;
     padding: 0;
     border-style: none;
@@ -31,13 +31,13 @@
     box-shadow: none;
   }
 
-  .Slot,
+  .wrap,
   .item {
     width: 100%;
   }
 
   &,
-  .Slot {
+  .wrap {
     box-sizing: border-box;
     position: static;
     align-items: flex-start;
@@ -48,7 +48,7 @@
   }
 
   &,
-  .Slot,
+  .wrap,
   .item {
     height: auto;
   }

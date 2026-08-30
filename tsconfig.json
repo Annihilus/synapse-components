@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
@@ -14,9 +14,11 @@
       "rxjs": ["../synapse-ui/node_modules/rxjs"],
       "rxjs/*": ["../synapse-ui/node_modules/rxjs/*"],
       "tslib": ["../synapse-ui/node_modules/tslib"],
-      "@popperjs/core": ["../synapse-ui/node_modules/@popperjs/core/lib"]
+      "jest-preset-angular": ["../synapse-ui/node_modules/jest-preset-angular"],
+      "jest-preset-angular/*": ["../synapse-ui/node_modules/jest-preset-angular/*"],
     },
-    "types": []
+    "typeRoots": ["../synapse-ui/node_modules/@types"],
+    "types": ["jest"]
   },
-  "include": ["components/**/*.ts"]
+  "include": ["components/**/*.ts", "testing/**/*.ts", "index.ts", "test-setup.ts"]
 }

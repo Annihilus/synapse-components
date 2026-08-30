@@ -43,7 +43,7 @@
     overflow: hidden;
     width: max-content;
     min-width: 20px;
-    max-width: 100%;
+    max-width: var(--syn-inline-input-max-width, 100%);
 
     > * {
       grid-area: 1 / 1;
@@ -52,6 +52,11 @@
 
   .text-block {
     min-width: 0;
+    text-overflow: clip;
+  }
+
+  &:not(.focus) .text-block {
+    text-overflow: ellipsis;
   }
 
   .sizer {

@@ -2,15 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  computed,
   inject,
   input,
   output,
   signal,
-  Signal,
   viewChild,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
 
 import { SynapseRadioService } from '../radio.service';
 
@@ -21,41 +19,42 @@ import { SynapseRadioService } from '../radio.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'syn-radio-button',
-    '[class.disabled]': 'disabled()',
+    '[class.disabled]': 'isDisabled()',
     '[class.checked]': 'isChecked()',
     '[class.focus]': 'isFocused()',
     '(click)': 'onHostClick($event)',
   },
 })
-export class SynapseRadioButtonComponent {
-  name = input('');
+export class SynapseRadioButtonComponent<T = unknown> {
+  value = input.required<T>();
 
-  disabled = input();
+  disabled = input(false);
 
   focused = output<boolean>();
 
   isFocused = signal(false);
 
-  isChecked: Signal<boolean>;
+  private readonly service = inject<SynapseRadioService<T> | null>(SynapseRadioService, {
+    optional: true,
+  });
+
+  /** Null outside a group: the input stays ungrouped instead of crashing. */
+  readonly groupName = computed(() => this.service?.groupName ?? null);
+
+  readonly isChecked = computed(() => this.service?.isSelected(this.value()) ?? false);
+
+  readonly isDisabled = computed(() => this.disabled() || (this.service?.disabled() ?? false));
 
   private readonly _radio = viewChild.required<ElementRef<HTMLInputElement>>('radio');
 
-  private readonly service = inject(SynapseRadioService);
-
-  constructor() {
-    this.isChecked = toSignal(
-      this.service.selected$.pipe(map(selected => selected === this.name())),
-      { initialValue: false },
-    );
-  }
-
-  public setFocusState(state: boolean) {
+  setFocusState(state: boolean) {
     this.isFocused.set(state);
     this.focused.emit(state);
   }
 
-  public setCheckedState() {
-    this.service.setSelected(this.name());
+  /** Fires for a click and for arrow-key navigation between native radios. */
+  onSelect() {
+    this.service?.select(this.value());
   }
 
   /**
@@ -63,8 +62,8 @@ export class SynapseRadioButtonComponent {
    * (the visual circle). Forward them to the input — ignoring clicks that
    * already originated from it.
    */
-  public onHostClick(event: Event) {
-    if (this.disabled()) return;
+  onHostClick(event: Event) {
+    if (this.isDisabled()) return;
 
     const radio = this._radio().nativeElement;
 

@@ -2,92 +2,92 @@
 
 ## Description
 
-# Button
+Button
 
-## Описание
-Базовый компонент кнопки Synapse Design System. Используется для запроса действия: подтверждение, отправка формы, навигация, деструктивные операции.
+Description
+Basic button component of the Synapse Design System. Used to request an action: confirmation, form submission, navigation, destructive operations.
 
-## Поведение
-Реагирует на hover / focus / disabled / loading через варианты компонента. В состоянии Loading лейбл/иконка заменяются спиннером, клик заблокирован. В Disabled клик и hover-реакция отключены.
+Behavior
+Responds to hover / focus / disabled / loading states via component variants. In Loading state, label/icon are replaced by a spinner, click is blocked. In Disabled state, click and hover reactions are disabled.
 
-## Состояния
-- Default — базовый вид
-- Hover — курсор наведён
-- Focus — клавиатурный фокус (кольцо фокуса), вариант Focused
-- Active — не выделен отдельным вариантом в компоненте
-- Disabled — недоступна, клик и hover-реакция заблокированы
-- Loading — идёт асинхронное действие, спиннер вместо контента, клик заблокирован
-- Error — не применимо, отдельного Error-варианта нет
+States
+- Default — basic appearance
+- Hover — cursor hovered
+- Focus — keyboard focus (focus ring), Focused variant
+- Active — not separately highlighted in the component
+- Disabled — unavailable, click and hover reactions blocked
+- Loading — asynchronous action in progress, spinner instead of content, click blocked
+- Error — not applicable, no separate Error variant
 
-## Виды (ColorType)
-- Primary — основное действие на экране (одно на группу)
-- Secondary — второстепенное действие
-- Outlined — альтернативное действие, менее выделено
-- Ghost — минимальный акцент, третичное действие
-- Danger — деструктивные операции (удаление и т.п.)
+Types (ColorType)
+- Primary — main action on screen (one per group)
+- Secondary — secondary action
+- Outlined — alternative action, less prominent
+- Ghost — minimal emphasis, tertiary action
+- Danger — destructive operations (deletion, etc.)
 
-## Вид на разных устройствах
-- Mobile — отдельного варианта нет, размер выбирается через Size (обычно m/s под touch-таргет)
-- Desktop — отдельного варианта нет, доступны все Size (xs–l)
+Appearance on different devices
+- Mobile — no separate variant, size chosen via Size (usually m/s for touch target)
+- Desktop — no separate variant, all Sizes available (xs–l)
 
-## Анатомия элемента
-- State layer — прозрачный оверлей на всю кнопку, меняется по hover/focus/loading
-- Label — текст кнопки (опционально, скрывается при Icon=True)
-- Icon — опциональная иконка, позиция задаётся Icon=Left/Right/True
+Element anatomy
+- State layer — transparent overlay over entire button, changes on hover/focus/loading
+- Label — button text (optional, hidden when Icon=True)
+- Icon — optional icon, position set by Icon=Left/Right/True
 
-## Размеры (Size) и отступы
-- l — 48px высота, padding 24/12px (lr/tb), radius 8px (btn-radius-large), типографика Body1 16/24
-- m — 40px высота, padding 16/12px (lr/tb), radius 8px (btn-radius-large), типографика Body2 14/16
-- s — 32px высота, padding 12/8px (lr/tb), radius 8px (btn-radius-large), типографика Body2 14/16
-- xs — 24px высота, padding 8/4px (lr/tb), radius 6px (btn-radius-small), типографика Small 12/16
+Sizes (Size) and padding
+- l — 48px height, padding 24/12px (lr/tb), radius 8px (btn-radius-large), typography Body1 16/24
+- m — 40px height, padding 16/12px (lr/tb), radius 8px (btn-radius-large), typography Body2 14/16
+- s — 32px height, padding 12/8px (lr/tb), radius 8px (btn-radius-large), typography Body2 14/16
+- xs — 24px height, padding 8/4px (lr/tb), radius 6px (btn-radius-small), typography Small 12/16
 
-## Мин / Макс размеры
-- Min width: не задан — ширина по контенту (hug), кроме Icon=True (квадрат = высота)
-- Max width: не задан
+Min / Max sizes
+- Min width: not set — width fits content (hug), except Icon=True (square = height)
+- Max width: not set
 - Min height: 24px (Size=xs)
 - Max height: 48px (Size=l)
 
-## Иконка (Icon)
-- False — только текст
-- Left — иконка перед текстом
-- Right — иконка после текста
-- True — только иконка, без текста (квадратная кнопка)
+Icon (Icon)
+- False — text only
+- Left — icon before text
+- Right — icon after text
+- True — icon only, no text (square button)
 
-## Когда использовать
-✅ Основное/второстепенное действие пользователя, требующее клика
-✅ Деструктивные операции — вариант Danger
-❌ Не использовать для навигации между страницами (использовать Link)
-❌ Не использовать Primary больше одного раза в одной группе действий
+When to use
+✅ Primary/secondary user action requiring click
+✅ Destructive operations — Danger variant
+❌ Do not use for page navigation (use Link)
+❌ Do not use Primary more than once in a group of actions
 
-## Кастомизация
-- ColorType: Primary / Secondary / Outlined / Ghost / Danger (по умолчанию Primary)
-- Size: xs / s / m / l (по умолчанию m)
-- Icon: False / Left / Right / True (по умолчанию False)
-- Text: произвольная строка (по умолчанию "Button")
+Customization
+- ColorType: Primary / Secondary / Outlined / Ghost / Danger (default Primary)
+- Size: xs / s / m / l (default m)
+- Icon: False / Left / Right / True (default False)
+- Text: arbitrary string (default "Button")
 
-## Доступность
-- ARIA-роль: button
-- ARIA-атрибуты: aria-disabled на Disabled, aria-busy на Loading
-- Keyboard: Tab — фокус, Enter/Space — активация
-- Disabled исключает элемент из tab-порядка
-- Focused-вариант обязателен для видимого focus-ring
+Accessibility
+- ARIA role: button
+- ARIA attributes: aria-disabled on Disabled, aria-busy on Loading
+- Keyboard: Tab — focus, Enter/Space — activate
+- Disabled excludes element from tab order
+- Focused variant required for visible focus ring
 
-## Интерактивность (события)
-- onClick — клик/Enter/Space, если не Disabled и не Loading
+Interactivity (events)
+- onClick — click/Enter/Space, if not Disabled and not Loading
 
-## Токены / переменные (Primary, default)
+Tokens / variables (Primary, default)
 - bg/primary = #7f56d9
 - text-and-icons/on-primary = #f1f1f1
 - radius/btn-radius-large = 8px
-- radius/btn-radius-small = 6px (только Size=xs)
+- radius/btn-radius-small = 6px (only Size=xs)
 - font/family = Inter
 - font/size/body2 = 14px
 - font/line-height/body2-condensed = 16px
-- Остальные ColorType используют аналогичные токены своей группы (bg/{colortype}, text-and-icons/on-{colortype})
+- Other ColorTypes use similar tokens from their group (bg/{colortype}, text-and-icons/on-{colortype})
 
-## Связанные компоненты
-- Icon — используется внутри Icon=Left/Right/True вариантов
-- Link — для навигационных действий вместо кнопки
+Related components
+- Icon — used inside Icon=Left/Right/True variants
+- Link — for navigation actions instead of button
 
 ## Variants
 

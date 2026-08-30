@@ -1,0 +1,24 @@
+// Phone: the actions stack full width instead of sitting in a right-aligned row.
+//
+// `column-reverse` keeps the primary action on top while leaving the markup
+// alone — footers are authored as `[secondary, primary]`, which is what the
+// desktop row's `justify-content: flex-end` puts on the right.
+//
+// See `modal-window.responsive.scss` for why the breakpoint is declared here.
+$mobile: 640px;
+
+@mixin modal-footer-responsive {
+  @media (max-width: $mobile) {
+    align-items: stretch;
+    // 32px along the bottom edge, per the sheet in the design — the row's 20px
+    // sits too close to the home indicator.
+    padding-bottom: 32px;
+    gap: 12px;
+    flex-direction: column-reverse;
+
+    .Button,
+    button {
+      width: 100%;
+    }
+  }
+}

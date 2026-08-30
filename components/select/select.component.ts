@@ -3,23 +3,19 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
   output,
   signal,
   viewChild,
 } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
 
 import { SynapseIconButtonComponent } from '../icon-button/icon-button.component';
 import { SynapseIconComponent } from '../icon/icon.component';
-import {
-  IwElementFilledStateDirective,
-  IwElementFormControlDirective,
-  IwElementValidStateDirective,
-} from '../control-directives';
-import { IwPopoverModule, SynPopoverDirective } from "../popover";
+import { SynapseControlDirective } from '../control-directives';
+import { SynapseDropdownDirective } from "../popover";
+
+let nextSelectId = 0;
 
 export interface SelectItem<T> {
   original: T;
@@ -29,22 +25,14 @@ export interface SelectItem<T> {
 
 @Component({
   selector: 'syn-select',
-  imports: [CommonModule, SynapseIconComponent, SynapseIconButtonComponent, IwPopoverModule],
+  imports: [CommonModule, SynapseIconComponent, SynapseIconButtonComponent, SynapseDropdownDirective],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   hostDirectives: [
     {
-      directive: IwElementFormControlDirective,
-      inputs: ['formControlName', 'formControl', 'errors'],
-    },
-    {
-      directive: IwElementFilledStateDirective,
-      inputs: ['value'],
-    },
-    {
-      directive: IwElementValidStateDirective,
-      inputs: ['errors:error'],
+      directive: SynapseControlDirective,
+      inputs: ['value', 'error', 'disabled'],
     },
   ],
   host: {
@@ -53,7 +41,14 @@ export interface SelectItem<T> {
   }
 })
 export class SynapseSelectComponent<T> {
+  /** A concrete item picked by the user. */
   valueChanged = output<T>();
+
+  /**
+   * Clearing the selection (`[canClear]`). A separate event rather than
+   * `valueChanged(null)`, which would widen the output type for every consumer.
+   */
+  cleared = output<void>();
 
   label = input<string | null>(null);
   hint = input<string | null>(null);
@@ -64,7 +59,6 @@ export class SynapseSelectComponent<T> {
   hideSelected = input<boolean>(true);
   /** Compact inline variant (no frame, no label/hint). `false` = full bordered. */
   inline = input<boolean>(false);
-  value = input<T | null>(null);
   items = input<T[]>([]);
 
   /** Whether the options dropdown is open (drives the `.active` class + chevron). */
@@ -74,13 +68,10 @@ export class SynapseSelectComponent<T> {
   compareWith = input<(a: T, b: T) => boolean>((a, b) => a === b);
   disabledFn = input<(item: T) => boolean>(() => false);
 
-  // Internal selected value state
-  private _selectedValue = signal<T | null>(null);
+  private readonly control = inject(SynapseControlDirective<T | null>);
 
-  // The actual selected value (prioritize input value over internal state)
-  selectedValue = computed(() => this.value() ?? this._selectedValue());
+  selectedValue = computed(() => this.control.current() ?? null);
 
-  // Display name for selected value
   selectedDisplayName = computed(() => {
     const selected = this.selectedValue();
     return selected ? this.displayWith()(selected) : null;
@@ -90,31 +81,7 @@ export class SynapseSelectComponent<T> {
   // placeholder vs value colour is handled by the `.filled` class in the mixin.
   displayText = computed(() => this.selectedDisplayName() ?? this.placeholder());
 
-  // Feed the filled-state directive from the resolved selection so `.filled`
-  // reflects both a bound [value] and an in-component selection.
-  private readonly _filledState = inject(IwElementFilledStateDirective<T | null>);
 
-  // Bridges the component to a reactive form ([formControl]/[formControlName]).
-  private readonly _formControl = inject(IwElementFormControlDirective<T | null>);
-
-  constructor() {
-    this._filledState.registerStream(toObservable(this.selectedValue));
-
-    // Reflect the reactive-form value into the displayed selection — covers the
-    // initial value and any external form updates.
-    effect((onCleanup) => {
-      const control = this._formControl.control();
-      if (!control) return;
-
-      this._selectedValue.set((control.value ?? null) as T | null);
-      const sub = control.valueChanges.subscribe((value) =>
-        this._selectedValue.set((value ?? null) as T | null),
-      );
-      onCleanup(() => sub.unsubscribe());
-    });
-  }
-
-  // Items with metadata for dropdown
   itemsWithMetadata = computed(() => {
     const displayFn = this.displayWith();
     const disabledFn = this.disabledFn();
@@ -128,13 +95,21 @@ export class SynapseSelectComponent<T> {
         disabled: disabledFn(item)
       }))
       .filter(item => {
-        // Optionally exclude the selected item from the dropdown
         if (!this.hideSelected()) return true;
         return selectedValue === null || !compareFn(item.original, selectedValue);
       });
   });
 
-  protected readonly dropdown = viewChild.required(SynPopoverDirective);
+  protected readonly dropdown = viewChild.required(SynapseDropdownDirective);
+
+  /** Ties the <label> to the combobox; otherwise the label owns no control. */
+  protected readonly labelId = `syn-select-label-${nextSelectId++}`;
+
+  /** The trigger is a div, so keyboard opening is wired by hand. */
+  protected openDropdown(event: Event) {
+    event.preventDefault();
+    this.dropdown().show();
+  }
 
   isSelected(item: SelectItem<T>): boolean {
     const selected = this.selectedValue();
@@ -142,22 +117,15 @@ export class SynapseSelectComponent<T> {
   }
 
   selectItem(item: SelectItem<T>) {
-    // Update internal state
-    this._selectedValue.set(item.original);
+    if (item.disabled) return;
 
-    // Push to the reactive form (ControlValueAccessor) so [formControl] updates.
-    this._formControl.changeValue(item.original);
-
-    // Close dropdown
+    this.control.setValue(item.original);
     this.dropdown().hide();
-
-    // Emit the change
     this.valueChanged.emit(item.original);
   }
 
   clearSelection() {
-    this._selectedValue.set(null);
-    this._formControl.changeValue(null);
-    this.valueChanged.emit(null as any); // Or handle this based on your needs
+    this.control.setValue(null);
+    this.cleared.emit();
   }
 }

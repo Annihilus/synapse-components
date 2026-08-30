@@ -5,7 +5,7 @@ import {
   computed,
   input,
   signal,
-  afterNextRender,
+  afterRenderEffect,
   ElementRef,
   inject,
   contentChild,
@@ -51,18 +51,29 @@ export class SynapseButtonComponent {
   private elementRef = inject(ElementRef<HTMLElement>);
   private renderer = inject(Renderer2);
 
-  constructor() {
-    // Run once the DOM is painted: at ngAfterContentInit the projected content
-    // isn't reliably in `host.childNodes` yet — the `<ng-content>` lives inside
-    // the `@if (loading()) {} @else {}` branch, so reading the order there can
-    // miss the text node and misdetect a text+icon button as icon-only.
-    // Resolve the original order first, then move the icon into its `.icon` slot.
-    afterNextRender(() => {
-      this.resolvePosition();
+  /** The icon/text order is read once, before the first relocation. */
+  private positionResolved = false;
 
-      if (this.icon()) {
-        this.relocateIcon(this.elementRef.nativeElement);
+  constructor() {
+    // Runs after render: at ngAfterContentInit the projected content is not
+    // reliably in `host.childNodes` — `<ng-content>` lives inside the
+    // `@if (loading()) {} @else {}` branch, so reading the order there can miss
+    // the text node and mistake a text+icon button for an icon-only one.
+    //
+    // An effect rather than afterNextRender, because that `@else` branch — and
+    // with it the `div.icon` container — is rebuilt on every loading toggle.
+    afterRenderEffect(() => {
+      const isLoading = this.loading();
+      const icon = this.icon();
+
+      if (isLoading || !icon) return;
+
+      if (!this.positionResolved) {
+        this.resolvePosition();
+        this.positionResolved = true;
       }
+
+      this.relocateIcon(this.elementRef.nativeElement);
     });
   }
 
@@ -84,18 +95,13 @@ export class SynapseButtonComponent {
    */
   private resolvePosition() {
     const icon = this.icon();
-    if (!icon) {
-      this.iconPosition.set(false);
-      return;
-    }
-
     const host = this.elementRef.nativeElement;
-    const iconElement = icon.elementRef?.nativeElement as HTMLElement | undefined;
+    const iconElement = icon.elementRef.nativeElement as HTMLElement;
 
     this.iconPosition.set(this.resolveIconPosition(host, iconElement));
   }
 
-  private resolveIconPosition(host: HTMLElement, iconElement?: HTMLElement): ButtonIcon {
+  private resolveIconPosition(host: HTMLElement, iconElement: HTMLElement): ButtonIcon {
     const childNodes: Node[] = Array.from(host.childNodes);
 
     // Ignore the projected icon and the component's own `.icon`/`.state` helper
@@ -107,19 +113,22 @@ export class SynapseButtonComponent {
         node.classList.contains('icon') ||
         node.classList.contains('state'));
 
-    const textContent = childNodes
-      .filter((node) => !isIcon(node))
+    // Control-flow blocks leave comment anchors behind whose textContent reads
+    // "container"; counting those would make every button look like it has text.
+    const contentNodes = childNodes.filter(
+      (node) => node.nodeType !== Node.COMMENT_NODE && !isIcon(node),
+    );
+
+    const textContent = contentNodes
       .map((node) => node.textContent?.trim() || '')
       .join('')
       .trim();
 
     if (!textContent) return true;
-    if (!iconElement) return 'left';
 
-    const firstTextNode = childNodes.find(
-      (node) => !isIcon(node) && (node.textContent?.trim().length ?? 0) > 0,
-    );
-    if (!firstTextNode) return 'left';
+    const firstTextNode = contentNodes.find(
+      (node) => (node.textContent?.trim().length ?? 0) > 0,
+    ) as Node;
 
     const iconIndex = childNodes.indexOf(iconElement);
     const textIndex = childNodes.indexOf(firstTextNode);
@@ -132,6 +141,9 @@ export class SynapseButtonComponent {
     const synIcon = host.querySelector('syn-icon');
     const container = host.querySelector('div.icon');
     if (!synIcon || !container) return;
+
+    // Idempotent: after a re-render the icon may already sit in its slot.
+    if (synIcon.parentElement === container) return;
 
     const index = Array.prototype.indexOf.call(host.childNodes, synIcon);
     container.appendChild(synIcon);

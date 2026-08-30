@@ -3,8 +3,6 @@
   display: inline-flex;
   position: relative;
   padding: var(--sizing-and-spacing-3) var(--sizing-and-spacing-6);
-  border-style: solid;
-  border-width: 1px;
   background: var(--bg-primary);
   align-items: center;
   justify-content: center;
@@ -16,13 +14,10 @@
   font-weight: var(--body1-regular-weight);
   text-transform: none;
   width: auto;
-  gap: var(--sizing-and-spacing-1_5);
 
   .state {
     position: absolute;
     padding: 0;
-    border-style: none;
-    border-width: 0;
     background: rgba(255, 255, 255, 0);
     align-items: flex-start;
     justify-content: flex-start;
@@ -41,7 +36,9 @@
   .state {
     box-sizing: border-box;
     height: 48px;
+    border-style: none;
     border-color: transparent;
+    border-width: 0;
     box-shadow: none;
     opacity: 1;
     gap: 0;
@@ -100,6 +97,14 @@
   &.colorType-secondary,
   &.colorType-outlined,
   &.colorType-ghost,
+  &.colorType-danger {
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  &.colorType-secondary,
+  &.colorType-outlined,
+  &.colorType-ghost,
   &.colorType-secondary .icon,
   &.colorType-outlined .icon,
   &.colorType-ghost .icon,
@@ -144,6 +149,14 @@
     letter-spacing: var(--body2-condensed-regular-letter-spacing);
     font-size: var(--body2-condensed-regular-size);
     font-weight: var(--body2-condensed-regular-weight);
+  }
+
+  &.size-m,
+  &.size-s,
+  &.size-xs.icon,
+  &.icon-left,
+  &.icon-right {
+    gap: var(--sizing-and-spacing-1_5);
   }
 
   &.size-m.icon {

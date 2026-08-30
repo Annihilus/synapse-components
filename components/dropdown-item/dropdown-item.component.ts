@@ -16,8 +16,11 @@ export type DropdownItemRole = 'option' | 'menuitem';
   styleUrls: ['./dropdown-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    'type': 'button',
+    // The selector is an attribute, so this may sit on a div where
+    // `type="button"` means nothing; role and disabled state go through ARIA.
     '[attr.role]': 'role()',
+    '[attr.aria-disabled]': 'disabled() || null',
+    '[attr.tabindex]': 'disabled() ? -1 : 0',
     '[class.selected]': 'selected()',
     '[class.disabled]': 'disabled()',
     '[attr.aria-selected]': "role() === 'option' ? selected() : null",

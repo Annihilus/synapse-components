@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
+  afterRenderEffect,
   ElementRef,
   inject,
   input,
@@ -13,15 +12,18 @@ import { SynapseIconComponent } from '../../icon/icon.component';
 
 @Component({
   selector: 'button[syn-segmented-item]',
-  imports: [CommonModule, SynapseIconComponent],
+  imports: [SynapseIconComponent],
   templateUrl: './segmented-item.component.html',
   styleUrls: ['./segmented-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'syn-segmented-item',
+    'type': 'button',
     '[class.selected]': 'isSelected()',
     '[class.text]': 'text()',
     '[class.icon]': 'icon()',
+    '[disabled]': 'disabled()',
+    '[attr.aria-pressed]': 'isSelected()',
     '(click)': 'onClick()',
   },
 })
@@ -37,16 +39,21 @@ export class SynapseSegmentedItemComponent {
   private readonly element = inject(ElementRef<HTMLElement>);
 
   constructor() {
-    effect(() => {
-      const el = this.element.nativeElement;
+    // Detect a text label from the projected content.
+    afterRenderEffect(() => {
+      const el = this.element.nativeElement as HTMLElement;
 
       const hasTextContent = Array
         .from(el.childNodes)
         .some(node => {
-          // if (node.nodeType === Node.TEXT_NODE) {
-          //   return node.textContent?.trim().length ?? 0 > 0;
-          // }
-          return false;
+          if (node.nodeType === Node.TEXT_NODE) {
+            return (node.textContent?.trim().length ?? 0) > 0;
+          }
+
+          // The icon owns its own slot and does not count as a label.
+          return node instanceof Element
+            && node.tagName.toLowerCase() !== 'syn-icon'
+            && (node.textContent?.trim().length ?? 0) > 0;
         });
 
       this.text.set(hasTextContent);

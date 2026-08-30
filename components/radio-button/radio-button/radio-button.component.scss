@@ -4,6 +4,23 @@
   @include radio.radiobutton-Base;
 }
 
+// Visually hidden, but still in the tab order: `display: none` would drop the
+// radio out of it and make the group unreachable from the keyboard.
 .hidden-radio {
-  display: none
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+  clip-path: inset(50%);
+}
+
+// The mixin's `:focus-visible` cannot match — the host is not focusable — so
+// bridge it with `:has()`.
+:host(:has(.hidden-radio:focus-visible)) {
+  background: rgba(42, 42, 42, 1);
+  box-shadow: var(--focus);
 }

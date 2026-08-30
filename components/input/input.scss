@@ -1,6 +1,5 @@
 @mixin input {
   cursor: pointer;
-  width: 320px;
   align-items: flex-start;
   gap: var(--sizing-and-spacing-1_5);
   flex-direction: column;
@@ -54,7 +53,8 @@
   }
 
   .text-block {
-    width: 220px;
+    display: flex;
+    width: 100%;
     gap: 0;
     font-family: var(--body2-regular-family);
     line-height: var(--body2-regular-line-height);
@@ -64,13 +64,24 @@
   }
 
   &,
+  .input {
+    width: 320px;
+    flex-shrink: 0;
+  }
+
+  &,
   .input,
   .text-block {
     box-sizing: border-box;
-    display: inline-flex;
     position: static;
     justify-content: flex-start;
     opacity: 1;
+  }
+
+  &,
+  .input,
+  &.inline .text-block {
+    display: inline-flex;
   }
 
   &,
@@ -79,7 +90,6 @@
     padding: 0;
     border-radius: 0;
     box-shadow: none;
-    flex-shrink: 0;
   }
 
   &,
@@ -160,13 +170,13 @@
   }
 
   &.inline,
-  .input,
-  &.inline .text-block {
-    width: auto;
+  &.inline .input {
+    border-radius: var(--rounding-s);
   }
 
   &.inline,
-  &.inline .input {
-    border-radius: var(--rounding-s);
+  &.inline .input,
+  &.inline .text-block {
+    width: auto;
   }
 }

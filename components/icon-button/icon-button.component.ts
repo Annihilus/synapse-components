@@ -7,8 +7,9 @@ import {
 } from '@angular/core';
 
 import { SynapseIconComponent } from '../icon/icon.component';
+import { IconButtonType } from './icon-button.types';
 
-export type IconButtonType = 'primary' | 'secondary';
+export type { IconButtonType } from './icon-button.types';
 
 @Component({
   selector: 'button[syn-icon-button]',

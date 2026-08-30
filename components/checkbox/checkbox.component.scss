@@ -3,3 +3,25 @@
 :host {
   @include s.checkbox;
 }
+
+// The native checkbox is hidden visually but stays in the tab order:
+// `display: none` would drop it out of focus and break keyboard toggling.
+.hidden-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+  clip-path: inset(50%);
+}
+
+// Focus lands on the hidden input, so the mixin's `:focus-visible` — which
+// compiles to `:host:focus-visible` — can never match, the host not being
+// focusable. `:has()` restates it while keeping the keyboard-only semantics.
+:host(:has(.hidden-checkbox:focus-visible)) {
+  background: var(--bg-surface_container);
+  box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
+}

@@ -1,14 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
-import { SynapseIconComponent } from '../icon/icon.component';
-
-import { SynapseBreadcrumbsItemComponent } from './breadcrumbs-item/breadcrumbs-item.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'syn-breadcrumbs',
-  imports: [CommonModule, SynapseBreadcrumbsItemComponent, SynapseIconComponent],
   templateUrl: './breadcrumbs.component.html',
   styleUrl: './breadcrumbs.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SynapseBreadcrumbsComponent {}

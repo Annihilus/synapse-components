@@ -88,5 +88,5 @@ Icon-Button — кнопка закрытия. Button — кнопки в action
     - TEXT "title"
     - TEXT "text"
   - FRAME "actions"
-    - INSTANCE "Button11" (component instance)
+    - INSTANCE "Button" (component instance)
 - INSTANCE "Icon-Button" (component instance)

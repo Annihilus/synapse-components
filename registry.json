@@ -1,33 +1,13 @@
 {
   "components": [
     {
-      "name": "types",
-      "directory": "components/types",
-      "targetDir": "types",
-      "files": [
-        "index.ts",
-        "types.ts"
-      ]
-    },
-    {
       "name": "control-directives",
       "directory": "components/control-directives",
       "targetDir": "control-directives",
       "files": [
-        "element-disable.directive.ts",
-        "element-filled-state.directive.ts",
-        "element-form-control.directive.ts",
-        "element-valid-state.directive.ts",
-        "element-value-control.directive.ts",
+        "connect-text-input.ts",
+        "control.directive.ts",
         "index.ts"
-      ]
-    },
-    {
-      "name": "helpers",
-      "directory": "components/helpers",
-      "targetDir": "helpers",
-      "files": [
-        "set-inputs.ts"
       ]
     },
     {
@@ -62,6 +42,9 @@
         "breadcrumbs-item/breadcrumbs-item.component.scss",
         "breadcrumbs-item/breadcrumbs-item.component.ts",
         "breadcrumbs-item/breadcrumbs-item.scss",
+        "breadcrumbs-separator.component.html",
+        "breadcrumbs-separator.component.scss",
+        "breadcrumbs-separator.component.ts",
         "breadcrumbs.component.html",
         "breadcrumbs.component.scss",
         "breadcrumbs.component.ts",
@@ -80,11 +63,12 @@
         "button.component.html",
         "button.component.scss",
         "button.component.ts",
-        "button.scss"
+        "button.scss",
+        "button.types.ts",
+        "index.ts"
       ],
       "dependencies": [
-        "icon",
-        "types"
+        "icon"
       ]
     },
     {
@@ -125,7 +109,8 @@
         "helper-text.component.html",
         "helper-text.component.scss",
         "helper-text.component.ts",
-        "helper-text.scss"
+        "helper-text.scss",
+        "helper-text.types.ts"
       ],
       "dependencies": [
         "icon",
@@ -149,7 +134,8 @@
         "icon-button.component.html",
         "icon-button.component.scss",
         "icon-button.component.ts",
-        "icon-button.scss"
+        "icon-button.scss",
+        "icon-button.types.ts"
       ],
       "dependencies": [
         "icon"
@@ -198,6 +184,7 @@
         "modal-footer/modal-footer.component.html",
         "modal-footer/modal-footer.component.scss",
         "modal-footer/modal-footer.component.ts",
+        "modal-footer/modal-footer.responsive.scss",
         "modal-footer/modal-footer.scss",
         "modal-header/modal-header.component.html",
         "modal-header/modal-header.component.scss",
@@ -206,11 +193,9 @@
         "modal-window/modal-window.component.html",
         "modal-window/modal-window.component.scss",
         "modal-window/modal-window.component.ts",
+        "modal-window/modal-window.responsive.scss",
         "modal-window/modal-window.scss",
         "modal-window/overlay-backdrop.scss",
-        "modal.component.html",
-        "modal.component.scss",
-        "modal.component.ts",
         "modal.ref.ts",
         "modal.service.ts",
         "modal.tokens.ts"
@@ -227,18 +212,14 @@
       "files": [
         "dropdown.scss",
         "index.ts",
-        "popover-ref.ts",
-        "popover.component.html",
-        "popover.component.scss",
-        "popover.component.ts",
+        "popover-panel.component.html",
+        "popover-panel.component.scss",
+        "popover-panel.component.ts",
+        "popover.defaults.ts",
         "popover.directive.ts",
-        "popover.module.ts",
-        "popover.options.ts",
-        "popover.service.ts",
-        "tooltip.scss"
-      ],
-      "dependencies": [
-        "helpers"
+        "popover.model.ts",
+        "popover.position.ts",
+        "popover.scss"
       ]
     },
     {
@@ -265,11 +246,9 @@
         "segmented-item/segmented-item.component.scss",
         "segmented-item/segmented-item.component.ts",
         "segmented-item/segmented-item.scss",
-        "segmented.component.html",
         "segmented.component.scss",
         "segmented.component.ts",
-        "segmented.scss",
-        "sg"
+        "segmented.scss"
       ],
       "dependencies": [
         "icon"
@@ -365,7 +344,8 @@
         "tag.component.html",
         "tag.component.scss",
         "tag.component.ts",
-        "tag.scss"
+        "tag.scss",
+        "tag.types.ts"
       ],
       "dependencies": [
         "icon"

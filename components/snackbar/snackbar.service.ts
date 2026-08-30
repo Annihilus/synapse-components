@@ -14,11 +14,14 @@ export class SynapseSnackbarService {
 
   private containerRef: ComponentRef<SynapseSnackbarContainerComponent> | null = null;
 
+  /** Auto-dismiss timers, cleared on manual dismiss/clear/destroy. */
+  private readonly timers = new Map<string, ReturnType<typeof setTimeout>>();
+
   private appRef = inject(ApplicationRef);
 
   private injector = inject(EnvironmentInjector);
 
-  show(title: string, message: string, type: SnackbarMessage['type'] = 'default', duration = 5000000) {
+  show(title: string, message: string, type: SnackbarMessage['type'] = 'default', duration = 5000) {
     this.ensureContainer();
 
     const id = `snackbar-${this.idCounter++}`;
@@ -27,16 +30,28 @@ export class SynapseSnackbarService {
     this.messages.update(messages => [newMessage, ...messages]);
 
     if (duration > 0) {
-      setTimeout(() => this.dismiss(id), duration);
+      this.timers.set(id, setTimeout(() => this.dismiss(id), duration));
     }
   }
 
   dismiss(id: string) {
+    this.clearTimer(id);
     this.messages.update(messages => messages.filter(message => message.id !== id));
   }
 
   clear() {
+    this.timers.forEach(timer => clearTimeout(timer));
+    this.timers.clear();
     this.messages.set([]);
+  }
+
+  private clearTimer(id: string) {
+    const timer = this.timers.get(id);
+
+    if (timer !== undefined) {
+      clearTimeout(timer);
+      this.timers.delete(id);
+    }
   }
 
   private ensureContainer() {
@@ -44,22 +59,17 @@ export class SynapseSnackbarService {
       return;
     }
 
-    // Create the component dynamically
     this.containerRef = createComponent(SynapseSnackbarContainerComponent, {
-      environmentInjector: this.injector
+      environmentInjector: this.injector,
     });
 
-    if (this.containerRef) {
-      // Attach to application
-      this.appRef.attachView(this.containerRef.hostView);
-
-      // Append to document body
-      const domElem = (this.containerRef.hostView as any).rootNodes[0] as HTMLElement;
-      document.body.appendChild(domElem);
-    }
+    this.appRef.attachView(this.containerRef.hostView);
+    document.body.appendChild(this.containerRef.location.nativeElement);
   }
 
   destroy() {
+    this.clear();
+
     if (this.containerRef) {
       this.appRef.detachView(this.containerRef.hostView);
       this.containerRef.destroy();

@@ -35,5 +35,5 @@ Dropdown-Item — вспомогательный компонент, испол�
 
 ## Structure
 
-- SLOT "Slot"
+- SLOT "wrap"
   - INSTANCE "item" (component instance)

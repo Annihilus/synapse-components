@@ -1,0 +1,34 @@
+@use './popover' as *;
+@use './dropdown' as *;
+
+// The mixins describe a single element that holds `.arrow` and carries the
+// `.side-*` / `.position-*` modifiers — that is the host itself, so no inner
+// wrapper is needed.
+:host(.variant-popover),
+:host(.variant-tooltip) {
+  @include popover;
+}
+
+:host(.variant-dropdown) {
+  @include dropdown;
+}
+
+// Listed per variant on purpose: the mixins above set `position: relative`, and
+// a plain `:host` rule loses to them on specificity no matter the source order.
+// The panel lives in a body-level overlay and is placed from viewport
+// coordinates, so it has to stay fixed.
+:host(.variant-popover),
+:host(.variant-tooltip),
+:host(.variant-dropdown) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--syn-popover-z-index, 10000);
+}
+
+// Measured before it is positioned: hidden, but kept in flow, or
+// getBoundingClientRect would report zeros.
+:host(.measuring) {
+  visibility: hidden;
+  pointer-events: none;
+}

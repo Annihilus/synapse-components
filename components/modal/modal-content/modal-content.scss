@@ -1,65 +1,55 @@
-@mixin modal-Content {
-  border-radius: 0;
+@mixin modal-content {
+  padding: 0 var(--sizing-and-spacing-6);
+  background: var(--bg-surface_container);
+  gap: 0;
   position: relative;
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  height: auto;
-  padding: 0px 24px;
-  border-style: none;
-  border-color: transparent;
-  border-width: 0;
-  background: rgba(42, 42, 42, 1);
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 0px;
-  box-shadow: none;
-  flex-direction: column;
-  opacity: 1;
 
   .content {
-    box-sizing: border-box;
-    display: flex;
-    position: static;
-    width: 100%;
-    height: auto;
-    padding: 0px;
-    border-style: none;
-    border-color: transparent;
-    border-width: 0;
-    border-radius: 0;
+    padding: 0;
     background: transparent;
-    align-items: flex-start;
-    justify-content: flex-start;
     gap: 10px;
-    box-shadow: none;
-    flex-direction: column;
-    opacity: 1;
-    font-family: Inter;
-    line-height: 24px;
-    letter-spacing: 0;
-    font-size: 16px;
-    font-weight: 400;
+    font-family: var(--body1-regular-family);
+    line-height: var(--body1-regular-line-height);
+    letter-spacing: var(--body1-regular-letter-spacing);
+    font-size: var(--body1-regular-size);
+    font-weight: var(--body1-regular-weight);
     text-transform: none;
-    color: rgba(241, 241, 241, 1);
+    color: var(--texticons-on_surface);
   }
 
   .Scrollbar {
     position: absolute;
-    right: 0px;
     width: auto;
     height: 143px;
+    right: 0px;
+  }
+
+  &,
+  .content {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    height: auto;
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-shadow: none;
+    flex-direction: column;
+    opacity: 1;
   }
 
   &.scroll {
-    height: 100%;
-    padding: 8px 24px;
+    padding: var(--sizing-and-spacing-2) var(--sizing-and-spacing-6);
     border-style: solid;
-    border-color: rgba(59, 59, 59, 1);
-    border-width: 1px 0px 1px 0px;
+    border-color: var(--border-outline_variant);
+    border-width: 1px 0 1px 0;
     flex-direction: row;
   }
 
+  &.scroll,
   &.scroll .content {
     height: 100%;
   }

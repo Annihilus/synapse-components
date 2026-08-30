@@ -1,0 +1,9 @@
+@if (template(); as tpl) {
+  <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="context()" />
+} @else {
+  {{ text() }}
+}
+
+@if (arrow()) {
+  <div class="arrow"><div class="bottom-center"></div></div>
+}

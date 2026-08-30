@@ -20,9 +20,10 @@
 
   .block,
   .container,
-  .Button11,
+  .Button,
   .icon,
-  .icon_container {
+  .icon_container,
+  .Button11 {
     background: transparent;
   }
 
@@ -37,8 +38,9 @@
     box-shadow: none;
   }
 
-  .Button11,
-  .icon {
+  .Button,
+  .icon,
+  .Button11 {
     width: 24px;
     height: 24px;
   }

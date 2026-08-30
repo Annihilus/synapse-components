@@ -1,23 +1,22 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  output,
-  signal,
   contentChildren,
   effect,
+  output,
+  signal,
 } from '@angular/core';
+
 import { SynapseSegmentedItemComponent } from './segmented-item/segmented-item.component';
 
 @Component({
   selector: 'syn-segmented',
-  imports: [CommonModule, SynapseSegmentedItemComponent],
   template: '<ng-content />',
   styleUrls: ['./segmented.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'syn-segmented',
-    '(selected)': 'onItemSelected($event)',
+    'role': 'group',
   },
 })
 export class SynapseSegmentedComponent {
@@ -27,26 +26,21 @@ export class SynapseSegmentedComponent {
   items = contentChildren(SynapseSegmentedItemComponent);
 
   constructor() {
-    effect(() => {
-      const allItems = this.items();
-      allItems.forEach(item => {
-        item.selected.subscribe((value) => {
-          this.selectItem(value);
-        });
-      });
-    });
-  }
+    // Subscriptions are rebuilt whenever the item set changes and torn down
+    // through onCleanup, so an item is never subscribed to twice.
+    effect((onCleanup) => {
+      const subscriptions = this.items().map(item =>
+        item.selected.subscribe(value => this.selectItem(value)),
+      );
 
-  onItemSelected(event: Event) {
-    const customEvent = event as CustomEvent<string | number>;
-    this.selectItem(customEvent.detail);
+      onCleanup(() => subscriptions.forEach(sub => sub.unsubscribe()));
+    });
   }
 
   private selectItem(value: string | number) {
     this.selectedValue.set(value);
     this.valueChange.emit(value);
 
-    // Deselect all items, then select the clicked one
     this.items().forEach(item => {
       item.setSelected(item.name() === value);
     });

@@ -1,0 +1,29 @@
+// Phone: the dialog becomes a bottom sheet — full width, sitting on the bottom
+// edge, rounded and bordered only along the top.
+//
+// Kept out of `modal-window.scss` so a `synapse_ui sync` that rewrites that file
+// from Figma cannot drop it. Include it after the base mixin: plain source order
+// is what gives it precedence.
+//
+// Declared locally rather than imported: this file is copied into consumer
+// projects together with the component directory, so it cannot depend on a
+// partial living outside it.
+$mobile: 640px;
+
+@mixin modal-window-responsive {
+  @media (max-width: $mobile) {
+    align-items: flex-end;
+
+    .modal-window {
+      width: 100%;
+      // Anchored to the bottom edge, a sheet taller than the screen would grow
+      // off the top instead, so it is capped and scrolls.
+      max-width: none;
+      max-height: 100%;
+      overflow-y: auto;
+
+      border-width: 1px 0 0 0;
+      border-radius: 16px 16px 0 0;
+    }
+  }
+}

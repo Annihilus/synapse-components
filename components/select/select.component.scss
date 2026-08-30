@@ -9,15 +9,10 @@
   .option {
     @include dropdown-item;
 
-    .state {
-      cursor: pointer;
-
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-
-      height: 100%;
+    &.disabled {
+      cursor: default;
+      pointer-events: none;
+      opacity: var(--texticons-disabled_number);
     }
   }
 }

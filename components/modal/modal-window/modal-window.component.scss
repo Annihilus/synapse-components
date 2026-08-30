@@ -1,5 +1,6 @@
 @use './modal-window' as window;
 @use './overlay-backdrop' as overlay;
+@use './modal-window.responsive' as responsive;
 
 :host {
   display: flex;
@@ -24,4 +25,6 @@
     position: absolute;
     z-index: -1;
   }
+
+  @include responsive.modal-window-responsive;
 }

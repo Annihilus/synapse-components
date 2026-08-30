@@ -31,10 +31,6 @@
   }
 
   .state {
-    padding: 0;
-    border-style: none;
-    border-color: transparent;
-    border-width: 0;
     border-radius: 0;
     background: var(--bg-hover_color);
     right: 0;
@@ -44,7 +40,6 @@
   .user,
   .photo_add {
     height: 100%;
-    background: transparent;
     max-width: 32px;
     max-height: 32px;
   }
@@ -76,9 +71,34 @@
     color: var(--texticons-on_surface);
   }
 
+  &.image-true.upload-false,
+  &:hover-true,
+  .user,
+  .photo_add {
+    background: transparent;
+  }
+
   &.image,
   .state {
     align-items: flex-start;
     justify-content: flex-start;
+  }
+
+  &.initials-true.upload-false,
+  &.image-true.upload-false,
+  .state {
+    padding: 0;
+  }
+
+  &.upload-false {
+    background: var(--bg-surface_highest);
+    flex-direction: column;
+  }
+
+  &.upload-false,
+  .state {
+    border-style: none;
+    border-color: transparent;
+    border-width: 0;
   }
 }

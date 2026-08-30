@@ -1,4 +1,8 @@
 <div class="content">
+  @if (icon()) {
+    <syn-icon class="icon" [name]="iconName()" />
+  }
+
   <div class="text_block">
     <span class="title">{{ title() }}</span>
     {{ description() }}
@@ -8,7 +12,7 @@
   </div>
 </div>
 @if (canBeClosed()) {
-  <button class="close" syn-icon-button>
+  <button class="close" syn-icon-button [attr.aria-label]="closeLabel()" (click)="closed.emit()">
     <syn-icon name="close" />
   </button>
 }
