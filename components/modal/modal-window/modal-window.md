@@ -2,74 +2,74 @@
 
 ## Description
 
-Описание
-Модальное окно — блокирующий диалог поверх интерфейса для действий, требующих обязательного решения пользователя. Состоит из Modal-Header (опционален), Modal-Content (слот с произвольным контентом) и Modal-Footer (опционален).
+Description
+Modal window — a blocking dialog on top of the interface for actions requiring a mandatory user decision. Consists of Modal-Header (optional), Modal-Content (slot with arbitrary content), and Modal-Footer (optional).
 
-Поведение
-Появляется поверх интерфейса с затемнением фона (overlay), блокирует взаимодействие со страницей до закрытия. Закрывается по клику на close (крестик), по Cancel в футере, по клику на overlay или по Escape. Header/Footer — опциональные блоки (showHeader/showFooter), контент — обязательный слот (children).
+Behavior
+Appears on top of the interface with a background dimming (overlay), blocks interaction with the page until closed. Closed by clicking close (X button), Cancel in the footer, clicking the overlay, or pressing Escape. Header/Footer are optional blocks (showHeader/showFooter), content is a required slot (children).
 
-Состояния
-- Default — единственное состояние контейнера, различия задаются Size и наличием Header/Footer/Close
+States
+- Default — the only container state, differences are set by Size and the presence of Header/Footer/Close
 
-Виды компонента
-- Size=s — малое окно, ширина 480px
-- Size=m — среднее окно, ширина 640px
-- Size=l — большое окно, ширина 920px
-- showHeader / showFooter / showClose — булевы переключатели видимости блоков
+Component types
+- Size=s — small window, width 480px
+- Size=m — medium window, width 640px
+- Size=l — large window, width 920px
+- showHeader / showFooter / showClose — boolean toggles for block visibility
 
-Вид на разных устройствах
-- Mobile: рекомендуется full-width/full-screen адаптация
-- Desktop: фиксированная ширина по Size, по центру экрана
+Appearance on different devices
+- Mobile: full-width/full-screen adaptation is recommended
+- Desktop: fixed width by Size, centered on screen
 
-Анатомия элемента
-- Modal-Window — контейнер: border 1px bg/surface-high, radius/xl (16px), overflow clip, фон bg/surface-container
-- Modal-Header — верхний блок (см. отдельное описание компонента Modal-Header)
-- Modal-Content — тело окна, слот children, padding 24px по горизонтали
-- Modal-Footer — нижний блок (см. отдельное описание компонента Modal-Footer)
-- close button — крестик, 32x32px, top/right offset 15px, опционален
+Element anatomy
+- Modal-Window — container: border 1px bg/surface-high, radius/xl (16px), overflow clip, bg bg/surface-container
+- Modal-Header — top block (see separate Modal-Header component description)
+- Modal-Content — window body, children slot, padding 24px horizontal
+- Modal-Footer — bottom block (see separate Modal-Footer component description)
+- close button — X button, 32x32px, top/right offset 15px, optional
 
-Размеры и отступы
-- Ширина: s=480px, m=640px, l=920px
+Sizes and spacing
+- Width: s=480px, m=640px, l=920px
 - Border radius: radius/xl — 16px
 - Border: 1px bg/surface-high (#3b3b3b)
-- Фон: bg/surface-container (#2a2a2a)
-- Modal-Content padding: 24px по горизонтали
+- Background: bg/surface-container (#2a2a2a)
+- Modal-Content padding: 24px horizontal
 - close button: 32x32px, padding 8px, radius/btn-radius-large (8px), icon 16x16px
 
-Мин / Макс размеры
+Min / Max sizes
 - Min width: 480px (Size=s)
 - Max width: 920px (Size=l)
-- Min/Max height: не заданы — по контенту (Header+Content+Footer), рекомендуется скролл контента при переполнении
+- Min/Max height: not set — by content (Header+Content+Footer), content scrolling is recommended on overflow
 
-Когда использовать / не использовать
-- Использовать: обязательное решение пользователя блокирующим образом; контент+действия в футере
-- Не использовать: ненавязчивое уведомление — Snackbar; короткая подсказка — Tooltip/Popover; сообщение при блоке контента — Helper-Text
+When to use / not to use
+- Use: mandatory blocking user decision; content + actions in the footer
+- Do not use: non-intrusive notification — Snackbar; short tooltip — Tooltip/Popover; message in a content block — Helper-Text
 
-Кастомизация
-- size: s / m / l, по умолчанию s
-- showHeader / showFooter / showClose: True / False, по умолчанию True
-- children (content): произвольный контент (слот)
+Customization
+- size: s / m / l, default s
+- showHeader / showFooter / showClose: True / False, default True
+- children (content): arbitrary content (slot)
 
-Доступность
-- ARIA-роль: dialog (alertdialog для критичных подтверждений)
-- ARIA-атрибуты: aria-modal="true", aria-labelledby на Title, aria-describedby на Content, focus trap внутри окна
-- Keyboard: Escape закрывает, Tab циклически внутри окна (focus trap), фокус на первый интерактивный элемент при открытии, возврат на триггер при закрытии
+Accessibility
+- ARIA role: dialog (alertdialog for critical confirmations)
+- ARIA attributes: aria-modal="true", aria-labelledby on Title, aria-describedby on Content, focus trap inside the window
+- Keyboard: Escape closes, Tab cycles inside the window (focus trap), focus on the first interactive element on open, return to trigger on close
 
-Интерактивность (события)
-- onClose — клик по close, клик по overlay, Escape
-- onCancel — клик по Cancel в футере
-- onConfirm — клик по primary-кнопке в футере
+Interactivity (events)
+- onClose — click on close, click on overlay, Escape
+- onCancel — click on Cancel in the footer
+- onConfirm — click on the primary button in the footer
 
-Связанные компоненты
-- Modal-Header, Modal-Footer — составные части
-- Button — используется в Modal-Footer
-- Input — используется в Modal-Header при search=True
-- Icon-Button — паттерн кнопки закрытия
-- Snackbar, Popover, Tooltip, Helper-Text — альтернативы для неблокирующих случаев
+Related components
+- Modal-Header, Modal-Footer — constituent parts
+- Button — used in Modal-Footer
+- Input — used in Modal-Header when search=True
+- Icon-Button — close button pattern
+- Snackbar, Popover, Tooltip, Helper-Text — alternatives for non-blocking cases
 
-Токены / переменные
+Tokens / variables
 - bg/surface-container: #2a2a2a
-- bg/surface-high: #3b3b3b (border окна)
+- bg/surface-high: #3b3b3b (window border)
 - text-and-icons/on-surface: #f1f1f1
 - radius/xl: 16px
 - radius/btn-radius-large: 8px (close button)

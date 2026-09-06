@@ -6,7 +6,6 @@ import { SnackbarMessage } from "../model";
 @Component({
   selector: 'syn-snackbar-container',
   templateUrl: './snackbar-container.component.html',
-  styleUrls: ['./snackbar-container.component.scss'],
   imports: [SynapseSnackbarComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

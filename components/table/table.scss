@@ -8,7 +8,6 @@
     border-style: solid;
     border-color: var(--border-outline_variant);
     border-width: 0 0 1px 0;
-    border-radius: 0;
   }
 
   .row,
@@ -62,7 +61,6 @@
   .table-header,
   .Table-Header-Cell {
     width: 100%;
-    height: auto;
   }
 
   &,
@@ -71,12 +69,8 @@
   .table-header {
     box-sizing: border-box;
     display: flex;
-    position: static;
     padding: 0;
     justify-content: flex-start;
-    gap: 0;
-    box-shadow: none;
-    opacity: 1;
   }
 
   &,

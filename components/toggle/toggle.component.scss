@@ -3,22 +3,3 @@
 :host {
   @include styles.toggle;
 }
-
-// See checkbox.component.scss: hide the input without leaving the tab order.
-.hidden-checkbox {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  opacity: 0;
-  pointer-events: none;
-  clip-path: inset(50%);
-}
-
-// The mixin's `:focus-visible` cannot match — the host is not focusable — so
-// bridge it with `:has()`.
-:host(:has(.hidden-checkbox:focus-visible)) {
-  box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
-}

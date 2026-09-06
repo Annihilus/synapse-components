@@ -5,10 +5,6 @@ import { SynapseIconComponent } from '../icon/icon.component';
 
 export type DropdownItemRole = 'option' | 'menuitem';
 
-/**
- * A single row inside a dropdown / popover list. Meant to be placed in the
- * `syn-popover` content slot; the surrounding list owns the selection.
- */
 @Component({
   selector: '[syn-dropdown-item]',
   imports: [SynapseCheckboxComponent, SynapseIconComponent],
@@ -16,8 +12,10 @@ export type DropdownItemRole = 'option' | 'menuitem';
   styleUrls: ['./dropdown-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    // The selector is an attribute, so this may sit on a div where
-    // `type="button"` means nothing; role and disabled state go through ARIA.
+    // Carried explicitly: the attribute is the selector, but the Figma CSS is
+    // generated as `.syn-dropdown-item` rules.
+    'class': 'syn-dropdown-item',
+    // An attribute selector: this may sit on a div, so state goes through ARIA.
     '[attr.role]': 'role()',
     '[attr.aria-disabled]': 'disabled() || null',
     '[attr.tabindex]': 'disabled() ? -1 : 0',
@@ -27,22 +25,17 @@ export type DropdownItemRole = 'option' | 'menuitem';
   },
 })
 export class SynapseDropdownItemComponent {
-  /** Leading icon; ignored when [checkbox] is on, which occupies the same slot. */
   icon = input<string>('');
 
-  /** Shows a leading checkbox mirroring [selected] — for multi-select lists. */
   checkbox = input(false);
 
-  /** Secondary line under the label. */
   description = input<string>('');
 
-  /** Trailing text, aligned to the far edge (shortcut, count, …). */
   hint = input<string>('');
 
   selected = input(false);
 
   disabled = input(false);
 
-  /** `option` inside a listbox (the default), `menuitem` inside a menu. */
   role = input<DropdownItemRole>('option');
 }

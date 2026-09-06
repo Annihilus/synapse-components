@@ -1,19 +1,15 @@
 @mixin tab-panel {
   box-sizing: border-box;
   display: inline-flex;
-  position: static;
   padding: 0;
   border-style: none;
   border-color: transparent;
   border-width: 0;
-  border-radius: 0;
   background: transparent;
   align-items: center;
   justify-content: flex-start;
   gap: var(--sizing-and-spacing-2);
-  box-shadow: none;
   flex-direction: row;
-  opacity: 1;
 
   .Tab {
     font-family: var(--body2-regular-family);
@@ -23,11 +19,5 @@
     font-weight: var(--body2-regular-weight);
     text-transform: none;
     color: var(--texticons-on_surface);
-  }
-
-  &,
-  .Tab {
-    width: auto;
-    height: auto;
   }
 }

@@ -26,8 +26,6 @@ export class SynapseSegmentedComponent {
   items = contentChildren(SynapseSegmentedItemComponent);
 
   constructor() {
-    // Subscriptions are rebuilt whenever the item set changes and torn down
-    // through onCleanup, so an item is never subscribed to twice.
     effect((onCleanup) => {
       const subscriptions = this.items().map(item =>
         item.selected.subscribe(value => this.selectItem(value)),

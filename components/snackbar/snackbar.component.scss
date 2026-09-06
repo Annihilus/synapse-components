@@ -6,12 +6,4 @@
   .title {
     width: 100%;
   }
-
-  // The mixin has no rules for the message line: drop the default <p> margins
-  // and mute it against the title.
-  .message {
-    width: 100%;
-    margin: 0;
-    color: var(--texticons-on_surface_low);
-  }
 }

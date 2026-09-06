@@ -2,43 +2,43 @@
 
 ## Description
 
-Описание
-Segmented — сегментированный переключатель (segmented control). Контейнер из вспомогательных элементов Segmented-Item, между которыми пользователь выбирает один активный вариант. Используется как замена группе табов/радио-кнопок в компактном виде.
+Description
+Segmented is a segmented control switch. A container of auxiliary Segmented-Item elements among which the user selects one active option. Used as a compact replacement for a group of tabs/radio buttons.
 
-Поведение
-Auto-layout horizontal, gap 4px, padding 4px, оборачивает несколько Segmented-Item. Variant &amp;quot;number&amp;quot; (2-7) — демонстрационный параметр количества items в контейнере, не боевое свойство.
+Behavior
+Auto-layout horizontal, gap 4px, padding 4px, wraps several Segmented-Item. Variant "number" (2-7) — demo parameter for number of items in container, not a production property.
 
-Состояния
-- Default — контейнер с items, фон bg/surface-high (#3b3b3b)
+States
+- Default — container with items, background bg/surface-high (#3b3b3b)
 
-Анатомия элемента
-- Segmented-Item (×N) — иконка (опционально) + текст (опционально), вспомогательный компонент
+Element Anatomy
+- Segmented-Item (×N) — icon (optional) + text (optional), auxiliary component
 
-Размеры и отступы
-- Gap между items: 4px
+Sizes and Spacing
+- Gap between items: 4px
 - Padding: 4px
 - Border radius: radius/l (12px)
-- Фон: bg/surface-high (#3b3b3b)
+- Background: bg/surface-high (#3b3b3b)
 
-Когда использовать / не использовать
-Использовать: нужно выбрать один вариант из небольшого фиксированного набора (2-7), все варианты должны быть видны одновременно.
-Не использовать: вариантов много (&amp;gt;7) — использовать Dropdown или Tab-Panel; нужен множественный выбор — использовать Checkbox-группу.
+When to Use / Not Use
+Use: when you need to select one option from a small fixed set (2-7), all options must be visible simultaneously.
+Do not use: many options (>7) — use Dropdown or Tab-Panel; need multiple selection — use Checkbox group.
 
-Доступность
-- ARIA-роль: radiogroup (Segmented) / radio (Segmented-Item)
-- ARIA-атрибуты: aria-checked на выбранном item, aria-disabled
-- Keyboard: Tab — фокус на группу, стрелки — переключение между items, focus-ring rgba(114,114,114,0.5) (= bg/surface-highest при 50% непрозрачности)
+Accessibility
+- ARIA role: radiogroup (Segmented) / radio (Segmented-Item)
+- ARIA attributes: aria-checked on selected item, aria-disabled
+- Keyboard: Tab — focus on group, arrows — switch between items, focus-ring rgba(114,114,114,0.5) (= bg/surface-highest at 50% opacity)
 
-Интерактивность (события)
-- onClick — клик по Segmented-Item (не disabled) — переход в Selected, снятие Selected с соседних items
-- onFocus — фокус на Segmented-Item клавиатурой — появление focus-ring
+Interactivity (Events)
+- onClick — click on Segmented-Item (not disabled) — switch to Selected, deselect neighboring items
+- onFocus — keyboard focus on Segmented-Item — show focus-ring
 
-Токены / переменные
+Tokens / Variables
 - bg/surface-high — #3b3b3b
 - radius/l — 12px
 
-Связанные компоненты
-Segmented-Item — вспомогательный компонент, используется внутри контейнера. Tab-Panel, Dropdown, Radio-Group — альтернативные паттерны выбора.
+Related Components
+Segmented-Item — auxiliary component used inside the container. Tab-Panel, Dropdown, Radio-Group — alternative selection patterns.
 
 ## Variants
 

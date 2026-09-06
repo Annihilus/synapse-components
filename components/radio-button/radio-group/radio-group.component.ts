@@ -13,7 +13,6 @@ import { SynapseRadioService } from '../radio.service';
   selector: 'syn-radio-group',
   providers: [SynapseRadioService],
   templateUrl: './radio-group.component.html',
-  styleUrls: ['./radio-group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'syn-radio-group',
@@ -28,7 +27,6 @@ import { SynapseRadioService } from '../radio.service';
   ],
 })
 export class SynapseRadioGroupComponent<T = unknown> {
-  /** How a button's value is matched against the group's, for object values. */
   compareWith = input<(a: T, b: T) => boolean>((a, b) => a === b);
 
   private readonly control = inject(SynapseControlDirective<T>);

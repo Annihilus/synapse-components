@@ -38,7 +38,6 @@ export class SynapseModalWindowComponent {
 
   private modalRef?: { close(): void };
 
-  /** Where focus returns after the dialog closes. */
   private previouslyFocused: HTMLElement | null = null;
 
   constructor() {

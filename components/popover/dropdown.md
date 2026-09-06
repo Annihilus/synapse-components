@@ -2,36 +2,36 @@
 
 ## Description
 
-Описание
-Dropdown — всплывающая панель-контейнер (обычно под триггером: select, кнопка меню), внутри которой слот (Slot) для произвольного контента. В слот можно положить что угодно, по умолчанию положен вспомогательный Dropdown-Item как самый частый сценарий.
+Description
+Dropdown — a pop-up panel container (usually under a trigger: select, menu button) that contains a slot for arbitrary content. You can put anything in the slot; by default, an auxiliary Dropdown-Item is placed as the most common scenario.
 
-Поведение
-Dropdown — статичная панель, открытие/закрытие управляется триггером снаружи.
+Behavior
+Dropdown — a static panel; opening/closing is controlled by an external trigger.
 
-Состояния
-- Default — фон bg/surface-container (#2a2a2a), рамка 1px border/outline-variant (#3b3b3b), тень shadow/m
+States
+- Default — background bg/surface-container (#2a2a2a), border 1px border/outline-variant (#3b3b3b), shadow shadow/m
 
-Анатомия элемента
-- Slot — контейнер произвольного контента (по умолчанию список Dropdown-Item), вертикальный, gap 2px
+Element Anatomy
+- Slot — container for arbitrary content (default is a list of Dropdown-Items), vertical layout, 2px gap
 
-Размеры и отступы
+Sizes and Spacing
 - Padding: 4px
 - Border radius: radius/l (12px)
 - Border width: 1px
-- Gap между элементами в слоте: 2px
+- Gap between elements in the slot: 2px
 
-Когда использовать / не использовать
-Использовать: всплывающая панель под триггером (select, меню действий, автокомплит).
-Не использовать: постоянно видимое меню без триггера.
+When to Use / Not Use
+Use: pop-up panel under a trigger (select, action menu, autocomplete).
+Do not use: always visible menu without a trigger.
 
-Токены / переменные
+Tokens / Variables
 - bg/surface-container — #2a2a2a
 - border/outline-variant — #3b3b3b
 - radius/l — 12px
-- shadow/m — тень панели
+- shadow/m — panel shadow
 
-Связанные компоненты
-Dropdown-Item — вспомогательный компонент, используется внутри слота.
+Related Components
+Dropdown-Item — auxiliary component used inside the slot.
 
 ## Structure
 

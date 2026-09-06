@@ -91,9 +91,6 @@ export class SynapseSliderComponent {
       }
     });
 
-    // Track/thumb are fixed-size per the design mixin, but measuring avoids
-    // a second source of truth for their pixel widths.
-    // Re-measured on every host resize so the thumb keeps up with a fluid track.
     afterNextRender(() => {
       const host = this._host.nativeElement;
 

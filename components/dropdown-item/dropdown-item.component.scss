@@ -11,10 +11,9 @@
     pointer-events: none;
   }
 
-  // Decorative only — the row itself is the button, so the checkbox must not
-  // swallow the click and toggle a second, conflicting state.
-  .checkbox {
+  &.disabled {
+    cursor: default;
     pointer-events: none;
-    flex-shrink: 0;
+    opacity: var(--texticons-disabled_number);
   }
 }

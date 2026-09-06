@@ -67,12 +67,10 @@ export class SynapseInputComponent {
 
   protected readonly errorText = computed(() => this.control.errorList().join(', '));
 
-  /** Drives the invisible sizer that widens the inline variant. */
   protected readonly valueText = computed(() => this.control.current() ?? '');
 
   protected readonly isFocused: Signal<boolean | undefined>;
 
-  /** Pressed state, mirroring the `:active` styling hook in the mixin. */
   protected readonly active: Signal<boolean>;
 
   private element = viewChild.required<ElementRef<HTMLInputElement>>('element');
@@ -97,8 +95,7 @@ export class SynapseInputComponent {
     return merge(
       fromEvent(element, 'focus').pipe(map(() => true)),
       fromEvent(element, 'blur').pipe(
-        // Rewind so `text-overflow: ellipsis` trims the tail rather than
-        // leaving the field scrolled to the caret.
+        // Without the rewind `text-overflow: ellipsis` has nothing to trim.
         tap(() => { element.scrollLeft = 0; }),
         map(() => false),
       ),

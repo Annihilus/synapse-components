@@ -2,63 +2,63 @@
 
 ## Description
 
-Описание
-Textarea — многострочное текстовое поле для ввода развёрнутого текста. Используется в формах, где требуется ввод длинного текста (комментарии, описания, сообщения).
+Description
+Textarea is a multi-line text input field for entering extended text. It is used in forms where long text input is required (comments, descriptions, messages).
 
-Поведение
-Поле поддерживает опциональные лейбл (с меткой обязательности * и иконкой-подсказкой) и подсказку (hint) под полем. При переполнении содержимого появляется скроллбар (showScroll). При фокусе появляется мигающая каретка-курсор и рамка меняет цвет с эффектом focus-ring. В отличие от Input и Select, не имеет вариантов Stroke, leftIcon, rightIcon и кнопки сброса — всегда отображается как полное поле с рамкой.
+Behavior
+The field supports an optional label (with a required marker * and a tooltip icon) and a hint below the field. When content overflows, a scrollbar appears (showScroll). On focus, a blinking caret cursor appears and the border changes color with a focus-ring effect. Unlike Input and Select, it does not have Stroke variants, leftIcon, rightIcon, or a reset button — it always displays as a full field with a border.
 
-Состояния
-- Default — обычное состояние, поле пустое
-- Filled — поле содержит введённый текст (Filled=True)
-- Hover — курсор наведён на поле
-- Focus — рамка меняет цвет на border/outline (#d7d7d7) с focus-ring тенью 0 0 0 2px border/outline-variant (#3b3b3b), отображается каретка-курсор (text-and-icons/on-surface, #f1f1f1)
-- Active — поле активно
-- Disabled — поле недоступно для взаимодействия
-- Error — ошибка валидации, рамка border/outline-danger (#e64e41), текст подсказки text-and-icons/danger (#e64e41)
+States
+- Default — normal state, field is empty
+- Filled — field contains entered text (Filled=True)
+- Hover — cursor is over the field
+- Focus — border changes color to border/outline (#d7d7d7) with a focus-ring shadow 0 0 0 2px border/outline-variant (#3b3b3b), caret cursor is shown (text-and-icons/on-surface, #f1f1f1)
+- Active — field is active
+- Disabled — field is not interactive
+- Error — validation error, border border/outline-danger (#e64e41), hint text text-and-icons/danger (#e64e41)
 
-Анатомия элемента
-- Label — опциональный лейбл над полем, содержит текст, метку обязательности (*) и иконку-вопрос (tooltip)
-- Textarea box — многострочное поле ввода, фиксированная высота 120px, фон bg/surface-dim (#1e1e1e), border-radius radius/m (8px)
-- Caret — мигающий курсор ввода, виден в состоянии Focus (text-and-icons/on-surface, #f1f1f1)
-- Value / Placeholder — введённый текст (text-and-icons/on-surface, #f1f1f1) или плейсхолдер (text-and-icons/on-surface-low, #a5a5a5)
-- Scrollbar (showScroll) — опциональный скроллбар при переполнении текста, thumb bg/surface-high (#3b3b3b), ширина 6px, border-radius radius/2xs (2px)
-- Hint — опциональная подсказка под полем (text-and-icons/on-surface-low, при ошибке — text-and-icons/danger)
+Element Anatomy
+- Label — optional label above the field, includes text, required marker (*) and question icon (tooltip)
+- Textarea box — multi-line input field, fixed height 120px, background bg/surface-dim (#1e1e1e), border-radius radius/m (8px)
+- Caret — blinking input cursor, visible in Focus state (text-and-icons/on-surface, #f1f1f1)
+- Value / Placeholder — entered text (text-and-icons/on-surface, #f1f1f1) or placeholder (text-and-icons/on-surface-low, #a5a5a5)
+- Scrollbar (showScroll) — optional scrollbar when text overflows, thumb bg/surface-high (#3b3b3b), width 6px, border-radius radius/2xs (2px)
+- Hint — optional hint below the field (text-and-icons/on-surface-low, error state uses text-and-icons/danger)
 
-Размеры и отступы
-Фиксированная высота поля, вариант Size отсутствует.
-- Высота поля (textarea box): 120px
-- Padding поля: 12px по горизонтали, 10px по вертикали
-- Gap между Label / полем / Hint: 6px
-- Border-radius (поле): radius/m — 8px
+Sizes and Spacing
+Fixed field height, no Size variant.
+- Field height (textarea box): 120px
+- Field padding: 12px horizontal, 10px vertical
+- Gap between Label / field / Hint: 6px
+- Border-radius (field): radius/m — 8px
 - Border-radius (Scrollbar thumb): radius/2xs — 2px
-- Текст значения: font/size/body2 (14px), line-height body2 (20px)
-- Текст лейбла/подсказки: font/size/body2 (14px), line-height body2-condensed (16px)
+- Value text: font/size/body2 (14px), line-height body2 (20px)
+- Label/hint text: font/size/body2 (14px), line-height body2-condensed (16px)
 
-Когда использовать / не использовать
-Использовать: ввод развёрнутого многострочного текста (комментарии, описания, сообщения).
-Не использовать: короткий однострочный ввод (использовать Input), выбор значения из списка (использовать Select).
+When to Use / Not Use
+Use for entering extended multi-line text (comments, descriptions, messages).
+Do not use for short single-line input (use Input), or selecting a value from a list (use Select).
 
-Доступность
-Поддержка клавиатурной навигации и многострочного ввода с клавиатуры. Disabled исключает поле из фокуса. Иконка-вопрос в лейбле предполагает всплывающую подсказку (tooltip) для доп. контекста.
+Accessibility
+Supports keyboard navigation and multi-line keyboard input. Disabled excludes the field from focus. The question icon in the label implies a tooltip for additional context.
 
-Токены / переменные
-- bg/surface-dim — #1e1e1e (фон поля)
-- bg/surface-high — #3b3b3b (thumb скроллбара)
-- border/outline-variant — #3b3b3b (рамка по умолчанию, focus-ring тень)
-- border/outline — #d7d7d7 (рамка в Focus)
-- border/outline-danger — #e64e41 (рамка в Error)
-- text-and-icons/on-surface — #f1f1f1 (текст значения, каретка)
-- text-and-icons/on-surface-low — #a5a5a5 (плейсхолдер, лейбл, подсказка)
-- text-and-icons/danger — #e64e41 (текст подсказки при ошибке)
-- radius/m — 8px (поле)
+Tokens / Variables
+- bg/surface-dim — #1e1e1e (field background)
+- bg/surface-high — #3b3b3b (scrollbar thumb)
+- border/outline-variant — #3b3b3b (default border, focus-ring shadow)
+- border/outline — #d7d7d7 (border on Focus)
+- border/outline-danger — #e64e41 (border on Error)
+- text-and-icons/on-surface — #f1f1f1 (value text, caret)
+- text-and-icons/on-surface-low — #a5a5a5 (placeholder, label, hint)
+- text-and-icons/danger — #e64e41 (hint text on error)
+- radius/m — 8px (field)
 - radius/2xs — 2px (Scrollbar thumb)
 - font/size/body2 — 14px
-- font/line-height/body2 — 20px (значение)
-- font/line-height/body2-condensed — 16px (лейбл/подсказка)
+- font/line-height/body2 — 20px (value)
+- font/line-height/body2-condensed — 16px (label/hint)
 
-Связанные компоненты
-Input — аналог для однострочного ввода. Select — альтернатива для выбора значения из списка.
+Related Components
+Input — single-line input analog. Select — alternative for choosing a value from a list.
 
 ## Variants
 

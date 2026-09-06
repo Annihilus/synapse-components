@@ -1,8 +1,6 @@
 @mixin segmented {
   box-sizing: border-box;
   display: inline-flex;
-  position: static;
-  height: auto;
   padding: var(--sizing-and-spacing-1);
   border-style: none;
   border-color: transparent;
@@ -12,9 +10,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: var(--sizing-and-spacing-1);
-  box-shadow: none;
   flex-direction: row;
-  opacity: 1;
 
   .Segmented-Item {
     height: 32px;
@@ -25,10 +21,5 @@
     font-weight: var(--body1-regular-weight);
     text-transform: none;
     color: var(--texticons-on_surface);
-  }
-
-  &,
-  .Segmented-Item {
-    width: auto;
   }
 }

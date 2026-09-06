@@ -2,7 +2,6 @@
   flex-shrink: 0;
   box-sizing: border-box;
   display: inline-flex;
-  position: relative;
   width: 480px;
   max-width: 480px;
   padding: 0;
@@ -11,14 +10,12 @@
   border-radius: var(--rounding-xl);
   align-items: flex-end;
   justify-content: flex-start;
-  gap: 0;
-  box-shadow: none;
   flex-direction: column;
-  opacity: 1;
+  position: relative;
 
   .close {
-    position: absolute;
     border-color: rgba(0, 0, 0, 0);
+    position: absolute;
     top: 16px;
     right: 16px;
   }
@@ -42,13 +39,6 @@
   .close,
   .icon {
     background: transparent;
-  }
-
-  &,
-  .Modal-Footer,
-  .Modal-Content,
-  .Modal-Header {
-    height: auto;
   }
 
   &.size-l {

@@ -1,12 +1,10 @@
 @mixin modal-footer {
-  height: auto;
   padding: var(--sizing-and-spacing-5) var(--sizing-and-spacing-6);
   background: var(--bg-surface_container);
   justify-content: flex-end;
   gap: var(--sizing-and-spacing-3);
 
   .Button {
-    width: auto;
     height: 40px;
     font-family: var(--body2-condensed-regular-family);
     line-height: var(--body2-condensed-regular-line-height);
@@ -27,11 +25,11 @@
   }
 
   .counter {
-    height: 24px;
     padding: 0;
     background: transparent;
     justify-content: flex-start;
     gap: var(--sizing-and-spacing-1);
+    height: 24px;
   }
 
   .counter,
@@ -51,15 +49,11 @@
   .counter {
     box-sizing: border-box;
     display: flex;
-    position: static;
     width: 100%;
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    border-radius: 0;
     align-items: center;
-    box-shadow: none;
     flex-direction: row;
-    opacity: 1;
   }
 }

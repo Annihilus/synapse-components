@@ -23,16 +23,11 @@ import {
   switchMap,
 } from 'rxjs';
 
-/**
- * Base path for the icon files, so the library can live in an app that serves
- * them from somewhere other than `/icons`.
- */
 export const SYNAPSE_ICON_BASE_PATH = new InjectionToken<string>(
   'SYNAPSE_ICON_BASE_PATH',
   { providedIn: 'root', factory: () => '/icons' },
 );
 
-/** Without the cache every `<syn-icon>` would request the same file again. */
 @Injectable({ providedIn: 'root' })
 export class SynapseIconLoader {
   private readonly http = inject(HttpClient);
@@ -52,7 +47,6 @@ export class SynapseIconLoader {
         /^<svg/,
         `<svg fill="currentColor" style="display:inline-block;vertical-align:middle"`,
       )),
-      // A missing icon must not kill the stream and strand the component.
       catchError(() => of('')),
       shareReplay({ bufferSize: 1, refCount: false }),
     );
@@ -66,7 +60,6 @@ export class SynapseIconLoader {
 @Component({
   selector: 'syn-icon',
   template: '',
-  styleUrls: ['./icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SynapseIconComponent {

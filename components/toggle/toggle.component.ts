@@ -31,10 +31,7 @@ import { SynapseControlDirective } from '../control-directives';
   ],
 })
 export class SynapseToggleComponent {
-  /**
-   * Accessible name for the switch. The mixin fixes the host width, so there is
-   * no room to render it as visible text; it names the native input instead.
-   */
+  /** The only accessible name: the mixin fixes the host width, leaving no room. */
   description = input('');
 
   changeValue = output<boolean>();
@@ -65,11 +62,7 @@ export class SynapseToggleComponent {
     this.control.markTouched();
   }
 
-  /**
-   * The native checkbox is visually hidden, so pointer events land on the host
-   * (indicator / state / track). Forward them to the checkbox — ignoring clicks
-   * that already originated from the input itself, which would double-toggle.
-   */
+  /** Clicks from the input itself are skipped: forwarding them double-toggles. */
   onHostClick(event: Event) {
     if (this.disabled()) return;
 

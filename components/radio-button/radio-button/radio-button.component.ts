@@ -38,7 +38,6 @@ export class SynapseRadioButtonComponent<T = unknown> {
     optional: true,
   });
 
-  /** Null outside a group: the input stays ungrouped instead of crashing. */
   readonly groupName = computed(() => this.service?.groupName ?? null);
 
   readonly isChecked = computed(() => this.service?.isSelected(this.value()) ?? false);
@@ -52,16 +51,11 @@ export class SynapseRadioButtonComponent<T = unknown> {
     this.focused.emit(state);
   }
 
-  /** Fires for a click and for arrow-key navigation between native radios. */
   onSelect() {
     this.service?.select(this.value());
   }
 
-  /**
-   * The native radio is visually hidden, so pointer events land on the host
-   * (the visual circle). Forward them to the input — ignoring clicks that
-   * already originated from it.
-   */
+  /** Clicks from the input itself are skipped: forwarding them loops. */
   onHostClick(event: Event) {
     if (this.isDisabled()) return;
 

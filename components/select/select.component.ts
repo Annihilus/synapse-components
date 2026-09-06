@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,6 +13,7 @@ import { SynapseIconButtonComponent } from '../icon-button/icon-button.component
 import { SynapseIconComponent } from '../icon/icon.component';
 import { SynapseControlDirective } from '../control-directives';
 import { SynapseDropdownDirective } from "../popover";
+import { SynapseDropdownItemComponent } from '../dropdown-item/dropdown-item.component';
 
 let nextSelectId = 0;
 
@@ -25,7 +25,12 @@ export interface SelectItem<T> {
 
 @Component({
   selector: 'syn-select',
-  imports: [CommonModule, SynapseIconComponent, SynapseIconButtonComponent, SynapseDropdownDirective],
+  imports: [
+    SynapseIconComponent,
+    SynapseIconButtonComponent,
+    SynapseDropdownDirective,
+    SynapseDropdownItemComponent,
+  ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,13 +46,9 @@ export interface SelectItem<T> {
   }
 })
 export class SynapseSelectComponent<T> {
-  /** A concrete item picked by the user. */
   valueChanged = output<T>();
 
-  /**
-   * Clearing the selection (`[canClear]`). A separate event rather than
-   * `valueChanged(null)`, which would widen the output type for every consumer.
-   */
+  /** Separate from `valueChanged`, which would otherwise widen to `T | null`. */
   cleared = output<void>();
 
   label = input<string | null>(null);
@@ -57,11 +58,9 @@ export class SynapseSelectComponent<T> {
   placeholder = input<string>('Select an option');
   canClear = input<boolean>(false);
   hideSelected = input<boolean>(true);
-  /** Compact inline variant (no frame, no label/hint). `false` = full bordered. */
   inline = input<boolean>(false);
   items = input<T[]>([]);
 
-  /** Whether the options dropdown is open (drives the `.active` class + chevron). */
   active = signal(false);
 
   displayWith = input<(item: T) => string>((item) => String(item));
@@ -77,10 +76,7 @@ export class SynapseSelectComponent<T> {
     return selected ? this.displayWith()(selected) : null;
   });
 
-  // Field text: the selected value's name, or the placeholder when empty. The
-  // placeholder vs value colour is handled by the `.filled` class in the mixin.
   displayText = computed(() => this.selectedDisplayName() ?? this.placeholder());
-
 
   itemsWithMetadata = computed(() => {
     const displayFn = this.displayWith();
@@ -102,10 +98,8 @@ export class SynapseSelectComponent<T> {
 
   protected readonly dropdown = viewChild.required(SynapseDropdownDirective);
 
-  /** Ties the <label> to the combobox; otherwise the label owns no control. */
   protected readonly labelId = `syn-select-label-${nextSelectId++}`;
 
-  /** The trigger is a div, so keyboard opening is wired by hand. */
   protected openDropdown(event: Event) {
     event.preventDefault();
     this.dropdown().show();
@@ -122,6 +116,10 @@ export class SynapseSelectComponent<T> {
     this.control.setValue(item.original);
     this.dropdown().hide();
     this.valueChanged.emit(item.original);
+  }
+
+  close() {
+    this.dropdown().hide();
   }
 
   clearSelection() {

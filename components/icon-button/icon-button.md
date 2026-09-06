@@ -2,60 +2,60 @@
 
 ## Description
 
-Описание
-Icon-Button — компактная кнопка с одной иконкой без текста. Используется для второстепенных действий в тулбарах, шапках, списках (например: закрыть, редактировать, ещё-меню).
+Description
+Icon-Button — a compact button with a single icon and no text. Used for secondary actions in toolbars, headers, and lists (e.g., close, edit, more menu).
 
-Поведение
-Переключается по props type (Primary/Secondary), hover, active, disabled. При hover появляется полупрозрачный слой поверх (hover/hover-color). При active — заливка фона bg/surface-high. Disabled снижает opacity контента.
+Behavior
+Switches via props type (Primary/Secondary), hover, active, disabled. On hover, a semi-transparent overlay appears on top (hover/hover-color). On active, the background fills with bg/surface-high. Disabled reduces content opacity.
 
-Состояния
-- Default — иконка без фона, прозрачный контейнер
-- Hover — полупрозрачный слой hover/hover-color (rgba(255,255,255,0.12)) поверх
-- Active — фон bg/surface-high (#3b3b3b), иконка активного цвета
-- Disabled — контент opacity снижен (disabled/disabled-number), без hover/active
+States
+- Default — icon with no background, transparent container
+- Hover — semi-transparent hover/hover-color layer (rgba(255,255,255,0.12)) on top
+- Active — bg/surface-high (#3b3b3b) background, active color icon
+- Disabled — content opacity reduced (disabled/disabled-number), no hover/active
 
-Виды компонента
-- Primary — акцентная версия (иконка/цвет primary при active)
-- Secondary — нейтральная версия (по умолчанию)
+Component types
+- Primary — accent version (icon/color primary when active)
+- Secondary — neutral version (default)
 
-Анатомия элемента
-- state — слой hover/active, absolute inset-0
-- icon — 16x16px, по центру
+Element anatomy
+- state — hover/active layer, absolute inset-0
+- icon — 16x16px, centered
 
-Размеры и отступы
-- Размер: 20x20px
+Sizes and spacing
+- Size: 20x20px
 - Padding: 2px
 - Border radius: radius/xs (4px)
 - icon: 16x16px
 
-Когда использовать / не использовать
-Использовать: нужно компактное действие без подписи (закрыть, редактировать, меню), место ограничено.
-Не использовать: действие требует явного текстового пояснения — использовать Button; действие критично и должно быть заметным — использовать Button (Primary).
+When to use / not to use
+Use: need a compact action without a label (close, edit, menu), space is limited.
+Do not use: action requires explicit text explanation — use Button; action is critical and must be prominent — use Button (Primary).
 
-Кастомизация
-- type: Primary/Secondary, по умолчанию Secondary
-- hover: True/False, по умолчанию False
-- active: True/False, по умолчанию False
-- disabled: True/False, по умолчанию False
-- icon: любая иконка
+Customization
+- type: Primary/Secondary, default Secondary
+- hover: True/False, default False
+- active: True/False, default False
+- disabled: True/False, default False
+- icon: any icon
 
-Доступность
-- ARIA-роль: button
-- ARIA-атрибуты: aria-label обязателен (нет видимого текста), aria-disabled
-- Keyboard: Tab — фокус, Enter/Space — активация
+Accessibility
+- ARIA role: button
+- ARIA attributes: aria-label is required (no visible text), aria-disabled
+- Keyboard: Tab to focus, Enter/Space to activate
 
-Интерактивность (события)
-- onClick — клик по кнопке (не disabled)
-- onFocus — фокус клавиатурой
+Interactivity (events)
+- onClick — click on the button (not disabled)
+- onFocus — keyboard focus
 
-Токены / переменные
+Tokens / variables
 - bg/surface-high — #3b3b3b
 - hover/hover-color — rgba(255,255,255,0.12)
-- disabled/disabled-number — opacity значение disabled состояния
+- disabled/disabled-number — disabled state opacity value
 - radius/xs — 4px
 
-Связанные компоненты
-Button — полноразмерная кнопка с текстом, используется когда нужна подпись. Tab — использует похожий паттерн action-иконки внутри себя.
+Related components
+Button — full-size button with text, used when a label is needed. Tab — uses a similar action icon pattern internally.
 
 ## Variants
 

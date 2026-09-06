@@ -38,7 +38,6 @@ export class SynapseHelperTextComponent {
   canBeClosed = input<boolean>(false);
   closeLabel = input('Close');
 
-  /** `[canBeClosed]` renders the button; hiding the block is up to the consumer. */
   closed = output<void>();
 
   protected iconName = computed(() => ICON_BY_TYPE[this.type()] ?? ICON_BY_TYPE.info);

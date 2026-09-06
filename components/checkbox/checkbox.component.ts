@@ -52,7 +52,6 @@ export class SynapseCheckboxComponent {
   private readonly _checkbox = viewChild.required<ElementRef<HTMLInputElement>>('checkbox');
 
   constructor() {
-    // Local state, so a user toggle clears it without fighting the input.
     effect(() => this.isIndeterminate.set(this.indeterminate()));
   }
 
@@ -73,11 +72,7 @@ export class SynapseCheckboxComponent {
     this.control.markTouched();
   }
 
-  /**
-   * The native checkbox is visually hidden, so pointer events land on the host
-   * (box / icon). Forward them to the checkbox — ignoring clicks that already
-   * originated from the input itself, which would double-toggle.
-   */
+  /** Clicks from the input itself are skipped: forwarding them double-toggles. */
   onHostClick(event: Event) {
     if (this.disabled()) return;
 

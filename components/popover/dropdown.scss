@@ -17,6 +17,10 @@
     font-size: var(--body1-condensed-regular-size);
     font-weight: var(--body1-condensed-regular-weight);
     text-transform: none;
+  }
+
+  .hint,
+  .icon_placeholder {
     color: var(--texticons-on_surface_low);
   }
 
@@ -26,9 +30,7 @@
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    border-radius: 0;
     background: transparent;
-    box-shadow: none;
   }
 
   .wrap,
@@ -39,17 +41,9 @@
   &,
   .wrap {
     box-sizing: border-box;
-    position: static;
     align-items: flex-start;
     justify-content: flex-start;
     gap: var(--sizing-and-spacing-0_5);
     flex-direction: column;
-    opacity: 1;
-  }
-
-  &,
-  .wrap,
-  .item {
-    height: auto;
   }
 }

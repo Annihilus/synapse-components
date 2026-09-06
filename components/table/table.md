@@ -2,60 +2,60 @@
 
 ## Description
 
-Описание
-Таблица Synapse Design System для отображения табличных данных. Состоит из шапки (table-header, строка из Table-Header-Cell) и тела (content, строки row из Table-Cell).
+Description
+Table of the Synapse Design System for displaying tabular data. Consists of a header (table-header, a row of Table-Header-Cell) and a body (content, rows of Table-Cell).
 
-Поведение
-Статичный контейнер данных — сам Table не имеет hover/focus/active. Шапка (table-header) выделена фоном bg/surface-container и скруглением radius/l сверху. Строки тела (row) разделены нижней границей border/outline-variant, у последней строки границы нет. Ячейки растягиваются на равную долю ширины (flex 1 0 0).
+Behavior
+Static data container — the Table itself has no hover/focus/active. The header (table-header) is highlighted with bg/surface-container background and radius/l rounding on top. Body rows (row) are separated by a bottom border/outline-variant border; the last row has no border. Cells stretch to an equal width share (flex 1 0 0).
 
-Состояния
-- Default: единственное состояние — Table не имеет вариативных состояний (нет variant set)
+States
+- Default: the only state — Table has no variant states (no variant set)
 
-Виды компонента
-- Отдельных вариантов (variant set) нет — единичный COMPONENT без вариаций
+Component types
+- No separate variants (variant set) — single COMPONENT without variations
 
-Вид на разных устройствах
-- Mobile: отдельного варианта нет — фиксированная ширина 1200px в демо, требует горизонтального скролла или адаптации колонок на узких экранах
-- Desktop: стандартный вид, ширина по контейнеру (демо 1200px), колонки равной ширины
+Appearance on different devices
+- Mobile: no separate variant — fixed 1200px width in demo, requires horizontal scrolling or column adaptation on narrow screens
+- Desktop: standard view, width follows container (demo 1200px), columns of equal width
 
-Анатомия элемента
-- table-header — строка шапки: фон bg/surface-container (#2a2a2a), radius/l (12px), содержит N × Table-Header-Cell
-- content — тело таблицы: колонка из row
-- row — строка: border-bottom 1px border/outline-variant (#3b3b3b), кроме последней строки (без границы), содержит N × Table-Cell
+Element anatomy
+- table-header — header row: bg bg/surface-container (#2a2a2a), radius/l (12px), contains N × Table-Header-Cell
+- content — table body: column of rows
+- row — row: border-bottom 1px border/outline-variant (#3b3b3b), except the last row (no border), contains N × Table-Cell
 
-Размеры и отступы
-- Ширина (демо): 1200px, реально по контейнеру
+Sizes and spacing
+- Width (demo): 1200px, actually follows container
 - Border radius (Table/table-header): radius/l — 12px
 
-Мин / Макс размеры
-- Min width: не задан — колонки flex 1 0 0, min-width 120px на ячейку (демо)
-- Max width: не задан — по контейнеру
-- Min height: не задан — по контенту
-- Max height: не задан
+Min / Max sizes
+- Min width: not set — columns flex 1 0 0, min-width 120px per cell (demo)
+- Max width: not set — follows container
+- Min height: not set — by content
+- Max height: not set
 
-Когда использовать / не использовать
-- Использовать: нужно отобразить структурированные данные в виде строк и колонок; данные однородны по типу в рамках колонки
-- Не использовать: данных нет — использовать Empty-State; нужен список карточек или произвольная компоновка — использовать другой layout-паттерн
+When to use / not to use
+- Use: need to display structured data in rows and columns; data is homogeneous by type within a column
+- Do not use: no data — use Empty-State; need a card list or arbitrary layout — use a different layout pattern
 
-Кастомизация
-- Количество колонок/строк: произвольное (через children), default 4 колонки × 6 строк (демо)
+Customization
+- Number of columns/rows: arbitrary (via children), default 4 columns × 6 rows (demo)
 
-Доступность
-- ARIA-роль: table (Table), row (table-header, row)
-- ARIA-атрибуты: не применимо напрямую к контейнеру — атрибуты распределены по дочерним ячейкам
-- Keyboard навигация: таблица сама по себе не интерактивна — если ячейки содержат интерактивные элементы, они получают фокус через Tab в естественном порядке
+Accessibility
+- ARIA role: table (Table), row (table-header, row)
+- ARIA attributes: not directly applicable to the container — attributes are distributed across child cells
+- Keyboard navigation: the table itself is not interactive — if cells contain interactive elements, they receive focus via Tab in natural order
 
-Интерактивность (события)
-- Нет собственных событий — статичный компонент отображения данных; интерактивность (сортировка, клик по строке) реализуется на уровне обёртки/родительского контекста использования
+Interactivity (events)
+- No own events — static data display component; interactivity (sorting, row click) is implemented at the wrapper/parent usage context level
 
-Связанные компоненты
-- Empty-State — заглушка при отсутствии данных вместо пустой таблицы
-- Scrollbar — кастомный скролл при переполнении таблицы
-- Checkbox — часто используется внутри Table-Cell для выбора строк
+Related components
+- Empty-State — placeholder for the absence of data instead of an empty table
+- Scrollbar — custom scroll on table overflow
+- Checkbox — often used inside Table-Cell for row selection
 
-Токены / переменные
-- bg/surface-container: #2a2a2a (фон table-header)
-- border/outline-variant: #3b3b3b (border-bottom row)
+Tokens / variables
+- bg/surface-container: #2a2a2a (table-header background)
+- border/outline-variant: #3b3b3b (row border-bottom)
 - radius/l: 12px (Table, table-header)
 
 ## Structure

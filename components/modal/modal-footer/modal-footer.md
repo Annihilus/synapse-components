@@ -2,60 +2,60 @@
 
 ## Description
 
-Описание
-Modal-Footer — нижний блок модального окна Modal-Window. Содержит опциональный счётчик выбранных элементов и ряд кнопок действий.
+Description
+Modal-Footer — the bottom block of the Modal-Window. Contains an optional counter of selected items and a row of action buttons.
 
-Поведение
-Статичный блок-контейнер — не имеет собственных hover/focus состояний, кроме состояний вложенных кнопок (см. Button). Видимость счётчика управляется counter.
+Behavior
+Static container block — has no own hover/focus states, except the states of nested buttons (see Button). Counter visibility is controlled by counter.
 
-Состояния
-- Default — единственное состояние контейнера, различия только в наборе видимых элементов (counter) и количестве кнопок
+States
+- Default — the only container state, differences only in the set of visible elements (counter) and number of buttons
 
-Виды компонента
-- counter=True/False — показ счётчика "Selected: N" слева от кнопок
+Component types
+- counter=True/False — shows the "Selected: N" counter to the left of the buttons
 
-Вид на разных устройствах
-- Mobile: без отдельного варианта, ширина по родителю (Modal-Window)
-- Desktop: ширина по родителю, кнопки выровнены по правому краю
+Appearance on different devices
+- Mobile: no separate variant, width follows parent (Modal-Window)
+- Desktop: width follows parent, buttons aligned to the right
 
-Анатомия элемента
-- counter — "Selected:" (on-surface) + значение (on-surface-low #a5a5a5), опционально
-- actions — ряд кнопок (Button), обычно Cancel (ghost) + 1-2 второстепенные (outlined) + 1 primary, выровнены по правому краю
+Element anatomy
+- counter — "Selected:" (on-surface) + value (on-surface-low #a5a5a5), optional
+- actions — row of buttons (Button), typically Cancel (ghost) + 1-2 secondary (outlined) + 1 primary, right-aligned
 
-Размеры и отступы
-- Padding: 24px по горизонтали, 20px по вертикали
-- Gap: 12px между counter и кнопками, 12px между кнопками
-- Кнопки: высота 40px (Button Size=m)
+Sizes and spacing
+- Padding: 24px horizontal, 20px vertical
+- Gap: 12px between counter and buttons, 12px between buttons
+- Buttons: height 40px (Button Size=m)
 
-Мин / Макс размеры
-- Min/Max width: не заданы — по родителю (Modal-Window)
-- Min/Max height: не задана — по контенту (высота кнопок + padding)
+Min / Max sizes
+- Min/Max width: not set — follows parent (Modal-Window)
+- Min/Max height: not set — by content (button height + padding)
 
-Когда использовать / не использовать
-- Использовать: нужны явные действия (подтверждение/отмена) в модальном окне
-- Не использовать: для окон без действий — установить showFooter=False на Modal-Window
+When to use / not to use
+- Use: need explicit actions (confirm/cancel) in a modal window
+- Do not use: for windows without actions — set showFooter=False on Modal-Window
 
-Кастомизация
-- counter: True / False, по умолчанию True
-- набор и количество кнопок — определяется содержимым конкретного инстанса
+Customization
+- counter: True / False, default True
+- button set and count — determined by the specific instance content
 
-Доступность
-- ARIA-роль: часть dialog, кнопки — role button (см. Button)
-- ARIA-атрибуты: aria-live="polite" на counter при динамическом изменении значения
-- Keyboard: Tab перемещается по кнопкам действий, Enter/Space активирует
+Accessibility
+- ARIA role: part of dialog, buttons — role button (see Button)
+- ARIA attributes: aria-live="polite" on counter when its value changes dynamically
+- Keyboard: Tab moves between action buttons, Enter/Space to activate
 
-Интерактивность (события)
-- onCancel — клик по кнопке Cancel
-- onConfirm — клик по primary-кнопке
-- onClick (промежуточные кнопки) — см. Button
+Interactivity (events)
+- onCancel — click on the Cancel button
+- onConfirm — click on the primary button
+- onClick (intermediate buttons) — see Button
 
-Связанные компоненты
-- Modal-Window — родительский контейнер
-- Button — используется для всех действий в actions
+Related components
+- Modal-Window — parent container
+- Button — used for all actions in the actions block
 
-Токены / переменные
-- text-and-icons/on-surface: #f1f1f1 (label counter)
-- text-and-icons/on-surface-low: #a5a5a5 (значение counter)
+Tokens / variables
+- text-and-icons/on-surface: #f1f1f1 (counter label)
+- text-and-icons/on-surface-low: #a5a5a5 (counter value)
 - font/size/body1: 16px
 - font/line-height/body1: 24px
 

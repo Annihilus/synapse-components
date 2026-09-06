@@ -2,49 +2,49 @@
 
 ## Description
 
-Описание
-Radiobutton — переключатель для выбора одного значения из нескольких взаимоисключающих опций внутри группы. Не поддерживает Indeterminate и множественный выбор.
+Description
+Radiobutton is a toggle for selecting one value from multiple mutually exclusive options within a group. It does not support Indeterminate or multiple selections.
 
-Поведение
-Клик переключает состояние Checked (в группе выбор одной радиокнопки снимает выбор с остальных — логика группы). При Hover — оверлей hover/hover-color (rgba(255,255,255,0.12)) поверх круга. При фокусе — фон bg/surface-container (#2a2a2a) + focus-ring тень 0 0 0 2px border/outline-variant (#3b3b3b). При Checked=True внутри точка 8px text-and-icons/primary (#b299e7).
+Behavior
+Click toggles the Checked state (in a group, selecting one radio button deselects others — group logic). On Hover — overlay hover/hover-color (rgba(255,255,255,0.12)) over the circle. On Focus — background bg/surface-container (#2a2a2a) + focus-ring shadow 0 0 0 2px border/outline-variant (#3b3b3b). When Checked=True, an 8px dot text-and-icons/primary (#b299e7) appears inside.
 
-Состояния
-- Default (Checked=False) — пустой круг, рамка border/outline (#d7d7d7)
-- Hover — оверлей hover/hover-color (rgba(255,255,255,0.12))
-- Focus — фон bg/surface-container (#2a2a2a) + focus-ring тень 0 0 0 2px border/outline-variant (#3b3b3b)
-- Disabled — рамка border/disabled-outline (rgba(215,215,215,0.32))
-- Checked=True — точка 8px text-and-icons/primary (#b299e7)
-- Checked=True + Disabled — рамка border/disabled-outline, точка opacity disabled/disabled-number (0.32)
+States
+- Default (Checked=False) — empty circle, border border/outline (#d7d7d7)
+- Hover — overlay hover/hover-color (rgba(255,255,255,0.12))
+- Focus — background bg/surface-container (#2a2a2a) + focus-ring shadow 0 0 0 2px border/outline-variant (#3b3b3b)
+- Disabled — border border/disabled-outline (rgba(215,215,215,0.32))
+- Checked=True — 8px dot text-and-icons/primary (#b299e7)
+- Checked=True + Disabled — border border/disabled-outline, dot opacity disabled/disabled-number (0.32)
 
-Анатомия элемента
-- Circle — круг 20x20px, рамка 1px border/outline (#d7d7d7), border-radius radius/full (1000px)
-- Dot (check) — внутренний круг 8px, text-and-icons/primary (#b299e7), виден при Checked=True
-- State overlay — слой inset -1px поверх круга для hover-эффекта
+Element Anatomy
+- Circle — 20x20px circle, 1px border border/outline (#d7d7d7), border-radius radius/full (1000px)
+- Dot (check) — inner 8px circle, text-and-icons/primary (#b299e7), visible when Checked=True
+- State overlay — inset -1px layer over the circle for hover effect
 
-Размеры и отступы
-- Размер: 20x20px (фиксированный, вариантов Size нет)
+Sizes and Spacing
+- Size: 20x20px (fixed, no Size variants)
 - Border-radius: radius/full — 1000px
 - Border width: 1px
 - Dot size: 8px
 
-Когда использовать / не использовать
-Использовать: выбор одного значения из взаимоисключающих опций (в группе).
-Не использовать: множественный выбор (использовать Checkbox-Group); независимое мгновенное вкл/выкл (использовать Toggle).
+When to Use / Not Use
+Use: selecting one value from mutually exclusive options (in a group).
+Do not use: multiple selection (use Checkbox-Group); independent instant on/off (use Toggle).
 
-Доступность
-role="radiogroup" на контейнере, radio на элементах. Клавиатурная навигация: Tab на группу, стрелки между опциями, Space для выбора.
+Accessibility
+role="radiogroup" on container, radio on elements. Keyboard navigation: Tab to group, arrows between options, Space to select.
 
-Токены / переменные
-- border/outline — #d7d7d7 (рамка)
-- border/disabled-outline — rgba(215,215,215,0.32) (рамка, Disabled)
-- bg/surface-container — #2a2a2a (фон в Focus)
-- border/outline-variant — #3b3b3b (focus-ring тень)
-- text-and-icons/primary — #b299e7 (точка, Checked)
+Tokens / Variables
+- border/outline — #d7d7d7 (border)
+- border/disabled-outline — rgba(215,215,215,0.32) (border, Disabled)
+- bg/surface-container — #2a2a2a (background on Focus)
+- border/outline-variant — #3b3b3b (focus-ring shadow)
+- text-and-icons/primary — #b299e7 (dot, Checked)
 - disabled/disabled-number — 0.32
 - radius/full — 1000px
 
-Связанные компоненты
-Radiobutton-Label — тот же Radiobutton с текстовым лейблом и опциональным описанием. Radio-Group — вертикальная группа Radiobutton-Label. Checkbox — альтернатива для множественного выбора. Toggle — альтернатива для независимого вкл/выкл.
+Related Components
+Radiobutton-Label — same Radiobutton with text label and optional description. Radio-Group — vertical group of Radiobutton-Label. Checkbox — alternative for multiple selection. Toggle — alternative for independent on/off.
 
 ## Variants
 

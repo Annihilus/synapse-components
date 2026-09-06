@@ -8,8 +8,6 @@
     @include base.tag-base;
   }
 
-  // A button, not the mixin's inline icon, so the control stays keyboard
-  // reachable; colour and background still come from the mixin.
   .close {
     cursor: pointer;
     padding: 0;

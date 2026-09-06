@@ -18,6 +18,9 @@ export type { IconButtonType } from './icon-button.types';
   styleUrls: ['./icon-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    // The attribute is the selector, but the Figma CSS is generated as
+    // `.syn-icon-button` rules — the preview iframe has nothing else to match.
+    'class': 'syn-icon-button',
     '[class]': 'classes()',
   },
 })

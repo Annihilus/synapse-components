@@ -12,20 +12,6 @@
   }
 }
 
-.state {
-  pointer-events: none;
-  user-select: none;
-}
-
-:host(:not(.inline)) .field {
-  flex: 1;
-  min-width: 0;
-
-  .sizer {
-    display: none;
-  }
-}
-
 :host(.inline) {
   flex-shrink: 1;
   min-width: 0;
@@ -37,19 +23,6 @@
     max-width: 100%;
   }
 
-  .field {
-    display: inline-grid;
-    grid-template-columns: minmax(0, 1fr);
-    overflow: hidden;
-    width: max-content;
-    min-width: 20px;
-    max-width: var(--syn-inline-input-max-width, 100%);
-
-    > * {
-      grid-area: 1 / 1;
-    }
-  }
-
   .text-block {
     min-width: 0;
     text-overflow: clip;
@@ -57,19 +30,5 @@
 
   &:not(.focus) .text-block {
     text-overflow: ellipsis;
-  }
-
-  .sizer {
-    visibility: hidden;
-    white-space: pre;
-    pointer-events: none;
-
-    font-family: Inter;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0;
-
-    padding-right: 2px;
   }
 }

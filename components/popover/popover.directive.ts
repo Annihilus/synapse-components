@@ -35,13 +35,6 @@ function isContent(value: unknown): boolean {
   return value instanceof TemplateRef || (typeof value === 'string' && value !== '');
 }
 
-/**
- * The engine shared by the three directives, each of which contributes only an
- * options preset and a panel modifier class (see popover.defaults.ts).
- *
- * Open state is a single signal and placement a pure function,
- * `computePopoverPosition()`; no third-party positioning library is involved.
- */
 @Directive({
   host: {
     '[attr.aria-expanded]': 'ariaExpanded()',
@@ -50,7 +43,6 @@ function isContent(value: unknown): boolean {
   },
 })
 export abstract class SynapsePopoverBaseDirective {
-  /** The value of the concrete directive's primary input. */
   protected abstract readonly value: Signal<PopoverInput | undefined>;
 
   protected abstract readonly variant: PopoverVariant;
@@ -79,7 +71,7 @@ export abstract class SynapsePopoverBaseDirective {
   });
 
   private readonly host = inject(ElementRef<HTMLElement>).nativeElement;
-  private readonly document = inject(DOCUMENT);
+  private readonly appDocument = inject(DOCUMENT);
   private readonly appRef = inject(ApplicationRef);
   private readonly envInjector = inject(EnvironmentInjector);
   private readonly injector = inject(Injector);
@@ -91,7 +83,21 @@ export abstract class SynapsePopoverBaseDirective {
   private triggerSub?: Subscription;
   private whileOpenSub?: Subscription;
 
-  /** Id of the open panel, for a trigger that has to declare aria-controls. */
+  /**
+   * The document the trigger is rendered in, which is not always the app's: the
+   * component preview relocates its DOM into an iframe, and a panel left behind
+   * in the app document would be placed from the iframe's coordinates and never
+   * see the clicks that should close it.
+   */
+  private get document(): Document {
+    return this.host.ownerDocument ?? this.appDocument;
+  }
+
+  /** Viewport the panel is clamped to — the iframe's, inside the preview. */
+  private get view(): Window {
+    return this.document.defaultView ?? window;
+  }
+
   readonly panelId = computed(() => this._open() ? this.panelRef?.instance.panelId ?? null : null);
 
   protected readonly ariaExpanded = computed(() =>
@@ -107,7 +113,6 @@ export abstract class SynapsePopoverBaseDirective {
   );
 
   constructor() {
-    // Rebuild the trigger subscription whenever trigger or disabled changes.
     effect((onCleanup) => {
       const { trigger, disabled } = this.options();
 
@@ -161,8 +166,6 @@ export abstract class SynapsePopoverBaseDirective {
     this.show();
   }
 
-  // --- triggers -----------------------------------------------------------
-
   private bindTriggers(trigger: PopoverOptions['trigger']): Subscription {
     if (trigger === 'manual') return new Subscription();
 
@@ -172,8 +175,6 @@ export abstract class SynapsePopoverBaseDirective {
         .subscribe(() => this.toggle());
     }
 
-    // hover covers both pointer and keyboard focus, so the hint is reachable
-    // by Tab and not mouse-only.
     const enter$ = merge(
       fromEvent(this.host, 'mouseenter'),
       fromEvent(this.host, 'focusin'),
@@ -218,7 +219,6 @@ export abstract class SynapsePopoverBaseDirective {
     this.hideTimer = setTimeout(() => this.hide(), hideDelay);
   }
 
-  /** Listeners that are only needed while the panel is open. */
   private bindWhileOpen(): void {
     const sub = new Subscription();
     const panelEl = this.panelElement();
@@ -229,24 +229,20 @@ export abstract class SynapsePopoverBaseDirective {
         .subscribe(() => this.hide()),
     );
 
-    // A click outside both trigger and panel closes it. Captured, so that a
-    // stopPropagation inside the content cannot swallow the event.
+    // Captured: a stopPropagation inside the content would swallow the event.
     sub.add(
       fromEvent<MouseEvent>(this.document, 'click', { capture: true })
         .pipe(filter(event => !this.containsTarget(event)))
         .subscribe(() => this.hide()),
     );
 
-    // Ancestor scroll and resize reposition the panel rather than close it.
     sub.add(
       merge(
         fromEvent(this.document, 'scroll', { capture: true }),
-        fromEvent(window, 'resize'),
+        fromEvent(this.view, 'resize'),
       ).subscribe(() => this.position()),
     );
 
-    // Hovering the panel cancels a pending close, or the pointer could never
-    // travel from the trigger into a hover popover.
     if (panelEl && this.options().trigger === 'hover') {
       sub.add(fromEvent(panelEl, 'mouseenter').subscribe(() => this.clearTimers()));
       sub.add(fromEvent(panelEl, 'mouseleave').subscribe(() => this.hideWithDelay()));
@@ -261,8 +257,6 @@ export abstract class SynapsePopoverBaseDirective {
 
     return path.includes(this.host) || (!!panelEl && path.includes(panelEl));
   }
-
-  // --- panel --------------------------------------------------------------
 
   private createPanel(): void {
     const options = this.options();
@@ -296,7 +290,7 @@ export abstract class SynapsePopoverBaseDirective {
 
     this.panelRef = panelRef;
 
-    // Render hidden to measure the real size, then position.
+    // Two passes: render hidden to measure, then position.
     panelRef.changeDetectorRef.detectChanges();
     this.position();
 
@@ -316,7 +310,7 @@ export abstract class SynapsePopoverBaseDirective {
     const result = computePopoverPosition({
       trigger: triggerRect,
       panel: { width: panelRect.width, height: panelRect.height },
-      viewport: { width: window.innerWidth, height: window.innerHeight },
+      viewport: { width: this.view.innerWidth, height: this.view.innerHeight },
       side: options.side,
       align: options.align,
       offset: options.offset,

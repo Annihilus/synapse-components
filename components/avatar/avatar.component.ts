@@ -24,14 +24,10 @@ export class SynapseAvatarComponent {
   upload = input(false);
   size = input<string | number>(36);
 
-  /** Avatars usually sit next to a name, so they are decorative by default. */
   alt = input('');
 
   protected readonly url = computed(() => this.getUrl(this.src()));
 
-  /**
-   * A number is read as pixels, a string as a ready CSS value.
-   */
   protected readonly sizeValue = computed(() => {
     const size = this.size();
 
@@ -43,8 +39,6 @@ export class SynapseAvatarComponent {
   private getUrl(src?: string): SafeUrl | string {
     if (!src) return '';
 
-    // Bare base64 gets the data: prefix added; anything else — a plain URL or
-    // a ready data: URI — is passed through untouched, mime included.
     const url = this._isBase64(src) ? `data:image/png;base64,${src}` : src;
 
     return this.sanitizer.bypassSecurityTrustUrl(url);

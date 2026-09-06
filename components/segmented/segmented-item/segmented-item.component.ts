@@ -39,7 +39,6 @@ export class SynapseSegmentedItemComponent {
   private readonly element = inject(ElementRef<HTMLElement>);
 
   constructor() {
-    // Detect a text label from the projected content.
     afterRenderEffect(() => {
       const el = this.element.nativeElement as HTMLElement;
 
@@ -50,7 +49,6 @@ export class SynapseSegmentedItemComponent {
             return (node.textContent?.trim().length ?? 0) > 0;
           }
 
-          // The icon owns its own slot and does not count as a label.
           return node instanceof Element
             && node.tagName.toLowerCase() !== 'syn-icon'
             && (node.textContent?.trim().length ?? 0) > 0;

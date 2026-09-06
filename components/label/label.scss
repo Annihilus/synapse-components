@@ -1,22 +1,16 @@
 @mixin label {
   box-sizing: border-box;
   display: inline-flex;
-  position: static;
-  width: auto;
-  height: auto;
   min-height: 16px;
   max-height: 40px;
   padding: 0;
   border-style: none;
   border-color: transparent;
   border-width: 0;
-  border-radius: 0;
   align-items: center;
   justify-content: flex-start;
   gap: var(--sizing-and-spacing-0_5);
-  box-shadow: none;
   flex-direction: row;
-  opacity: 1;
 
   .question {
     width: 16px;

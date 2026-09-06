@@ -1,7 +1,6 @@
 @mixin modal-header {
   padding: var(--sizing-and-spacing-4) var(--sizing-and-spacing-4) 0 var(--sizing-and-spacing-6);
   background: var(--bg-surface_container);
-  gap: 0;
 
   .caption {
     font-family: var(--body1-condensed-regular-family);
@@ -18,12 +17,8 @@
 
   .head_block {
     padding: 0;
-    gap: var(--sizing-and-spacing-2);
     flex-direction: row;
-  }
-
-  .Input {
-    width: auto;
+    gap: var(--sizing-and-spacing-2);
   }
 
   .search_block {
@@ -31,7 +26,6 @@
     width: 871px;
     padding: 0 8px 12px 0;
     gap: 10px;
-    flex-shrink: 0;
   }
 
   .search_block,
@@ -70,23 +64,11 @@
   .head_block,
   .titleblock {
     box-sizing: border-box;
-    position: static;
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    border-radius: 0;
     align-items: flex-start;
     justify-content: flex-start;
-    box-shadow: none;
-    opacity: 1;
-  }
-
-  &,
-  .search_block,
-  .Input,
-  .head_block,
-  .titleblock {
-    height: auto;
   }
 
   &,

@@ -34,6 +34,11 @@ let nextPanelId = 0;
     '[class.position-start]': "align() === 'start'",
     '[class.position-middle]': "align() === 'middle'",
     '[class.position-end]': "align() === 'end'",
+    // The Figma mixins arrive as flat `.syn-<name>` rules in the preview iframe,
+    // where nothing maps them onto the host — so the block class is carried here,
+    // splitting the same way the component's own styles do.
+    '[class.syn-popover]': "variant() === 'popover' || variant() === 'tooltip'",
+    '[class.syn-dropdown]': "variant() === 'dropdown'",
     '[class.variant-popover]': "variant() === 'popover'",
     '[class.variant-tooltip]': "variant() === 'tooltip'",
     '[class.variant-dropdown]': "variant() === 'dropdown'",

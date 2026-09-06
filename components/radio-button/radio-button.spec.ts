@@ -105,6 +105,22 @@ describe('SynapseRadioButtonComponent', () => {
     expect(buttons(fixture)[1].classList.contains('checked')).toBe(true);
   });
 
+  // The dot exists only in Figma's checked variant, so nothing styles it away
+  // when unchecked — withholding it is the template's job, not the CSS's.
+  it('renders the dot only on the selected button', async () => {
+    const fixture = await setupComponent(FormHostComponent);
+
+    expect(fixture.nativeElement.querySelectorAll('.check').length).toBe(0);
+
+    buttons(fixture)[1].click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('.check').length).toBe(1);
+    expect(buttons(fixture)[1].querySelector('.check')).not.toBeNull();
+  });
+
   it('ignores a disabled button', async () => {
     const fixture = await setupComponent(FormHostComponent);
 

@@ -26,3 +26,4 @@ export * from './components/tag/tag.component';
 export * from './components/snackbar/snackbar.service';
 export * from './components/control-directives';
 export * from './components/snackbar/model';
+export * from './components/styles';

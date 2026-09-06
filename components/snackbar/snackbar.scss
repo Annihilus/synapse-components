@@ -30,12 +30,9 @@
   .block,
   .container,
   .icon_container {
-    height: auto;
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    border-radius: 0;
-    box-shadow: none;
   }
 
   .Button,
@@ -52,13 +49,11 @@
 
   .container,
   .icon_container {
-    width: auto;
     align-items: flex-start;
   }
 
   .icon_container {
     padding: var(--sizing-and-spacing-1);
-    gap: 0;
   }
 
   .icon,
@@ -85,10 +80,8 @@
   .container,
   .icon_container {
     box-sizing: border-box;
-    position: static;
     justify-content: flex-start;
     flex-direction: row;
-    opacity: 1;
   }
 
   &,

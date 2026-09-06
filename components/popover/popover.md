@@ -2,66 +2,66 @@
 
 ## Description
 
-Описание
-Всплывающий контейнер со свободным контентом (слот children). В отличие от Tooltip — может содержать любой контент (не только текст): списки, формы, кнопки, произвольную разметку. Открывается по hover ИЛИ по клику.
+Description
+A floating container with free-form content (children slot). Unlike Tooltip, it can contain any content (not just text): lists, forms, buttons, arbitrary markup. Opens on hover OR on click.
 
-Поведение
-Появляется рядом с элементом-триггером. Направление и точка привязки стрелки задаются вариантами Side и Position. Открывается по hover/focus (как Tooltip) либо по клику — при клик-триггере обычно требует закрытия по клику вне поповера или повторному клику на триггер. Вариант Side=No/Position=No — без стрелки, для произвольного позиционирования.
+Behavior
+Appears next to the trigger element. The direction and arrow anchor point are set by the Side and Position variants. Opens on hover/focus (like Tooltip) or on click — with a click trigger, it usually requires dismissal by clicking outside the popover or re-clicking the trigger. The Side=No/Position=No variant has no arrow, for arbitrary positioning.
 
-Состояния
-- Default — единственное состояние контейнера, различия только в направлении (Side/Position)
+States
+- Default — the only container state, differences only in direction (Side/Position)
 
-Виды компонента
-- Side=Top / Bottom / Left / Right — направление показа, стрелка указывает на триггер
-- Side=No, Position=No — без стрелки, произвольное позиционирование
-- Position=Start / Middle / End — смещение стрелки вдоль стороны
+Component types
+- Side=Top / Bottom / Left / Right — display direction, arrow points to the trigger
+- Side=No, Position=No — no arrow, arbitrary positioning
+- Position=Start / Middle / End — arrow offset along the side
 
-Вид на разных устройствах
-- Mobile: hover-триггер недоступен, рекомендуется click/tap-триггер
-- Desktop: поддерживает hover/focus и click
+Appearance on different devices
+- Mobile: hover trigger is unavailable, click/tap trigger is recommended
+- Desktop: supports hover/focus and click
 
-Анатомия элемента
-- Popover-Base — базовый блок с тенью
-- content — контейнер слота, фон bg/surface-high (#3b3b3b), padding 12/8px, gap 4px, radius/m (8px)
-- children (слот) — произвольный контент, по умолчанию текстовый пример (small 12/16, on-surface)
-- arrow — треугольник-указатель 16x6px (Top/Bottom) или 6x16px (Left/Right), отсутствует у Side=No/Position=No
+Element anatomy
+- Popover-Base — base block with shadow
+- content — slot container, bg bg/surface-high (#3b3b3b), padding 12/8px, gap 4px, radius/m (8px)
+- children (slot) — arbitrary content, default text example (small 12/16, on-surface)
+- arrow — pointer triangle 16x6px (Top/Bottom) or 6x16px (Left/Right), absent for Side=No/Position=No
 
-Размеры и отступы
-- Padding content: 12px по горизонтали, 8px по вертикали
-- Gap content: 4px
+Sizes and spacing
+- Content padding: 12px horizontal, 8px vertical
+- Content gap: 4px
 - Border radius: radius/m — 8px
-- Тень: shadow/lg 0px 12px 16px rgba(10,13,18,0.08), 0px 4px 6px rgba(10,13,18,0.03)
-- arrow offset (Start/End): 8px от края; (Middle): по центру 50%
-- отступ стрелки от блока: 6px
+- Shadow: shadow/lg 0px 12px 16px rgba(10,13,18,0.08), 0px 4px 6px rgba(10,13,18,0.03)
+- arrow offset (Start/End): 8px from edge; (Middle): centered 50%
+- arrow distance from block: 6px
 
-Мин / Макс размеры
-- Min/Max width: не заданы — по контенту слота
-- Min/Max height: не заданы — по контенту
+Min / Max sizes
+- Min/Max width: not set — by slot content
+- Min/Max height: not set — by content
 
-Когда использовать / не использовать
-- Использовать: нужен контейнер с произвольным контентом (форма, список, действия); нужно открытие и по hover, и по клику
-- Не использовать: простая текстовая подсказка — Tooltip; модальное блокирующее окно — Modal; обязательная информация — вынести в постоянный текст интерфейса
+When to use / not to use
+- Use: need a container with arbitrary content (form, list, actions); need opening on both hover and click
+- Do not use: simple text tooltip — Tooltip; modal blocking dialog — Modal; required information — move to permanent UI text
 
-Кастомизация
-- side: Top / Bottom / Left / Right / No, по умолчанию Bottom
-- position: Start / Middle / End / No, по умолчанию Middle
-- children: произвольный контент (слот)
+Customization
+- side: Top / Bottom / Left / Right / No, default Bottom
+- position: Start / Middle / End / No, default Middle
+- children: arbitrary content (slot)
 
-Доступность
-- ARIA-роль: dialog (click-триггер с интерактивным контентом) / tooltip (hover-триггер с текстовым контентом)
-- ARIA-атрибуты: aria-describedby или aria-controls на триггере; aria-expanded при click-триггере
-- Keyboard: появляется по фокусу/клику триггера (Tab/Enter), исчезает по потере фокуса или Escape; Tab перемещается по интерактивному контенту внутри
+Accessibility
+- ARIA role: dialog (click trigger with interactive content) / tooltip (hover trigger with text content)
+- ARIA attributes: aria-describedby or aria-controls on the trigger; aria-expanded for click trigger
+- Keyboard: appears on trigger focus/click (Tab/Enter), disappears on focus loss or Escape; Tab moves through interactive content inside
 
-Интерактивность (события)
-- onShow — hover/focus на триггере (hover-режим) или клик по триггеру (click-режим)
-- onHide — уход курсора/потеря фокуса (hover-режим), клик вне поповера или повторный клик на триггер (click-режим), Escape
+Interactivity (events)
+- onShow — hover/focus on trigger (hover mode) or click on trigger (click mode)
+- onHide — cursor leaves/focus lost (hover mode), click outside popover or re-click trigger (click mode), Escape
 
-Связанные компоненты
-- Tooltip — упрощённый вариант с текстовым контентом только по hover/focus
-- Helper-Text — контекстные сообщения с действиями, привязанные к блоку контента
-- Modal — блокирующие диалоги с обязательным взаимодействием
+Related components
+- Tooltip — simplified variant with text-only content on hover/focus only
+- Helper-Text — contextual messages with actions, tied to a content block
+- Modal — blocking dialogs requiring mandatory interaction
 
-Токены / переменные
+Tokens / variables
 - bg/surface-high: #3b3b3b
 - text-and-icons/on-surface: #f1f1f1
 - radius/m: 8px

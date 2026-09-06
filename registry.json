@@ -8,6 +8,9 @@
         "connect-text-input.ts",
         "control.directive.ts",
         "index.ts"
+      ],
+      "dependencies": [
+        "styles"
       ]
     },
     {
@@ -17,6 +20,18 @@
       "files": [
         "themes.ts",
         "tokens.scss"
+      ],
+      "dependencies": [
+        "styles"
+      ]
+    },
+    {
+      "name": "styles",
+      "directory": "components/styles",
+      "targetDir": "styles",
+      "files": [
+        "index.ts",
+        "primitives.ts"
       ]
     },
     {
@@ -30,7 +45,8 @@
         "avatar.scss"
       ],
       "dependencies": [
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -43,7 +59,6 @@
         "breadcrumbs-item/breadcrumbs-item.component.ts",
         "breadcrumbs-item/breadcrumbs-item.scss",
         "breadcrumbs-separator.component.html",
-        "breadcrumbs-separator.component.scss",
         "breadcrumbs-separator.component.ts",
         "breadcrumbs.component.html",
         "breadcrumbs.component.scss",
@@ -52,7 +67,8 @@
         "index.ts"
       ],
       "dependencies": [
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -68,7 +84,8 @@
         "index.ts"
       ],
       "dependencies": [
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -83,7 +100,8 @@
       ],
       "dependencies": [
         "control-directives",
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -98,7 +116,8 @@
       ],
       "dependencies": [
         "checkbox",
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -114,7 +133,8 @@
       ],
       "dependencies": [
         "icon",
-        "icon-button"
+        "icon-button",
+        "styles"
       ]
     },
     {
@@ -122,8 +142,10 @@
       "directory": "components/icon",
       "targetDir": "icon",
       "files": [
-        "icon.component.scss",
         "icon.component.ts"
+      ],
+      "dependencies": [
+        "styles"
       ]
     },
     {
@@ -138,7 +160,8 @@
         "icon-button.types.ts"
       ],
       "dependencies": [
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -154,7 +177,8 @@
       "dependencies": [
         "control-directives",
         "icon",
-        "label"
+        "label",
+        "styles"
       ]
     },
     {
@@ -168,7 +192,8 @@
         "label.scss"
       ],
       "dependencies": [
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -202,7 +227,8 @@
       ],
       "dependencies": [
         "button",
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -220,6 +246,9 @@
         "popover.model.ts",
         "popover.position.ts",
         "popover.scss"
+      ],
+      "dependencies": [
+        "styles"
       ]
     },
     {
@@ -227,14 +256,17 @@
       "directory": "components/radio-button",
       "targetDir": "radio-button",
       "files": [
+        "radio-button.scss",
         "radio-button/radio-button.component.html",
         "radio-button/radio-button.component.scss",
         "radio-button/radio-button.component.ts",
-        "radio-button/radiobutton-base.scss",
         "radio-group/radio-group.component.html",
-        "radio-group/radio-group.component.scss",
         "radio-group/radio-group.component.ts",
         "radio.service.ts"
+      ],
+      "dependencies": [
+        "control-directives",
+        "styles"
       ]
     },
     {
@@ -251,7 +283,8 @@
         "segmented.scss"
       ],
       "dependencies": [
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -269,7 +302,8 @@
         "dropdown-item",
         "icon",
         "icon-button",
-        "popover"
+        "popover",
+        "styles"
       ]
     },
     {
@@ -283,7 +317,8 @@
         "slider.scss"
       ],
       "dependencies": [
-        "control-directives"
+        "control-directives",
+        "styles"
       ]
     },
     {
@@ -293,7 +328,6 @@
       "files": [
         "model.ts",
         "snackbar-container/snackbar-container.component.html",
-        "snackbar-container/snackbar-container.component.scss",
         "snackbar-container/snackbar-container.component.ts",
         "snackbar.component.html",
         "snackbar.component.scss",
@@ -303,7 +337,8 @@
       ],
       "dependencies": [
         "button",
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -317,6 +352,9 @@
         "table.component.scss",
         "table.component.ts",
         "table.scss"
+      ],
+      "dependencies": [
+        "styles"
       ]
     },
     {
@@ -333,6 +371,9 @@
         "tabs.component.scss",
         "tabs.component.ts",
         "tabs.service.ts"
+      ],
+      "dependencies": [
+        "styles"
       ]
     },
     {
@@ -348,7 +389,8 @@
         "tag.types.ts"
       ],
       "dependencies": [
-        "icon"
+        "icon",
+        "styles"
       ]
     },
     {
@@ -363,7 +405,8 @@
       ],
       "dependencies": [
         "icon",
-        "label"
+        "label",
+        "styles"
       ]
     },
     {
@@ -377,7 +420,8 @@
         "toggle.scss"
       ],
       "dependencies": [
-        "control-directives"
+        "control-directives",
+        "styles"
       ]
     }
   ]

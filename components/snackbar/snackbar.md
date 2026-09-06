@@ -2,65 +2,65 @@
 
 ## Description
 
-Описание
-Всплывающее уведомление Synapse Design System. Кратко сообщает о результате действия (инфо/успех/предупреждение/ошибка), появляется поверх интерфейса и исчезает автоматически или по закрытию пользователем.
+Description
+Popup notification of the Synapse Design System. Briefly reports the result of an action (info/success/warning/error), appears on top of the interface and disappears automatically or when dismissed by the user.
 
-Поведение
-Появляется в нижнем правом углу экрана с анимацией появления (slide/fade in). При нескольких одновременных снекбарах — складываются в стопку (по вертикали) в том же углу. Закрывается по клику на кнопку закрытия (close=True) или автоматически по таймауту (логика вне компонента).
+Behavior
+Appears in the bottom-right corner of the screen with an entrance animation (slide/fade in). When multiple snackbars appear simultaneously, they stack vertically in the same corner. Dismissed by clicking the close button (close=True) or automatically by timeout (logic is outside the component).
 
-Состояния
-- Default — появление, отображение сообщения
-- Focus — на кнопке закрытия, клавиатурный фокус
-- Active/Disabled/Loading — не применимо
+States
+- Default — appearance, message display
+- Focus — on the close button, keyboard focus
+- Active/Disabled/Loading — not applicable
 
-Виды компонента (Type)
-- default — нейтральная иконка
-- success — иконка check
-- warning — иконка треугольник с восклицанием
-- error — иконка круг с восклицанием
-Цвет текста заголовка не меняется (всегда on-surface), меняется только иконка.
+Component types (Type)
+- default — neutral icon
+- success — check icon
+- warning — exclamation triangle icon
+- error — exclamation circle icon
+The title text color does not change (always on-surface), only the icon changes.
 
-Вид на разных устройствах
-- Mobile — отдельного варианта нет, рекомендуется адаптировать позицию/ширину под меньший экран
-- Desktop — фиксированная ширина 360px, позиция — нижний правый угол экрана
+Appearance on different devices
+- Mobile — no separate variant, recommended to adapt position/width for smaller screens
+- Desktop — fixed width 360px, position — bottom-right corner of the screen
 
-Анатомия элемента
-- icon_container — контейнер иконки, padding 4px
-- icon — иконка типа сообщения, 24x24px
-- block — горизонтальный блок текст + кнопка закрытия
-- Title — текст сообщения, text-and-icons/on-surface (#f1f1f1), Medium 16/20
-- close button — опционально (close=True/False), 24x24px, иконка 16px внутри
+Element anatomy
+- icon_container — icon container, padding 4px
+- icon — message type icon, 24x24px
+- block — horizontal block text + close button
+- Title — message text, text-and-icons/on-surface (#f1f1f1), Medium 16/20
+- close button — optional (close=True/False), 24x24px, 16px icon inside
 
-Размеры и отступы
-- Высота: 48px (фиксированная)
-- Ширина: 360px (фиксированная)
+Sizes and spacing
+- Height: 48px (fixed)
+- Width: 360px (fixed)
 - Padding: 8px
 - Gap icon_container/block: 4px
 - Border-radius: radius/l — 12px
 - Border: 1px border/outline-variant (#3b3b3b)
-- Фон: bg/surface-container (#2a2a2a)
-- Тень: shadow/m
-- block gap текст/кнопка: 8px
+- Background: bg/surface-container (#2a2a2a)
+- Shadow: shadow/m
+- block gap text/button: 8px
 - close button: padding 4px, radius/btn-radius-small 6px
 
-Когда использовать / не использовать
-Использовать: краткое уведомление о результате действия, не прерывающее работу.
-Не использовать: сообщение привязано к блоку/форме контента (использовать Helper-Text); требуется подтверждение пользователя (использовать Modal); нужны развёрнутые действия/кнопки внутри уведомления (использовать Helper-Text).
+When to use / not to use
+Use: brief notification about the result of an action, not interrupting the workflow.
+Do not use: message is tied to a content block/form (use Helper-Text); user confirmation is required (use Modal); detailed actions/buttons are needed inside the notification (use Helper-Text).
 
-Кастомизация
-- type: default / success / warning / error, по умолчанию default
-- close: True / False, по умолчанию True
+Customization
+- type: default / success / warning / error, default default
+- close: True / False, default True
 
-Доступность
-- ARIA-роль: status (alert для type=error)
-- ARIA-атрибуты: aria-live="polite" (assertive для error)
-- Keyboard: Tab к кнопке закрытия, Enter/Space для закрытия
+Accessibility
+- ARIA role: status (alert for type=error)
+- ARIA attributes: aria-live="polite" (assertive for error)
+- Keyboard: Tab to the close button, Enter/Space to dismiss
 
-Интерактивность (события)
-- onClose — клик по кнопке закрытия, скрывает снекбар
-- auto-dismiss — автоматическое скрытие по таймауту (логика вне компонента)
+Interactivity (events)
+- onClose — click on the close button, hides the snackbar
+- auto-dismiss — automatic hiding by timeout (logic is outside the component)
 
-Токены / переменные
+Tokens / variables
 - bg/surface-container — #2a2a2a
 - border/outline-variant — #3b3b3b
 - text-and-icons/on-surface — #f1f1f1
@@ -70,8 +70,8 @@
 - font/line-height/body1-condensed — 20px
 - shadow/m — 0px 4px 8px rgba(0,0,0,0.08), 0px 0px 4px rgba(0,0,0,0.04)
 
-Связанные компоненты
-Icon-Button — паттерн кнопки закрытия. Helper-Text — альтернатива для контекстных сообщений, привязанных к блоку контента, с поддержкой действий.
+Related components
+Icon-Button — close button pattern. Helper-Text — alternative for contextual messages tied to a content block, with action support.
 
 ## Variants
 

@@ -1,9 +1,7 @@
 @mixin textarea {
-  flex-shrink: 0;
   cursor: pointer;
   display: inline-flex;
   width: 320px;
-  height: auto;
   gap: var(--sizing-and-spacing-1_5);
   flex-direction: column;
 
@@ -28,18 +26,23 @@
 
   .Scrollbar {
     position: absolute;
-    width: auto;
-    right: 0px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .Scrollbar,
+  .text-block {
+    height: 100%;
   }
 
   .text-block {
-    height: 100%;
-    gap: 0;
     font-family: var(--body2-regular-family);
     line-height: var(--body2-regular-line-height);
     letter-spacing: var(--body2-regular-letter-spacing);
     font-size: var(--body2-regular-size);
     font-weight: var(--body2-regular-weight);
+    opacity: 1;
   }
 
   .textarea {
@@ -47,16 +50,13 @@
     border-style: solid;
     border-color: var(--border-outline);
     border-width: 1px;
-    border-radius: var(--rounding-m);
     background: var(--bg-surface_dim);
     gap: var(--sizing-and-spacing-2);
+    height: 120px;
+    min-height: 120px;
+    border-radius: var(--rounding-m);
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05000000074505806);
     position: relative;
-  }
-
-  .textarea,
-  .Scrollbar {
-    height: 120px;
   }
 
   .textarea,
@@ -72,9 +72,12 @@
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    border-radius: 0;
     background: transparent;
-    box-shadow: none;
+  }
+
+  &,
+  .textarea {
+    flex-shrink: 0;
   }
 
   &,
@@ -83,7 +86,6 @@
     box-sizing: border-box;
     align-items: flex-start;
     justify-content: flex-start;
-    opacity: 1;
   }
 
   &:disabled .text-block {

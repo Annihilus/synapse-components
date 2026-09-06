@@ -47,31 +47,19 @@
 <ng-template #selectTemplate>
   <ng-content select="[synHeader]" />
 
-  @for (item of itemsWithMetadata(); track item) {
-    <div
-      class="option"
-      [attr.tabindex]="item.disabled ? -1 : 0"
-      (click)="selectItem(item)"
-      (keyup.enter)="selectItem(item)"
-      role="option"
-      [class.selected]="isSelected(item)"
-      [class.disabled]="item.disabled"
-      [attr.aria-selected]="isSelected(item)"
-      [attr.aria-disabled]="item.disabled"
-    >
-      <ng-container
-        [ngTemplateOutlet]="selectItemTemplate"
-        [ngTemplateOutletContext]="{ item }"
-      />
-    </div>
+  @if (items().length) {
+    @for (item of itemsWithMetadata(); track item.original) {
+      <div
+        syn-dropdown-item
+        [selected]="isSelected(item)"
+        [disabled]="!!item.disabled"
+        (click)="selectItem(item)"
+        (keyup.enter)="selectItem(item)"
+      >{{ item.displayName }}</div>
+    }
+  } @else {
+    <ng-content select=":not([synHeader]):not([synFooter])" />
   }
 
   <ng-content select="[synFooter]" />
-</ng-template>
-
-<ng-template #selectItemTemplate let-item="item">
-  <div class="text_block">
-    {{ item.displayName }}
-  </div>
-  <div class="state"></div>
 </ng-template>

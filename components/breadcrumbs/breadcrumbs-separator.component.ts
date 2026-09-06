@@ -7,7 +7,6 @@ import { SynapseIconComponent } from '../icon/icon.component';
   selector: 'syn-breadcrumbs-separator',
   imports: [SynapseIconComponent],
   templateUrl: './breadcrumbs-separator.component.html',
-  styleUrl: './breadcrumbs-separator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'aria-hidden': 'true',

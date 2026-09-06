@@ -1,29 +1,38 @@
 @mixin button {
   cursor: pointer;
+  flex-shrink: 0;
   display: inline-flex;
-  position: relative;
+  height: 48px;
   padding: var(--sizing-and-spacing-3) var(--sizing-and-spacing-6);
   background: var(--bg-primary);
   align-items: center;
   justify-content: center;
+  box-shadow: none;
   flex-direction: row;
+  opacity: 1;
   font-family: var(--body1-regular-family);
   line-height: var(--body1-regular-line-height);
   letter-spacing: var(--body1-regular-letter-spacing);
   font-size: var(--body1-regular-size);
   font-weight: var(--body1-regular-weight);
   text-transform: none;
-  width: auto;
+  gap: 0;
+  position: relative;
 
   .state {
-    position: absolute;
+    height: 100%;
     padding: 0;
     background: rgba(255, 255, 255, 0);
-    align-items: flex-start;
-    justify-content: flex-start;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .state,
+  &.icon .state {
     width: 100%;
     right: 0;
-    left: 0;
   }
 
   &,
@@ -35,14 +44,14 @@
   &,
   .state {
     box-sizing: border-box;
-    height: 48px;
     border-style: none;
     border-color: transparent;
     border-width: 0;
-    box-shadow: none;
-    opacity: 1;
-    gap: 0;
-    flex-shrink: 0;
+  }
+
+  &,
+  &.loading .state {
+    width: auto;
   }
 
   &,
@@ -133,13 +142,13 @@
     width: 124px;
   }
 
-  &.size-m {
-    padding: var(--sizing-and-spacing-3) var(--sizing-and-spacing-4);
+  &.loading .state {
+    right: -1px;
   }
 
-  &.size-m,
-  &.size-m .state {
+  &.size-m {
     height: 40px;
+    padding: var(--sizing-and-spacing-3) var(--sizing-and-spacing-4);
   }
 
   &.size-m,
@@ -195,12 +204,8 @@
   }
 
   &.size-s {
-    padding: var(--sizing-and-spacing-2) var(--sizing-and-spacing-3);
-  }
-
-  &.size-s,
-  &.size-s .state {
     height: 32px;
+    padding: var(--sizing-and-spacing-2) var(--sizing-and-spacing-3);
   }
 
   &.size-s.icon {
@@ -230,16 +235,15 @@
   }
 
   &.size-xs,
-  &.size-xs .state {
-    border-radius: var(--rounding-s);
-  }
-
-  &.size-xs,
-  &.size-xs .state,
   &.size-m.icon .icon,
   .icon,
   .spinner {
     height: 24px;
+  }
+
+  &.size-xs,
+  &.size-xs .state {
+    border-radius: var(--rounding-s);
   }
 
   &.size-xs.icon {

@@ -41,27 +41,19 @@ export class SynapseButtonComponent {
     const type = `colorType-${this.colorType()}`;
     const iconClass = this.getIconClass();
 
-    // The host `[class]` binding clobbers any consumer-set class, so the block
-    // class must be emitted here — generated/preview CSS keys off `.syn-button`
-    // (and `.syn-button .icon`, `.syn-button.size-l`, …); without it on the host
-    // none of those selectors match.
+    // The host `[class]` binding replaces consumer classes, so `.syn-button` —
+    // which the generated CSS keys off — has to be emitted here.
     return `syn-button ${type} ${size} ${iconClass}`.trim();
   });
 
   private elementRef = inject(ElementRef<HTMLElement>);
   private renderer = inject(Renderer2);
 
-  /** The icon/text order is read once, before the first relocation. */
   private positionResolved = false;
 
   constructor() {
-    // Runs after render: at ngAfterContentInit the projected content is not
-    // reliably in `host.childNodes` — `<ng-content>` lives inside the
-    // `@if (loading()) {} @else {}` branch, so reading the order there can miss
-    // the text node and mistake a text+icon button for an icon-only one.
-    //
-    // An effect rather than afterNextRender, because that `@else` branch — and
-    // with it the `div.icon` container — is rebuilt on every loading toggle.
+    // Not ngAfterContentInit: the content sits inside `@if (loading())`, so the
+    // order is unreadable there, and the branch is rebuilt on every toggle.
     afterRenderEffect(() => {
       const isLoading = this.loading();
       const icon = this.icon();
@@ -87,12 +79,6 @@ export class SynapseButtonComponent {
     return '';
   }
 
-  /**
-   * Resolves the projected icon's position from its original DOM order. This
-   * logic used to live in the `synIconContainer` directive on `.wrapper`; it now
-   * runs against the host, so no wrapper element is needed. The actual DOM move
-   * happens later in {@link relocateIcon} (see ngAfterViewInit).
-   */
   private resolvePosition() {
     const icon = this.icon();
     const host = this.elementRef.nativeElement;
@@ -104,17 +90,13 @@ export class SynapseButtonComponent {
   private resolveIconPosition(host: HTMLElement, iconElement: HTMLElement): ButtonIcon {
     const childNodes: Node[] = Array.from(host.childNodes);
 
-    // Ignore the projected icon and the component's own `.icon`/`.state` helper
-    // divs; everything else contributes the button's text (a raw text node or
-    // text wrapped in an element).
     const isIcon = (node: Node): boolean =>
       node instanceof Element &&
       (node.tagName.toLowerCase() === 'syn-icon' ||
         node.classList.contains('icon') ||
         node.classList.contains('state'));
 
-    // Control-flow blocks leave comment anchors behind whose textContent reads
-    // "container"; counting those would make every button look like it has text.
+    // Control-flow anchors are comment nodes whose textContent reads "container".
     const contentNodes = childNodes.filter(
       (node) => node.nodeType !== Node.COMMENT_NODE && !isIcon(node),
     );
@@ -136,13 +118,11 @@ export class SynapseButtonComponent {
     return iconIndex < textIndex ? 'left' : 'right';
   }
 
-  /** Moves the projected `<syn-icon>` into the `.icon` container, in its slot. */
   private relocateIcon(host: HTMLElement) {
     const synIcon = host.querySelector('syn-icon');
     const container = host.querySelector('div.icon');
     if (!synIcon || !container) return;
 
-    // Idempotent: after a re-render the icon may already sit in its slot.
     if (synIcon.parentElement === container) return;
 
     const index = Array.prototype.indexOf.call(host.childNodes, synIcon);

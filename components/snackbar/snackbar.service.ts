@@ -14,7 +14,6 @@ export class SynapseSnackbarService {
 
   private containerRef: ComponentRef<SynapseSnackbarContainerComponent> | null = null;
 
-  /** Auto-dismiss timers, cleared on manual dismiss/clear/destroy. */
   private readonly timers = new Map<string, ReturnType<typeof setTimeout>>();
 
   private appRef = inject(ApplicationRef);

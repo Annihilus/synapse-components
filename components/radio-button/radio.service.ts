@@ -13,7 +13,6 @@ export class SynapseRadioService<T = unknown> {
 
   readonly compareWith = signal<(a: T, b: T) => boolean>((a, b) => a === b);
 
-  /** Installed by the group so a button can request a new value. */
   select: (value: T) => void = () => { /* set by the group */ };
 
   isSelected(value: T): boolean {

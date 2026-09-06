@@ -2,37 +2,37 @@
 
 ## Description
 
-Описание
-Breadcrumbs — навигационная цепочка, показывающая путь пользователя от корня до текущей страницы. Собирается из вспомогательного компонента Breadcrumbs-Item (иконка + текст), соединённых иконкой-стрелкой (>, 20px). Текущая (последняя) крошка всегда в состоянии Selected. Вариант number (1-7) в Figma — демонстрационный набор для показа разной длины цепочки, в реальном использовании количество items определяется данными.
+Description
+Breadcrumbs is a navigation chain showing the user's path from the root to the current page. It is composed of the helper component Breadcrumbs-Item (icon + text), connected by an arrow icon (>, 20px). The current (last) breadcrumb is always in the Selected state. The number variant (1-7) in Figma is a demo set to show different chain lengths; in real use, the number of items is data-driven.
 
-Поведение
-Некликабельная последняя крошка (Selected=True) визуально выделена — активный текст text-and-icons/on-surface (#f1f1f1) вместо приглушённого text-and-icons/on-surface-low (#a5a5a5). Промежуточные (кликабельные) крошки при Hover получают фон hover/hover-color (rgba(255,255,255,0.12)) и текст также становится on-surface (#f1f1f1).
+Behavior
+The last breadcrumb (Selected=True) is not clickable and visually highlighted — active text color text-and-icons/on-surface (#f1f1f1) instead of muted text-and-icons/on-surface-low (#a5a5a5). Intermediate (clickable) breadcrumbs on Hover get a background hover/hover-color (rgba(255,255,255,0.12)) and their text also changes to on-surface (#f1f1f1).
 
-Анатомия элемента
-- Последовательность Breadcrumbs-Item, между каждой парой — иконка arrow (>) 20px
-- Последний item в цепочке — всегда Selected=True
+Element anatomy
+- Sequence of Breadcrumbs-Item, with an arrow icon (>) 20px between each pair
+- The last item in the chain is always Selected=True
 
-Размеры и отступы
-- Gap между Item и arrow: 4px
+Sizes and spacing
+- Gap between Item and arrow: 4px
 - Arrow size: 20px
 
-Когда использовать / не использовать
-Использовать: иерархический путь пользователя (раздел → подраздел → страница), глубина от 2 уровней.
-Не использовать: страница на первом уровне вложенности; как основная навигация (использовать меню/табы).
+When to use / not use
+Use for hierarchical user paths (section → subsection → page), depth from 2 levels.
+Do not use for first-level pages; do not use as main navigation (use menu/tabs instead).
 
-Доступность
-Рекомендуется nav с aria-label="breadcrumb", список ol/li, aria-current="page" на текущей крошке. Tab между кликабельными крошками, Enter для перехода.
+Accessibility
+Recommended to use nav with aria-label="breadcrumb", ol/li list, aria-current="page" on the current breadcrumb. Tab between clickable breadcrumbs, Enter to navigate.
 
-Токены / переменные
-- text-and-icons/on-surface-low — #a5a5a5 (текст некликнутой промежуточной крошки)
-- text-and-icons/on-surface — #f1f1f1 (текст текущей/hover крошки)
-- hover/hover-color — rgba(255,255,255,0.12) (фон при Hover)
+Tokens / variables
+- text-and-icons/on-surface-low — #a5a5a5 (text of unclicked intermediate breadcrumb)
+- text-and-icons/on-surface — #f1f1f1 (text of current/hover breadcrumb)
+- hover/hover-color — rgba(255,255,255,0.12) (background on Hover)
 - radius/xs — 4px
 - font/size/body1 — 16px
 - font/line-height/body1-condensed — 20px
 
-Связанные компоненты
-Breadcrumbs-Item — базовая единица цепочки, используется только внутри Breadcrumbs.
+Related components
+Breadcrumbs-Item — base unit of the chain, used only inside Breadcrumbs.
 
 ## Structure
 

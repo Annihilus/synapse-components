@@ -2,36 +2,36 @@
 
 ## Description
 
-Описание
-Tab — одна вкладка внутри Tab-Panel. Не самостоятельный компонент.
+Description
+Tab — a tab within a Tab-Panel. Not a standalone component.
 
-Поведение
-При Hover — фон-оверлей hover/hover-color (rgba(255,255,255,0.12)). Selected=True — постоянный фон bg/surface-high (#3b3b3b) и активный текст text-and-icons/on-surface (#f1f1f1) вместо приглушённого text-and-icons/on-surface-variant (#d7d7d7). Disabled — прозрачность disabled/disabled-number (0.32), клик недоступен.
+Behavior
+On Hover — hover overlay background/hover-color (rgba(255,255,255,0.12)). Selected=True — permanent background bg/surface-high (#3b3b3b) and active text text-and-icons/on-surface (#f1f1f1) instead of muted text-and-icons/on-surface-variant (#d7d7d7). Disabled — transparency disabled/disabled-number (0.32), click unavailable.
 
-Состояния
-- Default (не selected, не hover, не disabled) — без фона, текст on-surface-variant (#d7d7d7)
-- Hover — фон-оверлей hover-color (rgba(255,255,255,0.12))
-- Disabled — прозрачность 0.32, клик недоступен
-- Selected=True — фон bg/surface-high (#3b3b3b), текст on-surface (#f1f1f1)
-- Selected=True + Hover — фон bg/surface-high + hover-оверлей поверх
+States
+- Default (not selected, not hover, not disabled) — no background, text on-surface-variant (#d7d7d7)
+- Hover — hover overlay background color (rgba(255,255,255,0.12))
+- Disabled — transparency 0.32, click unavailable
+- Selected=True — background bg/surface-high (#3b3b3b), text on-surface (#f1f1f1)
+- Selected=True + Hover — background bg/surface-high + hover overlay on top
 
-Анатомия элемента
-- Icon — опциональная иконка 16px слева (icon=True/False)
-- Text — текст вкладки, font/size/body2 (14px), font/line-height/body2 (20px)
-- Actions — опциональная кнопка справа 20px (button=True/False, напр. закрытие вкладки)
+Anatomy of the element
+- Icon — optional 16px icon on the left (icon=True/False)
+- Text — tab text, font/size/body2 (14px), font/line-height/body2 (20px)
+- Actions — optional button on the right 20px (button=True/False, e.g., close tab)
 
-Размеры и отступы
-- Padding: 12px по горизонтали, 6px по вертикали
-- Gap между иконкой/текстом/actions: 4px
+Sizes and spacing
+- Padding: 12px horizontally, 6px vertically
+- Gap between icon/text/actions: 4px
 - Border-radius: radius/s (6px)
 
-Кастомизация
-- icon: True/False, по умолчанию True
-- button: True/False, по умолчанию True
-- selected: True/False, по умолчанию False
-- disabled: True/False, по умолчанию False
+Customization
+- icon: True/False, default True
+- button: True/False, default True
+- selected: True/False, default False
+- disabled: True/False, default False
 
-Токены / переменные
+Tokens / variables
 - bg/surface-high — #3b3b3b (Selected)
 - hover/hover-color — rgba(255,255,255,0.12)
 - disabled/disabled-number — 0.32
@@ -40,8 +40,8 @@ Tab — одна вкладка внутри Tab-Panel. Не самостоят�
 - radius/s — 6px
 - font/size/body2 — 14px
 
-Связанные компоненты
-Tab-Panel — контейнер, собирающий Tab в ряд.
+Related components
+Tab-Panel — a container that gathers Tabs in a row.
 
 ## Variants
 
