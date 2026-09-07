@@ -10,7 +10,7 @@
   class="hidden-checkbox"
   [checked]="isChecked()"
   [disabled]="disabled()"
-  (focus)="setFocusState(true)"
+  (focus)="setFocusState(true, $event)"
   (blur)="onBlur()"
   (change)="setCheckedState($event)"
 />

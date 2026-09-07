@@ -215,15 +215,16 @@
         "modal-header/modal-header.component.scss",
         "modal-header/modal-header.component.ts",
         "modal-header/modal-header.scss",
-        "modal-window/modal-window.component.html",
-        "modal-window/modal-window.component.scss",
-        "modal-window/modal-window.component.ts",
-        "modal-window/modal-window.responsive.scss",
-        "modal-window/modal-window.scss",
-        "modal-window/overlay-backdrop.scss",
+        "modal.component.html",
+        "modal.component.scss",
+        "modal.component.ts",
         "modal.ref.ts",
+        "modal.responsive.scss",
+        "modal.scss",
         "modal.service.ts",
-        "modal.tokens.ts"
+        "modal.tokens.ts",
+        "modal.types.ts",
+        "overlay-backdrop.scss"
       ],
       "dependencies": [
         "button",

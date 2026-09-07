@@ -38,9 +38,22 @@ class ObjectHostComponent {
 
 @Component({
   imports: [SynapseRadioButtonComponent],
-  template: `<syn-radio-button value="lonely" />`,
+  template: `<syn-radio-button value="lonely" [checked]="checked" />`,
 })
-class StandaloneHostComponent {}
+class StandaloneHostComponent {
+  checked = false;
+}
+
+@Component({
+  imports: [SynapseRadioGroupComponent, SynapseRadioButtonComponent],
+  template: `
+    <syn-radio-group value="two">
+      <syn-radio-button value="one" [checked]="true" />
+      <syn-radio-button value="two" />
+    </syn-radio-group>
+  `,
+})
+class GroupOverridesCheckedHostComponent {}
 
 const buttons = (fixture: { nativeElement: HTMLElement }) =>
   Array.from(fixture.nativeElement.querySelectorAll('syn-radio-button')) as HTMLElement[];
@@ -160,12 +173,14 @@ describe('SynapseRadioButtonComponent', () => {
     const fixture = await setupComponent(FormHostComponent);
     const input = inputs(fixture)[0];
 
-    input.dispatchEvent(new FocusEvent('focus'));
+    // A real focus, not a synthetic event: `.focus` tracks `:focus-visible`, so
+    // the element has to actually be focused for the ring to apply.
+    input.focus();
     fixture.detectChanges();
     expect(buttons(fixture)[0].classList.contains('focus')).toBe(true);
     expect(fixture.componentInstance.focusEvents).toBe(1);
 
-    input.dispatchEvent(new FocusEvent('blur'));
+    input.blur();
     fixture.detectChanges();
     expect(buttons(fixture)[0].classList.contains('focus')).toBe(false);
   });
@@ -178,6 +193,23 @@ describe('SynapseRadioButtonComponent', () => {
     await fixture.whenStable();
 
     expect(fixture.componentInstance.control.value).toBe('one');
+  });
+
+  it('takes [checked] when there is no group to decide', async () => {
+    const fixture = await setupComponent(StandaloneHostComponent);
+
+    expect(buttons(fixture)[0].classList.contains('checked')).toBe(false);
+
+    fixture.componentInstance.checked = true;
+    fixture.detectChanges();
+
+    expect(buttons(fixture)[0].classList.contains('checked')).toBe(true);
+  });
+
+  it('lets the group win over [checked]', async () => {
+    const fixture = await setupComponent(GroupOverridesCheckedHostComponent);
+
+    expect(buttons(fixture)[0].classList.contains('checked')).toBe(false);
   });
 
   it('renders standalone, outside any group, without crashing', async () => {

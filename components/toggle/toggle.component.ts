@@ -4,7 +4,6 @@ import {
   ElementRef,
   computed,
   inject,
-  input,
   output,
   signal,
   viewChild,
@@ -31,9 +30,6 @@ import { SynapseControlDirective } from '../control-directives';
   ],
 })
 export class SynapseToggleComponent {
-  /** The only accessible name: the mixin fixes the host width, leaving no room. */
-  description = input('');
-
   changeValue = output<boolean>();
 
   isFocused = signal(false);
@@ -46,8 +42,13 @@ export class SynapseToggleComponent {
 
   private readonly _checkbox = viewChild.required<ElementRef<HTMLInputElement>>('checkbox');
 
-  setFocusState(state: boolean) {
-    this.isFocused.set(state);
+  /**
+   * `.focus` drives the generated focus style now that only `hover` stays a
+   * pseudo-state, so it is limited to keyboard focus — a mouse click on the
+   * control should not light up the ring.
+   */
+  setFocusState(state: boolean, event?: FocusEvent) {
+    this.isFocused.set(state && !!(event?.target as Element | undefined)?.matches(':focus-visible'));
   }
 
   setCheckedState(event: Event) {

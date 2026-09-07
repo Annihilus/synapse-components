@@ -9,7 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import { SynapseModalRef } from './modal.ref';
-import { SynapseModalWindowComponent } from './modal-window/modal-window.component';
+import { SynapseModalComponent } from './modal.component';
 import { DIALOG_CLOSE_BTN, DIALOG_DATA, DIALOG_SIZE, ModalSize } from './modal.tokens';
 import { Observable } from 'rxjs';
 
@@ -41,10 +41,14 @@ export class SynapseModalService {
       ],
     });
 
-    const windowRef: ComponentRef<SynapseModalWindowComponent> = createComponent(
-      SynapseModalWindowComponent,
+    const windowRef: ComponentRef<SynapseModalComponent> = createComponent(
+      SynapseModalComponent,
       { environmentInjector: this.envInjector, elementInjector: modalInjector }
     );
+
+    // Set before the view attaches: the window reads them during its first render.
+    windowRef.setInput('size', modalSize);
+    windowRef.setInput('closeBtn', config?.closeBtn ?? true);
 
     this.appRef.attachView(windowRef.hostView);
     document.body.appendChild(windowRef.location.nativeElement);

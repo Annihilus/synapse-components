@@ -6,13 +6,10 @@
   <ng-content />
 
   @if (canBeDeleted()) {
-    <button
+    <syn-icon
       class="close"
-      type="button"
       [attr.aria-label]="removeLabel()"
       (click)="closed.emit()"
-    >
-      <syn-icon name="close" />
-    </button>
+      name="close" />
   }
 </div>

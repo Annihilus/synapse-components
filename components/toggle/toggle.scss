@@ -56,14 +56,6 @@
     border-radius: var(--rounding-full);
   }
 
-  &:disabled {
-    background: var(--bg-disabled_surface);
-  }
-
-  &:focus-visible {
-    box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
-  }
-
   &:hover .state {
     background: var(--bg-hover_color);
   }
@@ -77,8 +69,16 @@
     background: var(--texticons-on_primary);
   }
 
-  &.checked:disabled .indicator {
+  &.checked.disabled .indicator {
     background: var(--texticons-on_surface);
     opacity: var(--texticons-disabled_number);
+  }
+
+  &.disabled {
+    background: var(--bg-disabled_surface);
+  }
+
+  &.focus {
+    box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
   }
 }

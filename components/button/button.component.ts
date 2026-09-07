@@ -40,10 +40,13 @@ export class SynapseButtonComponent {
     const size = `size-${this.size()}`;
     const type = `colorType-${this.colorType()}`;
     const iconClass = this.getIconClass();
+    // The generated CSS moved off `:disabled` — every state but hover is now a
+    // class, so the attribute alone no longer styles anything.
+    const disabled = this.disabled() ? 'disabled' : '';
 
     // The host `[class]` binding replaces consumer classes, so `.syn-button` —
     // which the generated CSS keys off — has to be emitted here.
-    return `syn-button ${type} ${size} ${iconClass}`.trim();
+    return `syn-button ${type} ${size} ${iconClass} ${disabled}`.trim();
   });
 
   private elementRef = inject(ElementRef<HTMLElement>);

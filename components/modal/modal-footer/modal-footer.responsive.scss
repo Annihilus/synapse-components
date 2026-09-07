@@ -4,7 +4,7 @@
 // alone — footers are authored as `[secondary, primary]`, which is what the
 // desktop row's `justify-content: flex-end` puts on the right.
 //
-// See `modal-window.responsive.scss` for why the breakpoint is declared here.
+// See `modal.responsive.scss` for why the breakpoint is declared here.
 $mobile: 640px;
 
 @mixin modal-footer-responsive {

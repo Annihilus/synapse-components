@@ -1,6 +1,6 @@
-@use './modal-window' as window;
+@use './modal' as modal;
 @use './overlay-backdrop' as overlay;
-@use './modal-window.responsive' as responsive;
+@use './modal.responsive' as responsive;
 
 :host {
   display: flex;
@@ -13,10 +13,10 @@
   bottom: 0;
   left: 0;
 
-  .modal-window {
+  .modal {
     overflow: hidden;
 
-    @include window.modal-window;
+    @include modal.modal;
   }
 
   .overlay {
@@ -26,5 +26,5 @@
     z-index: -1;
   }
 
-  @include responsive.modal-window-responsive;
+  @include responsive.modal-responsive;
 }

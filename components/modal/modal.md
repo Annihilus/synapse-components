@@ -1,4 +1,4 @@
-# modal-window
+# modal
 
 ## Description
 

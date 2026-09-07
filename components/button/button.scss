@@ -61,10 +61,6 @@
     border-radius: var(--rounding-m);
   }
 
-  &:disabled {
-    opacity: var(--texticons-disabled_number);
-  }
-
   &:hover .state {
     background: var(--bg-hover_color);
   }
@@ -119,6 +115,10 @@
   &.colorType-ghost .icon,
   .spinner {
     color: var(--texticons-on_surface);
+  }
+
+  &.disabled {
+    opacity: var(--texticons-disabled_number);
   }
 
   &.focused {

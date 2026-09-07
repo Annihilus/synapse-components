@@ -38,7 +38,9 @@ export class SynapseSnackbarComponent {
 
   public icon = computed(() => ICON_BY_TYPE[this.type()] ?? ICON_BY_TYPE.default);
 
+  // The host `[class]` binding replaces consumer classes, so `.syn-snackbar` —
+  // which the generated CSS keys off — has to be emitted here.
   protected getTypeModifier() {
-    return `type-${this.type()}`
+    return `syn-snackbar type-${this.type()}`;
   }
 }

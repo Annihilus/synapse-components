@@ -5,32 +5,33 @@ import {
   ViewContainerRef,
   afterNextRender,
   inject,
+  input,
   viewChild,
 } from '@angular/core';
-import { DIALOG_CLOSE_BTN, DIALOG_SIZE, ModalSize } from '../modal.tokens';
-import { SynapseButtonComponent } from '../../button/button.component';
-import { SynapseIconComponent } from '../../icon/icon.component';
+import { ModalSize } from './modal.tokens';
+import { SynapseButtonComponent } from '../button/button.component';
+import { SynapseIconComponent } from '../icon/icon.component';
 
 @Component({
-  selector: 'syn-modal-window',
+  selector: 'syn-modal',
   imports: [
     SynapseButtonComponent,
     SynapseIconComponent,
   ],
-  templateUrl: './modal-window.component.html',
-  styleUrls: ['./modal-window.component.scss'],
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(document:keydown.escape)': 'onEscape($event)',
     '(click)': 'onRootClick($event)',
   },
 })
-export class SynapseModalWindowComponent {
+export class SynapseModalComponent {
   content = viewChild.required('content', { read: ViewContainerRef });
 
-  size = inject<ModalSize>(DIALOG_SIZE);
+  size = input<ModalSize>('m');
 
-  closeBtn = inject<boolean>(DIALOG_CLOSE_BTN);
+  closeBtn = input(true);
 
   private readonly dialog = viewChild.required<ElementRef<HTMLElement>>('dialog');
 

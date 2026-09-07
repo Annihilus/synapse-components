@@ -58,11 +58,11 @@ describe('SynapseCheckboxComponent', () => {
 
     expect(fixture.componentInstance.control.touched).toBe(false);
 
-    input.dispatchEvent(new FocusEvent('focus'));
+    input.focus();
     fixture.detectChanges();
     expect((fixture.nativeElement.querySelector('syn-checkbox') as HTMLElement).classList.contains('focus')).toBe(true);
 
-    input.dispatchEvent(new FocusEvent('blur'));
+    input.blur();
     fixture.detectChanges();
 
     expect(fixture.componentInstance.control.touched).toBe(true);

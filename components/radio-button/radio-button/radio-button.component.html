@@ -5,7 +5,7 @@
   [attr.name]="groupName()"
   [checked]="isChecked()"
   [disabled]="isDisabled()"
-  (focus)="setFocusState(true)"
+  (focus)="setFocusState(true, $event)"
   (blur)="setFocusState(false)"
   (change)="onSelect()"
 />

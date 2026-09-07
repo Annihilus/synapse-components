@@ -1,5 +1,7 @@
 @use './modal-header' as header;
 
 :host {
+  width: 100%;
+
   @include header.modal-header;
 }

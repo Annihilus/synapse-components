@@ -53,10 +53,6 @@
     border-radius: var(--rounding-s);
   }
 
-  &:disabled {
-    opacity: var(--texticons-disabled_number);
-  }
-
   &:hover .state {
     background: var(--bg-hover_color);
   }
@@ -64,6 +60,10 @@
   &:hover-true,
   &.selected-true {
     color: var(--texticons-on_surface);
+  }
+
+  &.disabled {
+    opacity: var(--texticons-disabled_number);
   }
 
   &.selected {

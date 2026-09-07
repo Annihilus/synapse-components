@@ -56,11 +56,11 @@ describe('SynapseToggleComponent', () => {
     const host = fixture.nativeElement.querySelector('syn-toggle') as HTMLElement;
     const input = fixture.nativeElement.querySelector('.hidden-checkbox') as HTMLInputElement;
 
-    input.dispatchEvent(new FocusEvent('focus'));
+    input.focus();
     fixture.detectChanges();
     expect(host.classList.contains('focus')).toBe(true);
 
-    input.dispatchEvent(new FocusEvent('blur'));
+    input.blur();
     fixture.detectChanges();
 
     expect(host.classList.contains('focus')).toBe(false);
@@ -98,17 +98,5 @@ describe('SynapseToggleComponent', () => {
     await fixture.whenStable();
 
     expect(fixture.componentInstance.control.value).toBe(true);
-  });
-
-  it('names the switch from [description]', async () => {
-    const fixture = await setupComponent(SynapseToggleComponent);
-    const input = fixture.nativeElement.querySelector('.hidden-checkbox') as HTMLInputElement;
-
-    expect(input.getAttribute('aria-label')).toBeNull();
-
-    fixture.componentRef.setInput('description', 'Dark theme');
-    fixture.detectChanges();
-
-    expect(input.getAttribute('aria-label')).toBe('Dark theme');
   });
 });

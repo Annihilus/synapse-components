@@ -107,20 +107,16 @@
     border-width: 0;
   }
 
-  &:disabled .input {
+  &:hover.inline .text-block {
+    color: var(--texticons-on_surface_variant);
+  }
+
+  &.disabled .input {
     border-color: var(--border-disabled_outline);
   }
 
-  &:disabled .text-block {
+  &.disabled .text-block {
     opacity: var(--texticons-disabled_number);
-  }
-
-  &:focus-visible .input {
-    box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
-  }
-
-  &:hover.inline .text-block {
-    color: var(--texticons-on_surface_variant);
   }
 
   &.error .hint,
@@ -135,6 +131,10 @@
 
   &.filled .text-block {
     color: var(--texticons-on_surface);
+  }
+
+  &.focus .input {
+    box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
   }
 
   &.inline {

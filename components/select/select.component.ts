@@ -43,6 +43,7 @@ export interface SelectItem<T> {
   host: {
     '[class.inline]': 'inline()',
     '[class.active]': 'active()',
+    '[class.focus]': 'isFocused()',
   }
 })
 export class SynapseSelectComponent<T> {
@@ -62,6 +63,13 @@ export class SynapseSelectComponent<T> {
   items = input<T[]>([]);
 
   active = signal(false);
+
+  /**
+   * Keyboard focus on the combobox. `.focus` drives the generated focus style
+   * now that only `hover` stays a pseudo-state; a mouse click opens the
+   * dropdown, which is affordance enough on its own.
+   */
+  isFocused = signal(false);
 
   displayWith = input<(item: T) => string>((item) => String(item));
   compareWith = input<(a: T, b: T) => boolean>((a, b) => a === b);
@@ -99,6 +107,10 @@ export class SynapseSelectComponent<T> {
   protected readonly dropdown = viewChild.required(SynapseDropdownDirective);
 
   protected readonly labelId = `syn-select-label-${nextSelectId++}`;
+
+  protected setFocusState(state: boolean, event?: FocusEvent) {
+    this.isFocused.set(state && !!(event?.target as Element | undefined)?.matches(':focus-visible'));
+  }
 
   protected openDropdown(event: Event) {
     event.preventDefault();

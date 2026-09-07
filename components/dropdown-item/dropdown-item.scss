@@ -76,12 +76,12 @@
     border-width: 0;
   }
 
-  &:disabled .text_block {
-    opacity: var(--texticons-disabled_number);
-  }
-
   &:hover .state {
     background: var(--bg-hover_color);
+  }
+
+  &.disabled .text_block {
+    opacity: var(--texticons-disabled_number);
   }
 
   &.selected {

@@ -2,6 +2,8 @@
 @use './modal-footer.responsive' as responsive;
 
 :host {
+  width: 100%;
+
   @include footer.modal-footer;
   @include responsive.modal-footer-responsive;
 }

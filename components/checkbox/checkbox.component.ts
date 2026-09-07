@@ -55,8 +55,13 @@ export class SynapseCheckboxComponent {
     effect(() => this.isIndeterminate.set(this.indeterminate()));
   }
 
-  setFocusState(state: boolean) {
-    this.isFocused.set(state);
+  /**
+   * `.focus` drives the generated focus style now that only `hover` stays a
+   * pseudo-state, so it is limited to keyboard focus — a mouse click on the
+   * control should not light up the ring.
+   */
+  setFocusState(state: boolean, event?: FocusEvent) {
+    this.isFocused.set(state && !!(event?.target as Element | undefined)?.matches(':focus-visible'));
   }
 
   setCheckedState(event: Event) {

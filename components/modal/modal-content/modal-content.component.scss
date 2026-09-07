@@ -1,5 +1,7 @@
 @use './modal-content' as content;
 
 :host {
+  width: 100%;
+
   @include content.modal-content;
 }

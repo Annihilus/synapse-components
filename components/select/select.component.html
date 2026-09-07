@@ -13,6 +13,8 @@
   [synDropdown]="{ content: selectTemplate, role: 'listbox' }"
   #dropdown="synDropdown"
   (openChange)="active.set($event)"
+  (focus)="setFocusState(true, $event)"
+  (blur)="setFocusState(false)"
   (keydown.enter)="openDropdown($event)"
   (keydown.space)="openDropdown($event)"
   (keydown.arrowdown)="openDropdown($event)"

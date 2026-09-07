@@ -26,7 +26,7 @@ describe('SynapseModalService', () => {
   });
 
   afterEach(() => {
-    document.querySelectorAll('syn-modal-window').forEach(el => el.remove());
+    document.querySelectorAll('syn-modal').forEach(el => el.remove());
   });
 
   it('mounts a dialog window and renders the given component', () => {
@@ -76,7 +76,7 @@ describe('SynapseModalService', () => {
     service.open(DialogComponent, { data: 'x' }).subscribe(() => emissions++);
     appRef.tick();
 
-    document.querySelector('syn-modal-window')?.remove();
+    document.querySelector('syn-modal')?.remove();
 
     const button = document.querySelector('[role="dialog"]');
     void button;
@@ -100,7 +100,7 @@ describe('SynapseModalService', () => {
     service.open(DialogComponent, { data: 'x', size: 's', closeBtn: false }).subscribe();
     appRef.tick();
 
-    expect(document.querySelector('.modal-window')?.className).toContain('size-s');
+    expect(document.querySelector('.modal')?.className).toContain('size-s');
     expect(document.querySelector('.close')).toBeNull();
   });
 

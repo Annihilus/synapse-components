@@ -8,8 +8,7 @@
   class="hidden-checkbox"
   [checked]="isChecked()"
   [disabled]="disabled()"
-  [attr.aria-label]="description() || null"
-  (focus)="setFocusState(true)"
+  (focus)="setFocusState(true, $event)"
   (blur)="onBlur()"
   (change)="setCheckedState($event)"
 />

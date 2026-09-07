@@ -62,23 +62,6 @@ syn-radio-button .hidden-radio,
   clip-path: inset(50%);
 }
 
-syn-checkbox:has(.hidden-checkbox:focus-visible),
-[syn-checkbox]:has(.hidden-checkbox:focus-visible) {
-  background: var(--bg-surface_container);
-  box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
-}
-
-syn-toggle:has(.hidden-checkbox:focus-visible),
-[syn-toggle]:has(.hidden-checkbox:focus-visible) {
-  box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 1);
-}
-
-syn-radio-button:has(.hidden-radio:focus-visible),
-[syn-radio-button]:has(.hidden-radio:focus-visible) {
-  background: rgba(42, 42, 42, 1);
-  box-shadow: var(--focus);
-}
-
 [syn-dropdown-item] .checkbox {
   pointer-events: none;
   flex-shrink: 0;
@@ -121,6 +104,12 @@ syn-input.inline .sizer {
   line-height: 20px;
   letter-spacing: 0;
   padding-right: 2px;
+}
+
+/* The title owns a whole line, which puts the message under it rather than
+   beside it — the mixin only gives them colour and type. */
+syn-snackbar .title {
+  width: 100%;
 }
 
 syn-snackbar .message {

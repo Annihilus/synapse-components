@@ -30,6 +30,9 @@ export class SynapseRadioButtonComponent<T = unknown> {
 
   disabled = input(false);
 
+  /** Selection for a radio used on its own; inside a group the group decides. */
+  checked = input(false);
+
   focused = output<boolean>();
 
   isFocused = signal(false);
@@ -40,14 +43,20 @@ export class SynapseRadioButtonComponent<T = unknown> {
 
   readonly groupName = computed(() => this.service?.groupName ?? null);
 
-  readonly isChecked = computed(() => this.service?.isSelected(this.value()) ?? false);
+  readonly isChecked = computed(() =>
+    this.service ? this.service.isSelected(this.value()) : this.checked());
 
   readonly isDisabled = computed(() => this.disabled() || (this.service?.disabled() ?? false));
 
   private readonly _radio = viewChild.required<ElementRef<HTMLInputElement>>('radio');
 
-  setFocusState(state: boolean) {
-    this.isFocused.set(state);
+  /**
+   * `.focus` drives the generated focus style now that only `hover` stays a
+   * pseudo-state, so it is limited to keyboard focus — a mouse click on the
+   * control should not light up the ring.
+   */
+  setFocusState(state: boolean, event?: FocusEvent) {
+    this.isFocused.set(state && !!(event?.target as Element | undefined)?.matches(':focus-visible'));
     this.focused.emit(state);
   }
 

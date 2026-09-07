@@ -1,13 +1,14 @@
 <div
-  class="modal-window size-{{ size }}"
+  class="modal syn-modal size-{{ size() }}"
   #dialog
   role="dialog"
   aria-modal="true"
   tabindex="-1"
 >
   <ng-container #content></ng-container>
+  <ng-content />
 
-  @if (closeBtn) {
+  @if (closeBtn()) {
     <button
       class="close"
       syn-button
@@ -21,4 +22,4 @@
   }
 </div>
 
-<div class="overlay" aria-hidden="true"></div>
+<div class="overlay syn-overlay-backdrop" aria-hidden="true"></div>

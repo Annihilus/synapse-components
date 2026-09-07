@@ -7,5 +7,8 @@ import { SynapseButtonComponent } from "../../button/button.component";
   templateUrl: './modal-footer.component.html',
   styleUrls: ['./modal-footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'syn-modal-footer',
+  },
 })
 export class SynapseModalFooterComponent {}
